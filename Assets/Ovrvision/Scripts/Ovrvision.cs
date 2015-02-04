@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Runtime.InteropServices; 
+using System.Runtime.InteropServices;
+using System.Threading;
 
 /// <summary>
 /// This class provides main interface to the Ovrvision
@@ -9,27 +10,37 @@ public class Ovrvision : MonoBehaviour
 {
 	//Ovrvision Dll import
 	//ovrvision_csharp.cpp
-	//Main system
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovOpen(int locationID);
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
+	////////////// Main Ovrvision System //////////////
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern int ovOpen(int locationID, float marker_meter);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 	static extern int ovClose();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern void ovGetCamImage(System.IntPtr img, int eye);
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern void ovGetCamImageForUnityColor32(System.IntPtr pImagePtr_Left, System.IntPtr pImagePtr_Right, System.IntPtr pImagePtr_LeftUndistort, System.IntPtr pImagePtr_RightUndistort);
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovPreStoreCamData();
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovGetCamImage(System.IntPtr img, int eye, int qt);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovGetCamImageBGR(System.IntPtr img, int eye, int qt);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovGetCamImageForUnity(System.IntPtr pImagePtr_Left, System.IntPtr pImagePtr_Right, int qt);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovGetCamImageWithAR(System.IntPtr img, int eye, int qt);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovGetCamImageBGRWithAR(System.IntPtr img, int eye, int qt);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovGetCamImageForUnityWithAR(System.IntPtr pImagePtr_Left, System.IntPtr pImagePtr_Right, int qt);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 	static extern int ovGetPixelSize();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 	static extern int ovGetBufferSize();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 	static extern int ovGetImageWidth();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 	static extern int ovGetImageHeight();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 	static extern int ovGetImageRate();
 
-	//Set camera propartys
+	//Set camera properties
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
 	static extern void ovSetExposure(int value);
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
@@ -44,7 +55,7 @@ public class Ovrvision : MonoBehaviour
 	static extern void ovSetSharpness(int value);
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
 	static extern void ovSetGamma(int value);
-	//Get camera propartys
+	//Get camera properties
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
 	static extern int ovGetExposure();
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
@@ -59,16 +70,18 @@ public class Ovrvision : MonoBehaviour
 	static extern int ovGetSharpness();
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
 	static extern int ovGetGamma();
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern float ovGetOculusRightGap(int at);
+	////////////// Ovrvision AR System //////////////
+	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
+	static extern void ovARRender();
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern int ovARGetData(System.IntPtr mdata, int datasize);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovARSetMarkerSize(float value);
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern float ovARGetMarkerSize();
 
-	//Ovrvision config ipd
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern void ovSetIPDHorizontal(double value);
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern void ovSetIPDVertical(double value);
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern double ovGetIPDHorizontal();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern double ovGetIPDVertical();
 	//Ovrvision config read write
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
 	static extern int SetParamXMLfromFile(byte[] filename);
@@ -79,10 +92,17 @@ public class Ovrvision : MonoBehaviour
 	private const int OV_CAMEYE_LEFT = 0;
 	private const int OV_CAMEYE_RIGHT = 1;
 	private const int OV_SET_AUTOMODE = (-1);
+	//renderer quality
+	private const int OV_PSQT_NONE = 0;		//No Processing quality
+	private const int OV_PSQT_LOW = 1;		//Low Processing quality
+	private const int OV_PSQT_HIGH = 2;		//High Processing quality
+	private const int OV_PSQT_REFSET = 3;		//Ref Processing quality
+	//Ar Macro define
+	private const int MARKERGET_MAXNUM10 = 100; //max marker is 10
+	private const int MARKERGET_ARG10 = 10;
+	private const int MARKERGET_RECONFIGURE_NUM = 10;
 
 	//Camera GameObject
-	private Camera go_cameraLeft;
-	private Camera go_cameraRight;
 	private GameObject go_cameraPlaneLeft;
 	private GameObject go_cameraPlaneRight;
 	//Camera texture
@@ -97,53 +117,43 @@ public class Ovrvision : MonoBehaviour
 	
 	//public setting var
 	//Camera status
-	public bool camStatus;
+	public bool camStatus = false;
+	public bool useOvrvisionAR = false;
+	public float arSize = 0.15f;
+	public int useProcessingQuality = OV_PSQT_HIGH;
     
-    //OvrvisionEx = Augmented Reality System
-	public OvrvisionEx go_ovrvisionEx;
-    public bool useOvrvisionEx;
     //Chroma-key system
-    public int camViewShader;
-    public Vector2 chroma_hue;         //x=max y=min (0.0f-1.0f)
-    public Vector2 chroma_saturation;  //x=max y=min (0.0f-1.0f)
-    public Vector2 chroma_brightness;  //x=max y=min (0.0f-1.0f)
+    public int camViewShader = 0;
+    public Vector2 chroma_hue = new Vector2(1.0f,0.0f);         //x=max y=min (0.0f-1.0f)
+    public Vector2 chroma_saturation = new Vector2(1.0f,0.0f);  //x=max y=min (0.0f-1.0f)
+    public Vector2 chroma_brightness = new Vector2(1.0f,0.0f);  //x=max y=min (0.0f-1.0f)
+
+    //property
+    public OvrvisionProperty camProp = new OvrvisionProperty();
 
 	// ------ Function ------
 
 	// Use this for initialization
 	void Awake() {
+        //Prop awake
+        camProp.AwakePropSaveToXML();
+
 		//Open camera
-		if (ovOpen (0) == 0) {
+		if (ovOpen(0, arSize) == 0) {
 			camStatus = true;
-			go_ovrvisionEx = new OvrvisionEx();
 		} else {
 			camStatus = false;
 			Debug.LogError ("Ovrvision open error!!");
 		}
-
 	}
 
 	// Use this for initialization
 	void Start()
 	{
-		// initialize camera plane object(Left)
-		go_cameraLeft = transform.FindChild ("DeviceCameraLeft").camera;
-		go_cameraPlaneLeft = transform.FindChild ("DeviceCameraRight").FindChild("CameraPlane").gameObject;
-		go_cameraPlaneLeft.transform.localPosition = new Vector3 (-1.0f, 0.0f, 1.0f);	//Default
-		go_cameraPlaneLeft.transform.localScale = new Vector3 (-1.0f, 1.0f, 0.75f);
-		// initialize camera plane object(Right)
-		go_cameraRight = transform.FindChild ("DeviceCameraRight").camera;
-		go_cameraPlaneRight = transform.FindChild ("DeviceCameraLeft").FindChild("CameraPlane").gameObject;
-		go_cameraPlaneRight.transform.localPosition = new Vector3 (1.0f, 0.0f, 1.0f);
-		go_cameraPlaneRight.transform.localScale = new Vector3 (-1.0f, 1.0f, 0.75f);
-
-		//Setting cameras
-		go_cameraLeft.transform.position = Vector3.zero;
-		go_cameraLeft.transform.rotation = Quaternion.identity;
-		go_cameraLeft.orthographicSize = 7.0f;
-		go_cameraRight.transform.position = Vector3.zero;
-		go_cameraRight.transform.rotation = Quaternion.identity;
-		go_cameraRight.orthographicSize = 7.0f;
+		// Initialize camera plane object(Left)
+		go_cameraPlaneLeft = this.transform.FindChild("CameraPlaneLeft").gameObject;
+		// Initialize camera plane object(Right)
+		go_cameraPlaneRight = this.transform.FindChild("CameraPlaneRight").gameObject;
 
 		//Create cam texture
 		go_CamTexLeft = new Texture2D(ovGetImageWidth(), ovGetImageHeight(), TextureFormat.RGB24, false);
@@ -151,6 +161,22 @@ public class Ovrvision : MonoBehaviour
 		//Cam setting
 		go_CamTexLeft.wrapMode = TextureWrapMode.Clamp;
 		go_CamTexRight.wrapMode = TextureWrapMode.Clamp;
+
+		//in Oculus Rift camera
+		if (GameObject.Find("LeftEyeAnchor"))
+			go_cameraPlaneLeft.transform.parent = GameObject.Find("LeftEyeAnchor").transform;
+		if (GameObject.Find("RightEyeAnchor"))
+			go_cameraPlaneRight.transform.parent = GameObject.Find("RightEyeAnchor").transform;
+
+		go_cameraPlaneLeft.transform.localPosition = new Vector3(0.0f, 0.0f, 5.0f);	//Default
+		go_cameraPlaneLeft.transform.localRotation = Quaternion.Euler(270.0f, 0.0f, 0.0f);
+		go_cameraPlaneRight.transform.localPosition = new Vector3(0.0f, 0.0f, 5.0f);
+		go_cameraPlaneRight.transform.localRotation = Quaternion.Euler(270.0f, 0.0f, 0.0f);
+
+		/*//Set right eye gap
+		if (GameObject.Find("OVRCameraRig"))
+			GameObject.Find("OVRCameraRig").GetComponent<OVRCameraRig>().ovrvisionRightEyeGap
+				= new Vector3(ovGetOculusRightGap(0) * 0.01f, ovGetOculusRightGap(1) * 0.01f, ovGetOculusRightGap(2) * 0.01f); // 1/100*/
 
         if (camViewShader == 0)
         {   //Normal shader
@@ -201,29 +227,16 @@ public class Ovrvision : MonoBehaviour
 		if (!camStatus)
 			return;
 
-		if (go_CamTexLeft == null || go_CamTexRight == null)
-			return;
+        if (go_pixelsPointerLeft == System.IntPtr.Zero || 
+            go_pixelsPointerRight == System.IntPtr.Zero)
+            return;
 
-
-
-        if (!useOvrvisionEx)
-        {
-            //Not use the OvrvisionEx.
-
-            //Get the camera image.
-            ovGetCamImageForUnityColor32(go_pixelsPointerLeft, go_pixelsPointerRight, System.IntPtr.Zero, System.IntPtr.Zero);
-        }
-        else
-        {
-            byte[] undis = new byte[ovGetBufferSize()];
-            GCHandle undis_handle = GCHandle.Alloc(undis, GCHandleType.Pinned);
-
-            //Get the camera image.
-            ovGetCamImageForUnityColor32(go_pixelsPointerLeft, go_pixelsPointerRight, undis_handle.AddrOfPinnedObject(), System.IntPtr.Zero);
-            //ARMarker Renderer
-            go_ovrvisionEx.Render (undis_handle.AddrOfPinnedObject());
-            undis_handle.Free();
-        }
+		//get image data
+		if (useOvrvisionAR) {
+			ovGetCamImageForUnityWithAR(go_pixelsPointerLeft, go_pixelsPointerRight, useProcessingQuality);
+			OvrvisionARRender();
+		} else
+			ovGetCamImageForUnity(go_pixelsPointerLeft, go_pixelsPointerRight, useProcessingQuality);
 
 		//Apply
 		go_CamTexLeft.SetPixels32(go_pixelsColorLeft);
@@ -252,24 +265,13 @@ public class Ovrvision : MonoBehaviour
 	{
 		//Camera View Setting
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			go_cameraLeft.orthographicSize -= 0.1f;
-			go_cameraRight.orthographicSize -= 0.1f;
+			go_cameraPlaneRight.transform.localScale += new Vector3(-0.01f, 0.01f, 0.01f);
+			go_cameraPlaneLeft.transform.localScale += new Vector3(-0.01f, 0.01f, 0.01f);
 		}
 		
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
-			go_cameraLeft.orthographicSize += 0.1f;
-			go_cameraRight.orthographicSize += 0.1f;
-		}
-		
-		//Camera View Setting
-		if (Input.GetKeyDown (KeyCode.Z)) {
-			go_cameraPlaneRight.transform.localPosition += new Vector3(0.0f,0.05f,0.0f);
-			go_cameraPlaneLeft.transform.localPosition += new Vector3(0.0f,-0.05f,0.0f);
-		}
-		
-		if (Input.GetKeyDown (KeyCode.X)) {
-			go_cameraPlaneRight.transform.localPosition += new Vector3(0.0f,-0.05f,0.0f);
-			go_cameraPlaneLeft.transform.localPosition += new Vector3(0.0f,0.05f,0.0f);
+			go_cameraPlaneRight.transform.localScale -= new Vector3(-0.01f, 0.01f, 0.01f);
+			go_cameraPlaneLeft.transform.localScale -= new Vector3(-0.01f, 0.01f, 0.01f);
 		}
 		
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
@@ -280,10 +282,50 @@ public class Ovrvision : MonoBehaviour
 			go_cameraPlaneRight.transform.localPosition += new Vector3(-0.1f,0.0f,0.0f);
 			go_cameraPlaneLeft.transform.localPosition += new Vector3(0.1f,0.0f,0.0f);
 		}
+
+		//Change quality
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+			useProcessingQuality = OV_PSQT_NONE;
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+			useProcessingQuality = OV_PSQT_LOW;
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+			useProcessingQuality = OV_PSQT_HIGH;
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+			useProcessingQuality = OV_PSQT_REFSET;
+	}
+
+	//Ovrvision AR Render to OversitionTracker Objects.
+	int OvrvisionARRender()
+	{
+		ovARRender();
+
+		float[] markerGet = new float[MARKERGET_MAXNUM10];
+		GCHandle marker = GCHandle.Alloc(markerGet, GCHandleType.Pinned);
+
+		//Get marker data
+		int ri = ovARGetData(marker.AddrOfPinnedObject(), MARKERGET_MAXNUM10);
+
+		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[];
+		foreach (OvrvisionTracker otobj in otobjs)
+		{
+			otobj.UpdateTransformNone();
+			for (int i = 0; i < ri; i++)
+			{
+				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])
+				{
+					otobj.UpdateTransform(markerGet, i);
+					break;
+				}
+			}
+		}
+
+		marker.Free();
+
+		return ri;
 	}
 
 	// Quit
-	void OnApplicationQuit()
+	void OnDestroy()
 	{
 		if (!camStatus)
 			return;
@@ -295,6 +337,8 @@ public class Ovrvision : MonoBehaviour
 		//free
 		go_pixelsHandleLeft.Free ();
 		go_pixelsHandleRight.Free ();
+
+		camStatus = false;
 	}
 
 	//Public methods.
@@ -304,6 +348,7 @@ public class Ovrvision : MonoBehaviour
 		if (!camStatus)
 			return;
 
+        //set config
 		ovSetExposure (prop.exposure);
 		ovSetWhiteBalance (prop.whitebalance);
 		ovSetContrast (prop.contrast);
