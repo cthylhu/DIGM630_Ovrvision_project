@@ -128,13 +128,13 @@ public class Ovrvision : MonoBehaviour
 	{
 		// initialize camera plane object(Left)
 		go_cameraLeft = transform.FindChild ("DeviceCameraLeft").camera;
-		go_cameraPlaneLeft = transform.FindChild ("DeviceCameraLeft").FindChild("CameraPlane").gameObject;
-		go_cameraPlaneLeft.transform.localPosition = new Vector3 (1.0f, 0.0f, 1.0f);	//Default
+		go_cameraPlaneLeft = transform.FindChild ("DeviceCameraRight").FindChild("CameraPlane").gameObject;
+		go_cameraPlaneLeft.transform.localPosition = new Vector3 (-1.0f, 0.0f, 1.0f);	//Default
 		go_cameraPlaneLeft.transform.localScale = new Vector3 (-1.0f, 1.0f, 0.75f);
 		// initialize camera plane object(Right)
 		go_cameraRight = transform.FindChild ("DeviceCameraRight").camera;
-		go_cameraPlaneRight = transform.FindChild ("DeviceCameraRight").FindChild("CameraPlane").gameObject;
-		go_cameraPlaneRight.transform.localPosition = new Vector3 (-1.0f, 0.0f, 1.0f);
+		go_cameraPlaneRight = transform.FindChild ("DeviceCameraLeft").FindChild("CameraPlane").gameObject;
+		go_cameraPlaneRight.transform.localPosition = new Vector3 (1.0f, 0.0f, 1.0f);
 		go_cameraPlaneRight.transform.localScale = new Vector3 (-1.0f, 1.0f, 0.75f);
 
 		//Setting cameras
