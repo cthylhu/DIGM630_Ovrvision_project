@@ -121,6 +121,8 @@ public class Ovrvision : MonoBehaviour
 	public bool useOvrvisionAR = false;
 	public float arSize = 0.15f;
 	public int useProcessingQuality = OV_PSQT_HIGH;
+
+
     
     //Chroma-key system
     public int camViewShader = 0;
@@ -203,8 +205,12 @@ public class Ovrvision : MonoBehaviour
             go_cameraPlaneRight.renderer.material.SetFloat("_Color_minv", chroma_brightness.y);
         }
 
-		if (!camStatus)
+
+	
+		 if (!camStatus)
 			return;
+
+
 
 		//Camera open only
 
@@ -219,6 +225,11 @@ public class Ovrvision : MonoBehaviour
 		go_cameraPlaneLeft.renderer.material.mainTexture = go_CamTexLeft;
 		go_cameraPlaneRight.renderer.material.mainTexture = go_CamTexRight;
 	}
+
+
+
+
+
 
 	// Update is called once per frame
 	void Update ()
@@ -356,6 +367,8 @@ public class Ovrvision : MonoBehaviour
 		ovSetBrightness (prop.brightness);
 		ovSetSharpness (prop.sharpness);
 		ovSetGamma (prop.gamma);
+		
+
 
         //change shader
         if (camViewShader == 0)
@@ -381,6 +394,16 @@ public class Ovrvision : MonoBehaviour
             go_cameraPlaneRight.renderer.material.SetFloat("_Color_mins", chroma_saturation.y);
             go_cameraPlaneRight.renderer.material.SetFloat("_Color_maxv", chroma_brightness.x);
             go_cameraPlaneRight.renderer.material.SetFloat("_Color_minv", chroma_brightness.y);
-        }
+
+		
+		}
+
+
 	}
+
+
+
+
 }
+
+
