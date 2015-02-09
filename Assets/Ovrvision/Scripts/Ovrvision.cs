@@ -316,6 +316,11 @@ public class Ovrvision : MonoBehaviour
 		//Get marker data
 		int ri = ovARGetData(marker.AddrOfPinnedObject(), MARKERGET_MAXNUM10);
 
+		/*for (int i = 0; i < ri; i++)
+		{
+			Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
+		}*/
+
 		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[];
 		foreach (OvrvisionTracker otobj in otobjs)
 		{
