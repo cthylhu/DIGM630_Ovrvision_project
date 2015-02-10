@@ -34,7 +34,7 @@ public class spaceswitch : MonoBehaviour {
 			
 			if (Gameworld == new Vector3 (0, 0, 0)) {
 				
-				GameObject.Find ("Gameworld").transform.localScale = new Vector3 (15, 15, 15);
+				GameObject.Find ("SkyBox").transform.localScale = new Vector3 (50, 50, 50);
 				cooldownTime -= Time.deltaTime;
 				
 				if (cooldownTime <= 0) {
@@ -44,9 +44,9 @@ public class spaceswitch : MonoBehaviour {
 			}
 			
 			
-			if (Gameworld == new Vector3 (15, 15, 15)) {
+			if (Gameworld == new Vector3 (50, 50, 50)) {
 				
-				GameObject.Find ("Gameworld").transform.localScale = new Vector3 (0, 0, 0);
+				GameObject.Find ("SkyBox").transform.localScale = new Vector3 (0, 0, 0);
 				
 				cooldownTime -= Time.deltaTime;
 				if (cooldownTime <= 0) {
@@ -58,6 +58,6 @@ public class spaceswitch : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		Gameworld = GameObject.Find ("Gameworld").transform.localScale;
+		Gameworld = GameObject.Find ("SkyBox").transform.localScale;
 	}
 }
