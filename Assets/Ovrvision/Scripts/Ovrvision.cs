@@ -324,9 +324,11 @@ public class Ovrvision : MonoBehaviour
 		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[];
 		foreach (OvrvisionTracker otobj in otobjs)
 		{
-			otobj.UpdateTransformNone();
+			//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
+			//otobj.UpdateTransformNone();
 			for (int i = 0; i < ri; i++)
 			{
+				//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
 				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])
 				{
 					otobj.UpdateTransform(markerGet, i);
