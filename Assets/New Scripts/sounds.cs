@@ -4,6 +4,11 @@ using System.Collections;
 
 public class sounds : MonoBehaviour {
 	public AudioClip spaceswitch;
+	public AudioClip GlowSeedButton;
+	public AudioClip CandySeedButton;
+	public AudioClip ColorPickerButton;
+	public AudioClip GhostSeedButton;
+
 	// Use this for initialization
 	void Start () {
 	

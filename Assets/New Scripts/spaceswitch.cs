@@ -28,9 +28,9 @@ public class spaceswitch : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other){
 		
-		if (other.name == ("index")) {
+		if (other.name == ("L_index_bone3")) {
 			
-			audio.PlayOneShot (sounds.spaceswitch, 30.0f);
+			audio.PlayOneShot (sounds.spaceswitch);
 			
 			if (Gameworld == new Vector3 (0, 0, 0)) {
 				
