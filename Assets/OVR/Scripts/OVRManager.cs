@@ -495,7 +495,7 @@ public class OVRManager : MonoBehaviour
 
 	private void Update()
 	{
-		Debug.Log ("Update trackEnabled=" + tracker.isEnabled + " usePosTrack:" +  usePositionTracking);
+		//Debug.Log ("Update trackEnabled=" + tracker.isEnabled + " usePosTrack:" +  usePositionTracking);
 		if (usePositionTracking != usingPositionTracking)
 		{
 			tracker.isEnabled = usePositionTracking;
