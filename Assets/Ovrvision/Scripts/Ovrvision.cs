@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -139,7 +139,7 @@ public class Ovrvision : MonoBehaviour
 	void Awake() {
 		//Prop awake
 		camProp.AwakePropSaveToXML();
-		
+		//return;
 		//Open camera
 		if (ovOpen(0, arSize) == 0) {
 			camStatus = true;
@@ -325,7 +325,7 @@ public class Ovrvision : MonoBehaviour
 		foreach (OvrvisionTracker otobj in otobjs)
 		{
 			//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
-			//otobj.UpdateTransformNone();
+			otobj.UpdateTransformNone();
 			for (int i = 0; i < ri; i++)
 			{
 				//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
