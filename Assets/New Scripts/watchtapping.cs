@@ -10,8 +10,7 @@ public class watchtapping : MonoBehaviour {
 	
 	public AudioClip spaceswitch;
 
-	
-	public Vector3 wristcenter;
+
 	
 	private float cooldownTime;
 	public float MaxcooldownTime;
@@ -26,11 +25,11 @@ public class watchtapping : MonoBehaviour {
 		
 				if (other.name == ("L_index_bone3")) {
 			
-						audio.PlayOneShot (spaceswitch, 5.0f);
+						audio.PlayOneShot (spaceswitch);
 
 						if (Gameworld == new Vector3 (0, 0, 0)) {
 					
-								GameObject.Find ("SkyBox").transform.localScale = new Vector3 (50, 50, 50);
+								GameObject.Find ("VRSpace").transform.localScale = new Vector3 (1, 1, 1);
 								cooldownTime -= Time.deltaTime;
 					
 								if (cooldownTime <= 0) {
@@ -41,9 +40,9 @@ public class watchtapping : MonoBehaviour {
 				
 
 					
-						if (Gameworld == new Vector3 (50, 50, 50)) {
+						if (Gameworld == new Vector3 (1, 1, 1)) {
 				
-								GameObject.Find ("SkyBox").transform.localScale = new Vector3 (0, 0, 0);
+								GameObject.Find ("VRSpace").transform.localScale = new Vector3 (0, 0, 0);
 				
 								cooldownTime -= Time.deltaTime;
 								if (cooldownTime <= 0) {
@@ -58,7 +57,7 @@ public class watchtapping : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Gameworld = GameObject.Find ("SkyBox").transform.localScale;
+		Gameworld = GameObject.Find ("VRSpace").transform.localScale;
 
 		//Frame startframe = Controller.Frame ();
 		//Hand rightmost = startframe.Hands.Rightmost;
@@ -71,7 +70,7 @@ public class watchtapping : MonoBehaviour {
 			
 			
 			//transform.position = GameObject.Find("R_wristjoint").transform.position * 3.0f;
-		wristcenter = this.transform.localPosition;
+
 			
 			
 		}

@@ -3,15 +3,15 @@ using System.Collections;
 using Leap;
 
 
-public class Button : MonoBehaviour {
+public class Plants : MonoBehaviour {
 	
 	//scripts
 	public sounds sounds;
-	public AudioClip seed;
-
+	public AudioClip movement_poke;
+	
 	// Use this for initialization
 	void Start () {
-
+		
 		
 		
 	}
@@ -21,14 +21,14 @@ public class Button : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		Debug.Log("Object: " + this.name);
 		if ((other.name == ("L_index_bone3"))||(other.name == ("R_index_bone3"))) {
-						
-			audio.PlayOneShot(seed,0.1f);
-
-				}
 			
+			audio.PlayOneShot(movement_poke,0.1f);
+			
+		}
+		
 	}
 	// Update is called once per frame
 	void Update () {
-
+		
 	}
 }
