@@ -4,7 +4,7 @@ using Leap;
 [RequireComponent(typeof(AudioSource))]
 
 public class watchtapping : MonoBehaviour {
-	Controller Controller = new Controller();
+
 	
 	// Use this for initialization
 	
