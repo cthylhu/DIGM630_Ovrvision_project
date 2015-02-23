@@ -37,7 +37,7 @@ public class PlotPlant : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other ){
 		Debug.Log ("Planted? : " + planted);
-		if (other.name == "R_index_bone3" /*&& planted == 0*/) {
+		if (other.name == "rightpalm" && planted == 0) {
 			Debug.Log ("Hand Collision detected!!");
 			Debug.Log ("Name: " + other.name);
 
