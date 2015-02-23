@@ -30,6 +30,9 @@ public class watchtapping : MonoBehaviour {
 						if (Gameworld == new Vector3 (0, 0, 0)) {
 					
 								GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
+
+								GameObject.Find("VRTestTree").renderer.enabled = true;
+								GameObject.Find("Planet").renderer.enabled = true;
 								cooldownTime -= Time.deltaTime;
 					
 								if (cooldownTime <= 0) {
@@ -42,8 +45,10 @@ public class watchtapping : MonoBehaviour {
 					
 						if (Gameworld == new Vector3 (1, 1, 1)) {
 				
-				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-				
+								GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
+								GameObject.Find("VRTestTree").renderer.enabled = false;
+								GameObject.Find("Planet").renderer.enabled = false;
+
 								cooldownTime -= Time.deltaTime;
 								if (cooldownTime <= 0) {
 										cooldownTime = MaxcooldownTime;
