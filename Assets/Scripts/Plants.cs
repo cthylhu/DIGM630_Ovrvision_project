@@ -22,7 +22,7 @@ public class Plants : MonoBehaviour {
 		Debug.Log("Object: " + this.name);
 		if ((other.name == ("L_index_bone3"))||(other.name == ("R_index_bone3"))) {
 			
-			audio.PlayOneShot(movement_poke,0.1f);
+			audio.PlayOneShot(movement_poke,1.0f);
 			
 		}
 		

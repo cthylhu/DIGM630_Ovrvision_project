@@ -23,40 +23,50 @@ public class watchtapping : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		
-				if (other.name == ("L_index_bone3")) {
-			
-						audio.PlayOneShot (spaceswitch);
+		if (other.name == ("L_index_bone3")) {
+	
+			audio.PlayOneShot (spaceswitch);
 
-						if (Gameworld == new Vector3 (0, 0, 0)) {
-					
-								GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
+			if (Gameworld == new Vector3 (0, 0, 0)) {
+		
+				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
 
-								GameObject.Find("VRTestTree").renderer.enabled = true;
-								GameObject.Find("Planet").renderer.enabled = true;
-								cooldownTime -= Time.deltaTime;
-					
-								if (cooldownTime <= 0) {
-										cooldownTime = MaxcooldownTime;
-								}
-					
-						}
-				
+				GameObject.Find("VRTestTree").renderer.enabled = true;
+				GameObject.Find("VRJellyFishTree").renderer.enabled = true;
+				GameObject.Find("VRTestTree").collider.enabled = true;
+				GameObject.Find("VRJellyFishTree").collider.enabled = true;
 
-					
-						if (Gameworld == new Vector3 (1, 1, 1)) {
-				
-								GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-								GameObject.Find("VRTestTree").renderer.enabled = false;
-								GameObject.Find("Planet").renderer.enabled = false;
-
-								cooldownTime -= Time.deltaTime;
-								if (cooldownTime <= 0) {
-										cooldownTime = MaxcooldownTime;
-								}
-				
-						}
+				GameObject.Find("Planet").renderer.enabled = true;
+				GameObject.Find("Planet2").renderer.enabled = true;
+				cooldownTime -= Time.deltaTime;
+	
+				if (cooldownTime <= 0) {
+					cooldownTime = MaxcooldownTime;
 				}
+		
+			}
+	
+
+		
+			if (Gameworld == new Vector3 (1, 1, 1)) {
+	
+				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
+				GameObject.Find("VRTestTree").renderer.enabled = false;
+				GameObject.Find("VRJellyFishTree").renderer.enabled = false;
+				GameObject.Find("VRTestTree").collider.enabled = false;
+				GameObject.Find("VRJellyFishTree").collider.enabled = false;
+
+				GameObject.Find("Planet").renderer.enabled = false;
+				GameObject.Find("Planet2").renderer.enabled = false;
+
+				cooldownTime -= Time.deltaTime;
+				if (cooldownTime <= 0) {
+					cooldownTime = MaxcooldownTime;
+				}
+	
+			}
 		}
+	}
 			
 			
 	
