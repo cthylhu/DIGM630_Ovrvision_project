@@ -154,7 +154,7 @@ public class PlotPlant : MonoBehaviour {
 			
 		case GestureState.none:
 			
-			if (Righthand.fist && planted == 0) {
+			if (Righthand.fist) {
 				
 				Planting = GestureState.detected;
 			}
@@ -174,11 +174,9 @@ public class PlotPlant : MonoBehaviour {
 						planted = 1;
 						audio.PlayOneShot (pouringseed, 3.0f);
 						Planting = GestureState.cooldown;
-					} else {
-						r.renderer.enabled = false;
-						Planting = GestureState.cooldown;
-						
 					}
+						
+
 				}
 				
 			}
@@ -198,10 +196,10 @@ public class PlotPlant : MonoBehaviour {
 	
 	
 	if (planted==1) {
-		if (Righthand.normalgrow && Righthand.plotplant) {
+		if (Righthand.normalgrow ) {
 			NormalGrow();
 		}
-			if (Righthand.reversegrow && Righthand.plotplant){
+			if (Righthand.reversegrow ){
 					ReverseGrow();
 				}
 
