@@ -9,6 +9,7 @@ public class Righthand : MonoBehaviour {
 	public static bool normalgrow;
 	public static bool reversegrow;
 	public static bool magicgrow;
+	public static bool fist;
 
 
 	
@@ -82,7 +83,8 @@ public class Righthand : MonoBehaviour {
 			// Gesture booleans
 					
 		    plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
-			openhand =  Grab<0.5;
+			openhand = Grab<0.2;
+			fist = Grab >0.8;
 			//Debug.Log ("Open hand?: " +openhand);
 			reversegrow = transWave_y_3 >5;
 			normalgrow = transWave_y_3 <-5;
