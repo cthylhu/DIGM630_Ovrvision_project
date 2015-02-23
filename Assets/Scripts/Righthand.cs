@@ -4,10 +4,11 @@ using Leap;
 
 public class Righthand : MonoBehaviour {
 	Controller Controller = new Controller();
-	public bool plotplant;
-	public bool normalgrow;
-	public bool reversegrow;
-	public bool magicgrow;
+	public static bool plotplant;
+	public static bool openhand;
+	public static bool normalgrow;
+	public static bool reversegrow;
+	public static bool magicgrow;
 
 
 	
@@ -81,6 +82,8 @@ public class Righthand : MonoBehaviour {
 			// Gesture booleans
 					
 		    plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
+			openhand =  Grab<0.5;
+			//Debug.Log ("Open hand?: " +openhand);
 			reversegrow = transWave_y_3 >5;
 			normalgrow = transWave_y_3 <-5;
 
