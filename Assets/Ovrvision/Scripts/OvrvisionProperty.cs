@@ -1,35 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Runtime.InteropServices; 
+using System.Runtime.InteropServices;
 
+[System.Serializable]
 public class OvrvisionProperty {
 
-	//OVRVISION Dll import
-	//ovrvision_csharp.cpp
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovGetExposure();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovGetWhiteBalance();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovGetContrast();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovGetSaturation();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovGetBrightness();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovGetSharpness();
-	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int ovGetGamma();
+    //OVRVISION Dll import
+    //ovrvision_csharp.cpp
+    [DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+    static extern void SaveParamXMLtoTempFile(int[] config1, float[] config2);
 
 	//properties
-	public int exposure;
-	public int whitebalance;
+    public int exposure;
+    public int whitebalance;
 	public int contrast;
 	public int saturation;
 	public int brightness;
 	public int sharpness;
 	public int gamma;
-<<<<<<< HEAD
     public float IPDHorizontal;
 	public float focalPoint;
 
@@ -88,18 +76,3 @@ public class OvrvisionProperty {
         SaveParamXMLtoTempFile(config1, config2);
     }
 }
-=======
-
-	//initialize value
-	public OvrvisionProperty()
-	{
-		exposure = ovGetExposure();
-		whitebalance = ovGetWhiteBalance();
-		contrast = ovGetContrast();
-		saturation = ovGetSaturation();
-		brightness = ovGetBrightness();
-		sharpness = ovGetSharpness();
-		gamma = ovGetGamma();
-	}
-}
->>>>>>> parent of de8c9dc... Replacing project with fixed Ovrvision version2.13
