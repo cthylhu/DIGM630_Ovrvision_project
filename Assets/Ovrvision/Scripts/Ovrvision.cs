@@ -121,7 +121,9 @@ public class Ovrvision : MonoBehaviour
 	public bool useOvrvisionAR = false;
 	public float arSize = 0.15f;
 	public int useProcessingQuality = OV_PSQT_HIGH;
-
+	
+	
+	
 	//Chroma-key system
 	public int camViewShader = 0;
 	public Vector2 chroma_hue = new Vector2(1.0f,0.0f);         //x=max y=min (0.0f-1.0f)
@@ -131,9 +133,6 @@ public class Ovrvision : MonoBehaviour
 	//property
 	public OvrvisionProperty camProp = new OvrvisionProperty();
 	
-	static Transform globalQRTrans;
-	static int qrFound = 0;
-
 	// ------ Function ------
 	
 	// Use this for initialization
@@ -148,7 +147,6 @@ public class Ovrvision : MonoBehaviour
 			camStatus = false;
 			Debug.LogError ("Ovrvision open error!!");
 		}
-		//globalQRTrans = GameObject.Find ("GlobalQR").transform;
 	}
 	
 	// Use this for initialization
@@ -206,11 +204,14 @@ public class Ovrvision : MonoBehaviour
 			go_cameraPlaneRight.renderer.material.SetFloat("_Color_maxv", chroma_brightness.x);
 			go_cameraPlaneRight.renderer.material.SetFloat("_Color_minv", chroma_brightness.y);
 		}
-
+		
+		
 		
 		if (!camStatus)
 			return;
-
+		
+		
+		
 		//Camera open only
 		
 		//Get texture pointer
@@ -225,7 +226,11 @@ public class Ovrvision : MonoBehaviour
 		go_cameraPlaneRight.renderer.material.mainTexture = go_CamTexRight;
 	}
 	
-
+	
+	
+	
+	
+	
 	// Update is called once per frame
 	void Update ()
 	{
@@ -299,74 +304,36 @@ public class Ovrvision : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha4))
 			useProcessingQuality = OV_PSQT_REFSET;
 	}
-
-	public static Quaternion QuaternionFromMatrix(Matrix4x4 m) { 
-		Debug.Log ("in QFromM");
-		return Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); 
-	}
-
-	public static void TransformFromMatrix(Transform trans1,Matrix4x4 matrix) { 
-		//Debug.Log ("Matrix = " + matrix);
-
-		trans1.position = new Vector3(0, 0, 0);
-		trans1.position = Vector3.zero; //matrix.GetColumn(3); // uses implicit conversion from Vector4 to Vector3 
-		trans1.rotation = Quaternion.identity; //QuaternionFromMatrix(matrix); 
-	}
-
-	//public int arraydone = 0;
-
+	
 	//Ovrvision AR Render to OversitionTracker Objects.
 	int OvrvisionARRender()
 	{
 		ovARRender();
-
+		
 		float[] markerGet = new float[MARKERGET_MAXNUM10];
 		GCHandle marker = GCHandle.Alloc(markerGet, GCHandleType.Pinned);
-
+		
 		//Get marker data
 		int ri = ovARGetData(marker.AddrOfPinnedObject(), MARKERGET_MAXNUM10);
 		
-		/*for (int i = 0; i < ri; i++) {
-					Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
+		/*for (int i = 0; i < ri; i++)
+		{
+			Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
 		}*/
-
-		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[]; 		//Find all objects in scene that have OvrvisionTracker
-
+		
+		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[];
 		foreach (OvrvisionTracker otobj in otobjs)
 		{
-
 			//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
-			//otobj.UpdateTransformNone();
-
-
+			otobj.UpdateTransformNone();
 			for (int i = 0; i < ri; i++)
 			{
-				/*int e = 0;
-				foreach (float j in markerGet) {
-					Debug.Log ("markerGet element "+e+": "+j);
-					e++;
-				}*/
-				
-				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])			//Positions are assigned to markerGet[]
+				//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
+				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])
 				{
-					//Debug.Log ("markerID: "+otobj.markerID);
-
-					//Debug.Log ("FOUND QR CODE");
-					//qrFound =1;
 					otobj.UpdateTransform(markerGet, i);
-					//Calculate global transform
-					//TransformFromMatrix(globalQRTrans,otobj.transform.localToWorldMatrix); 
 					break;
 				}
-				/*else{
-					Debug.Log ("LOST QR CODE1");
-					//calc local transform from global
-					if (qrFound==1){
-						Debug.Log ("LOST QR CODE2");
-						TransformFromMatrix(otobj.transform, globalQRTrans.worldToLocalMatrix);
-
-					}
-				}*/
 			}
 		}
 		
