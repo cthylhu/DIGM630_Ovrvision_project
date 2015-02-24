@@ -16,8 +16,8 @@ public class OvrvisionTracker : MonoBehaviour {
 	// Tracker initialization
 	public void Start()
 	{
-		/*if (GameObject.Find("LeftEyeAnchor"))
-			this.transform.parent = GameObject.Find("LeftEyeAnchor").transform;*/
+		if (GameObject.Find("CenterEyeAnchor"))
+			this.transform.parent = GameObject.Find("CenterEyeAnchor").transform;
 	}
 
 	// UpdateTracker
@@ -29,14 +29,14 @@ public class OvrvisionTracker : MonoBehaviour {
 
 
 
-		//this.transform.localPosition = new Vector3(markerGet[i + 1], markerGet[i + 2], markerGet[i + 3]);
-		//this.transform.localRotation = new Quaternion (markerGet[i+4],markerGet[i+5],markerGet[i+6],markerGet[i+7]);
+		this.transform.localPosition = new Vector3(markerGet[i + 1], markerGet[i + 2], markerGet[i + 3]);
+		this.transform.localRotation = new Quaternion (markerGet[i+4],markerGet[i+5],markerGet[i+6],markerGet[i+7]);
 
 		//Debug.Log ("Position of LeftEyeAnchor: " + GameObject.Find ("LeftEyeAnchor").transform.position);
-		this.transform.position = new Vector3(markerGet[i + 1], markerGet[i + 2], markerGet[i + 3]) + GameObject.Find("LeftEyeAnchor").transform.position;
+		//this.transform.position = new Vector3(markerGet[i + 1], markerGet[i + 2], markerGet[i + 3]) + GameObject.Find("CenterEyeAnchor").transform.position;
 		//Debug.Log ("Position of Cube: " + this.transform.position);
 
-		this.transform.rotation =  new Quaternion (markerGet[i+4],markerGet[i+5],markerGet[i+6],markerGet[i+7]);
+		//this.transform.rotation =  new Quaternion (markerGet[i+4],markerGet[i+5],markerGet[i+6],markerGet[i+7]);
 	
 	}
 
