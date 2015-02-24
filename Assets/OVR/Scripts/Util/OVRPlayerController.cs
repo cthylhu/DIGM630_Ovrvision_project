@@ -88,7 +88,7 @@ public class OVRPlayerController : MonoBehaviour
 
 	private float MoveScaleMultiplier = 1.0f;
 	private float RotationScaleMultiplier = 1.0f;
-	private bool  SkipMouseRotation = true;
+	private bool  SkipMouseRotation = false;
 	private bool  HaltUpdateMovement = false;
 	private bool prevHatLeft = false;
 	private bool prevHatRight = false;
@@ -266,8 +266,8 @@ public class OVRPlayerController : MonoBehaviour
 
 		float rotateInfluence = SimulationRate * Time.deltaTime * RotationAmount * RotationScaleMultiplier;
 
-		//if (!SkipMouseRotation)
-		//	euler.y += Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
+		if (!SkipMouseRotation)
+			euler.y += Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
 
 		moveInfluence = SimulationRate * Time.deltaTime * Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
 
