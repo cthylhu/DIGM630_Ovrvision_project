@@ -21,6 +21,8 @@ public class OvrvisionProperty {
     public float IPDHorizontal;
 	public float focalPoint;
 
+
+
     private const int OV_SET_AUTOMODE = (-1);
 
 	//initialize value
@@ -44,6 +46,13 @@ public class OvrvisionProperty {
         IPDHorizontal = 0.0f;
 		focalPoint = -320f;
     }
+
+
+
+
+
+
+
 
     //Save initialize config datas.
     public void AwakePropSaveToXML()

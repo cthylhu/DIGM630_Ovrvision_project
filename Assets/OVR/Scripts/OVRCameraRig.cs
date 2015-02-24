@@ -99,7 +99,7 @@ public class OVRCameraRig : MonoBehaviour
 	{
 		OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
 		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
-
+		//Debug.Log ("anchor = " + leftEye.orientation);
 		leftEyeAnchor.localRotation = leftEye.orientation;
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;

@@ -495,6 +495,7 @@ public class OVRManager : MonoBehaviour
 
 	private void Update()
 	{
+		//Debug.Log ("Update trackEnabled=" + tracker.isEnabled + " usePosTrack:" +  usePositionTracking);
 		if (usePositionTracking != usingPositionTracking)
 		{
 			tracker.isEnabled = usePositionTracking;
@@ -518,7 +519,8 @@ public class OVRManager : MonoBehaviour
 
 		wasPositionTracked = tracker.isPositionTracked;
 		
-		if (isHSWDisplayed && Input.anyKeyDown)
+		//if (isHSWDisplayed && Input.anyKeyDown)			
+		if (isHSWDisplayed)										// AUTO-DISMISS HEALTH AND SAFETY WARNING
 		{
 			DismissHSWDisplay();
 			
