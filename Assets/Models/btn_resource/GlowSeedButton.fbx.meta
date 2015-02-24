@@ -1,0 +1,130 @@
+fileFormatVersion: 2
+guid: 7692f6840f48e4c3bb1796858e3e7349
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Glow_mod_1
+    100002: Glow_mod_10
+    100004: Glow_mod_11
+    100006: Glow_mod_12
+    100008: Glow_mod_2
+    100010: Glow_mod_3
+    100012: Glow_mod_4
+    100014: Glow_mod_5
+    100016: Glow_mod_6
+    100018: Glow_mod_7
+    100020: Glow_mod_8
+    100022: Glow_mod_9
+    100024: GlowCandySeedButtonMod
+    100026: Glows
+    100028: //RootNode
+    400000: Glow_mod_1
+    400002: Glow_mod_10
+    400004: Glow_mod_11
+    400006: Glow_mod_12
+    400008: Glow_mod_2
+    400010: Glow_mod_3
+    400012: Glow_mod_4
+    400014: Glow_mod_5
+    400016: Glow_mod_6
+    400018: Glow_mod_7
+    400020: Glow_mod_8
+    400022: Glow_mod_9
+    400024: GlowCandySeedButtonMod
+    400026: Glows
+    400028: //RootNode
+    2300000: Glow_mod_1
+    2300002: Glow_mod_10
+    2300004: Glow_mod_11
+    2300006: Glow_mod_12
+    2300008: Glow_mod_2
+    2300010: Glow_mod_3
+    2300012: Glow_mod_4
+    2300014: Glow_mod_5
+    2300016: Glow_mod_6
+    2300018: Glow_mod_7
+    2300020: Glow_mod_8
+    2300022: Glow_mod_9
+    2300024: GlowCandySeedButtonMod
+    3300000: Glow_mod_1
+    3300002: Glow_mod_10
+    3300004: Glow_mod_11
+    3300006: Glow_mod_12
+    3300008: Glow_mod_2
+    3300010: Glow_mod_3
+    3300012: Glow_mod_4
+    3300014: Glow_mod_5
+    3300016: Glow_mod_6
+    3300018: Glow_mod_7
+    3300020: Glow_mod_8
+    3300022: Glow_mod_9
+    3300024: GlowCandySeedButtonMod
+    4300000: GlowCandySeedButtonMod
+    4300002: Glow_mod_1
+    4300004: Glow_mod_2
+    4300006: Glow_mod_3
+    4300008: Glow_mod_4
+    4300010: Glow_mod_5
+    4300012: Glow_mod_6
+    4300014: Glow_mod_7
+    4300016: Glow_mod_8
+    4300018: Glow_mod_9
+    4300020: Glow_mod_10
+    4300022: Glow_mod_11
+    4300024: Glow_mod_12
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

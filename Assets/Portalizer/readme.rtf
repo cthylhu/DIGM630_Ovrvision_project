@@ -1,0 +1,137 @@
+{\rtf1\ansi\ansicpg1251\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;}
+\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
+\deftab720
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+
+\f0\fs24 \cf0 \ul \ulc0 Portalizer Package\ulnone \
+\
+This package contains scripts and shaders that allows you create connected portals, which you can use for fluid Objects or CharacterControllers (scripted manually using template) teleporting. It's could be a complex object with a couple of renderers and animation.\
+\
+
+\b IMPORTANT NOTE
+\b0 \
+This package do not include collision controller disabler. Your objects will collide with colliders behind the portal. This package used for visual part only.\
+\
+
+\b This package requires UnityPro
+\b0 \
+
+\b \
+\pard\pardeftab720\ql\qnatural
+\cf0 REQUIREMENTS\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural
+
+\b0 \cf0 Your object should have collider with rigidbody or CharacterController assigned to object.\
+\
+You should assign 4 system layers:\
+8 - "SystemLayer"\
+9 - "ClonedObject"\
+10 - "Player"\
+11 - "MoveObject"\
+\
+You should add 4 additional tags: \
+"Player"\
+"PlayerTemp"\
+"Portal1"\
+"Portal2"\
+\
+Go to Menu -> Edit -> Project Settings -> Physics, and set collision matrix:\
+"SystemLayer" should NOT collide with "SystemLayer" \
+"MoveObject" should collide with "SystemLayer" \
+"ClonedObject" should collide with "SystemLayer" \
+"MoveObject" should collide with "ClonedObject"\
+ \
+Assign object to  "MoveObject" (11) Layer. Now his collider will interact with teleport.\
+Assign CharacterController to "Player" (10) Layer and his tag set to "PlayerTemp". Now his controller will interact with teleport.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+
+\b \cf0 HOW TO USE PORTALS
+\b0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural
+\cf0 1) Add both portals from prefab folder on your Scene.  (PortalizerResources->Prefabs->PortalX  (X mean 1 or 2))\
+2) Make portal as child of wall, if you want to pretend colliding of objects with it. \
+3) Set Portal's transform.position.y = 0. Now portal is exactly on the wall.\
+4) Go to "Portal X->Active->PortalView(Script)->SecondPortal" variable and assign "other portal active area" to it. Repeat for another portal. (Look example scene)\
+5) Go to "Portal X->InsideZone->PortalGoingThrough(Script)->OtherPortal" variable and assign whole  "other portal" to it. Repeat for another portal. (Look example scene)\
+\
+Now your portals connected, and can easy teleport objects with colliders.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+
+\b \cf0 HOW TO MAKE CHARACTERCONTROLLER WORK?\
+
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural
+\cf0 Teleporting of CharacterController(CC) is tricky, and should be scripted manually. The main problem is that CC always much more complex and unique than simple object. It has many scripts and other features (cameras, prefabs e.t.c.) that could differ from game to game, and can not be cloned as is. Usually you would need to clone only some visual parts of CC. \
+\
+Difference between Objects and CC in teleporting process:\
+Object : Clone of object would became an original object, and original object would became a clone\
+CC : Clone and CC will be swapped (switched their places and rotations). It is only illusion of teleporting. \
+\
+To make it work, you should modify my template => "PortalizerResources->Scripts->ModifiedFpsScript.js". Use "ModifiedObjectScript.js" script as example.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+
+\b \cf0 SHADERS\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural
+
+\b0 \cf0 All object materials should be based on "Self-Illum/Bumped Specular" Shader.  Custom shaders not ready yet, but i am working on it. \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural
+\cf0 \ul \ulc0 How to make Custom Masked Shader?\ulnone \
+\
+When object placed into the teleport, his shader replaced with '"Portlal/Masked/" + Shader.name + " Portal X"'  name of shader. \
+\
+If  you want to make your own custom masked shader for portal, you should follow next few steps:  (for example we "creating" masked shader for standard "Diffuse" shader)\
+\
+1) Go to the "PortalizerResources->Shaders->Mask" folder and take TemplateShader.shader. This shader was written by Aras (link on thread {\field{\*\fldinst{HYPERLINK "http://forum.unity3d.com/threads/11832-Shader-for-Clipping-plane"}}{\fldrslt \cf2 \ul \ulc2 http://forum.unity3d.com/threads/11832-Shader-for-Clipping-plane}})\
+2) Modify it and make 2 copies with Shader names "Portlal/Masked/Diffuse Portal 1" and "Portlal/Masked/Diffuse Portal 2". The most important in this scripts, is their names, and _ClipTextureMatrix variable, that should be named as _ClipTextureMatrix_Portal_1 (for Portal 1) and _ClipTextureMatrix_Portal_2 (for Portal 2). As example, look into my MaskIllumBumSpec1.shader and MaskIllumBumSpec2.shader.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+
+\b \cf0 FAQ\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural
+
+\b0 \cf0 Q.: Object do not want teleport through portal. It is collide with wall, where portal placed\
+A.: \ul For object:\ulnone  check his layer. It should be "MoveObject". Also object should has collider and rigidbody. \ul For CharacterController:\ulnone  his layer should be "Player" and tagged as "PlayerTemp"\
+\
+Q.: Why CharacterController do not teleported using default scripts?\
+A.: CC always much more complex than simple object. It has many scripts and other features that could differ from game to game, and can not be cloned as is. Usually you would clone only some visual parts of CC\
+\
+Q.: Box has been stuck in the teleport or it is teleported 
+\f1\fs26 partially\
+A.: It is looks like box hit some collider behind the portal. This package used for visual part only.\
+
+\f0\fs24 \
+Q.: Where i could get masked shaders that will properly work with my object materials?\
+A.: Package will be updated as soon, as new shaders will be done. Also you can write your custom shaders\
+\
+Q.: Is this iOS compatible?\
+A.: Yes, i check it on iPad. The only thing is needed, is to rewrite mask shader (now it is don't cut objects)\
+\
+Q.: My object slowdown before teleporting.\
+A.: Your object move too fast. You could make Inside zone larger to make trigger work like needed.\
+\
+Q.: Where is inner portal bounds?\
+A.: You can add them manually. For example use 4 invisible boxes.\
+\
+Q.: After deploying on Web, masked shader became pink. What to do?\
+A.: Unity don't want upload shaders and materials, which are not used on any of scenes (optimization). So you should add empty scene, with cubes that used masked materials, and add this EmptyScene it to "Scenes in Build" list.\
+\
+Q.: Where this Portalizer could be helpful?\
+A.: You can use it in complex scenes, where you don't want to make holes but they are needed (for example in terrains for buildings or caves). You could connect few locations. You could make very nice "eye candy" portals from one part of map to another (for example in RPG).  You could use it for simple objects teleporting in games like RollABall or so. You could use it for some physics based games. Finally you could modify scripts and make clone of original Portal game.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+
+\b \cf0 CONTACTS\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural
+
+\b0 \cf0 For any questions you could PM me on forum, or write in Portalizer thread. My Nickname : west131087. Email: thegeekgames@gmail.com\
+}
