@@ -57,7 +57,12 @@ public class MouseLook : MonoBehaviour {
 	void Start ()
 	{
 		// Make the rigid body not change rotation
+<<<<<<< HEAD
 		if (GetComponent<Rigidbody>())
 			GetComponent<Rigidbody>().freezeRotation = true;
+=======
+		if (rigidbody)
+			rigidbody.freezeRotation = true;
+>>>>>>> parent of de8c9dc... Replacing project with fixed Ovrvision version2.13
 	}
 }
