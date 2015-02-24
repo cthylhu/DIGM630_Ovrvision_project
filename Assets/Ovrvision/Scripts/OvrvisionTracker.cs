@@ -24,7 +24,10 @@ public class OvrvisionTracker : MonoBehaviour {
 	public void UpdateTransform (float[] markerGet, int elementNo) {
 		int i = elementNo * MARKERGET_ARG10;
 		this.transform.localPosition = new Vector3(markerGet[i + 1], markerGet[i + 2], markerGet[i + 3]);
+<<<<<<< HEAD
 		//this.transform.localPosition = new Vector3(0, 0, 0);
+=======
+>>>>>>> origin/master
 		this.transform.localRotation = new Quaternion (markerGet[i+4],markerGet[i+5],markerGet[i+6],markerGet[i+7]);
 	}
 
