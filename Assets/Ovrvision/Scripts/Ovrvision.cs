@@ -140,24 +140,20 @@ public class Ovrvision : MonoBehaviour
 	void Awake() {
 		//Prop awake
 		camProp.AwakePropSaveToXML();
-		return;
-
+		//return;
 		//Open camera
 		if (ovOpen(0, arSize) == 0) {
-
 			camStatus = true;
 		} else {
 			camStatus = false;
 			Debug.LogError ("Ovrvision open error!!");
 		}
 		//globalQRTrans = GameObject.Find ("GlobalQR").transform;
-
 	}
 	
 	// Use this for initialization
 	void Start()
 	{
-		//return;
 		// Initialize camera plane object(Left)
 		go_cameraPlaneLeft = this.transform.FindChild("CameraPlaneLeft").gameObject;
 		// Initialize camera plane object(Right)
@@ -233,7 +229,6 @@ public class Ovrvision : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//return;
 		//camStatus
 		if (!camStatus)
 			return;
@@ -261,7 +256,7 @@ public class Ovrvision : MonoBehaviour
 	
 	//GUI view
 	void OnGUI() {
-		//return;
+		
 		//Error
 		if (!camStatus) {
 			GUIStyle guiStyle = new GUIStyle();
@@ -274,7 +269,6 @@ public class Ovrvision : MonoBehaviour
 	//CameraViewKeySetting method
 	void CameraViewKeySetting()
 	{
-		//return;
 		//Camera View Setting
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 			go_cameraPlaneRight.transform.localScale += new Vector3(-0.01f, 0.01f, 0.01f);
@@ -306,7 +300,7 @@ public class Ovrvision : MonoBehaviour
 			useProcessingQuality = OV_PSQT_REFSET;
 	}
 
-	/*public static Quaternion QuaternionFromMatrix(Matrix4x4 m) { 
+	public static Quaternion QuaternionFromMatrix(Matrix4x4 m) { 
 		Debug.Log ("in QFromM");
 		return Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); 
 	}
@@ -317,13 +311,13 @@ public class Ovrvision : MonoBehaviour
 		trans1.position = new Vector3(0, 0, 0);
 		trans1.position = Vector3.zero; //matrix.GetColumn(3); // uses implicit conversion from Vector4 to Vector3 
 		trans1.rotation = Quaternion.identity; //QuaternionFromMatrix(matrix); 
-	}*/
+	}
 
+	//public int arraydone = 0;
 
 	//Ovrvision AR Render to OversitionTracker Objects.
 	int OvrvisionARRender()
 	{
-		//return 1;
 		ovARRender();
 
 		float[] markerGet = new float[MARKERGET_MAXNUM10];
@@ -344,6 +338,7 @@ public class Ovrvision : MonoBehaviour
 			//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
 			//otobj.UpdateTransformNone();
 
+
 			for (int i = 0; i < ri; i++)
 			{
 				/*int e = 0;
@@ -351,13 +346,27 @@ public class Ovrvision : MonoBehaviour
 					Debug.Log ("markerGet element "+e+": "+j);
 					e++;
 				}*/
-
+				
 				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])			//Positions are assigned to markerGet[]
 				{
 					//Debug.Log ("markerID: "+otobj.markerID);
+
+					//Debug.Log ("FOUND QR CODE");
+					//qrFound =1;
 					otobj.UpdateTransform(markerGet, i);
+					//Calculate global transform
+					//TransformFromMatrix(globalQRTrans,otobj.transform.localToWorldMatrix); 
 					break;
 				}
+				/*else{
+					Debug.Log ("LOST QR CODE1");
+					//calc local transform from global
+					if (qrFound==1){
+						Debug.Log ("LOST QR CODE2");
+						TransformFromMatrix(otobj.transform, globalQRTrans.worldToLocalMatrix);
+
+					}
+				}*/
 			}
 		}
 		
@@ -387,7 +396,6 @@ public class Ovrvision : MonoBehaviour
 	//UpdateOvrvisionSetting method
 	public void UpdateOvrvisionSetting(OvrvisionProperty prop)
 	{
-		//return;
 		if (!camStatus)
 			return;
 		
@@ -399,7 +407,9 @@ public class Ovrvision : MonoBehaviour
 		ovSetBrightness (prop.brightness);
 		ovSetSharpness (prop.sharpness);
 		ovSetGamma (prop.gamma);
-
+		
+		
+		
 		//change shader
 		if (camViewShader == 0)
 		{   //Normal shader
