@@ -271,6 +271,11 @@ public class OVRPlayerController : MonoBehaviour
 
 		moveInfluence = SimulationRate * Time.deltaTime * Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
 
+		//TESTING: Make camera rotate according to actual head positions
+
+		//euler.y += 
+
+
 #if !UNITY_ANDROID // LeftTrigger not avail on Android game pad
 		moveInfluence *= 1.0f + OVRGamepadController.GPC_GetAxis(OVRGamepadController.Axis.LeftTrigger);
 #endif
