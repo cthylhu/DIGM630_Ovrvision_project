@@ -185,7 +185,7 @@ public class Ovrvision : MonoBehaviour
 		{   //Normal shader
 			go_cameraPlaneLeft.renderer.material.shader = Shader.Find("Ovrvision/ovTexture");
 			go_cameraPlaneRight.renderer.material.shader = Shader.Find("Ovrvision/ovTexture");
-			Debug.Log ("Assign ovTexture!!");
+			//Debug.Log ("Assign ovTexture!!");
 		}
 		else if (camViewShader == 1)
 		{   //Chroma-key shader
@@ -223,7 +223,7 @@ public class Ovrvision : MonoBehaviour
 		
 		go_cameraPlaneLeft.renderer.material.mainTexture = go_CamTexLeft;
 		go_cameraPlaneRight.renderer.material.mainTexture = go_CamTexRight;
-		Debug.Log ("Plane Textures set!");
+		//Debug.Log ("Plane Textures set!");
 	}
 	
 
