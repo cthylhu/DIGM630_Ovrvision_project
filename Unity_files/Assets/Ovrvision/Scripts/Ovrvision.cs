@@ -190,7 +190,7 @@ public class Ovrvision : MonoBehaviour
 		//Set right eye gap
 		if (GameObject.Find("OVRCameraRig"))
 			GameObject.Find("OVRCameraRig").GetComponent<OVRCameraRig>().ovrvisionRightEyeGap
-				= new Vector3(ovGetOculusRightGap(0) * 0.01f, ovGetOculusRightGap(1) * 0.01f, ovGetOculusRightGap(2) * 0.01f); // 1/100
+				= new Vector3(0.5f + ovGetOculusRightGap(0) * 0.01f , ovGetOculusRightGap(1) * 0.01f, ovGetOculusRightGap(2) * 0.01f); // 1/100
 		
 		if (camViewShader == 0)
 		{   //Normal shader
