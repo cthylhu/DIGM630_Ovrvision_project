@@ -32,9 +32,9 @@ public class OvrvisionTracker : MonoBehaviour {
 	public void Start()
 	{
 		if (Parented) {
-						if (GameObject.Find ("LeftEyeAnchor"))
+			if (GameObject.Find ("LeftEyeAnchor"))
 				this.transform.parent = GameObject.Find ("LeftEyeAnchor").transform;
-				}
+		}
 	}
 
 	// UpdateTracker
@@ -64,19 +64,8 @@ public class OvrvisionTracker : MonoBehaviour {
 			//Matrix4x4 T_marker_world = T_marker * T_camera;				//Multiply matrices
 			Debug.Log ("Marker WORLD matrix: " + T_marker_world);
 			
-			
-			//float new_marker_position_x = (float)T_marker_world [0,0];
-			//float new_marker_position_y = (float)T_marker_world [1,1];
-			//float new_marker_position_z = (float)T_marker_world [2,2];
-			//Vector3 Marker_position_NEW = new Vector3 (new_marker_position_x, new_marker_position_y, new_marker_position_z );
 			Vector3 Marker_position_NEW = T_marker_world.GetColumn (3);
-			//Marker_position_NEW.y = Marker_position_NEW.y + 0.5f;
-			
-			//float new_marker_quaternion_1 = (float)(T_marker_world [3,0]);
-			//float new_marker_quaternion_2 = (float)(T_marker_world [3,1]);
-			//float new_marker_quaternion_3 = (float)(T_marker_world [3,2]);
-			//float new_marker_quaternion_4= (float)(T_marker_world [3,3]);
-			//Quaternion Marker_rotation_NEW = new Quaternion (new_marker_quaternion_1, new_marker_quaternion_2, new_marker_quaternion_3, new_marker_quaternion_4);
+
 			Quaternion Marker_rotation_NEW = QuaternionFromMatrix (T_marker_world);
 
 			Vector3 Marker_scale_NEW = new Vector3(
@@ -113,9 +102,9 @@ public class OvrvisionTracker : MonoBehaviour {
 	}
 	
 	public void Update(){
-		V_camera = GameObject.Find ("LeftEyeAnchor").transform.position;
-		R_camera = GameObject.Find ("LeftEyeAnchor").transform.rotation;
-		S_camera = GameObject.Find ("LeftEyeAnchor").transform.localScale;
+		V_camera = GameObject.Find ("CenterEyeAnchor").transform.position;
+		R_camera = GameObject.Find ("CenterEyeAnchor").transform.rotation;
+		S_camera = GameObject.Find ("CenterEyeAnchor").transform.localScale;
 		T_camera.SetTRS (V_camera, R_camera, S_camera);
 
 	}

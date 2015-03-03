@@ -56,6 +56,9 @@ public class OVRCameraRig : MonoBehaviour
 
 	private bool needsCameraConfigure;
 
+	//Set ovrvision Right-eye Gap
+	public Vector3 ovrvisionRightEyeGap = new Vector3(0.5f, 0.0f, 0.0f);
+
 #region Unity Messages
 	private void Awake()
 	{

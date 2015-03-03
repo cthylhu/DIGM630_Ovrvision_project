@@ -12,7 +12,7 @@ public class Ovrvision : MonoBehaviour
 	//ovrvision_csharp.cpp
 	////////////// Main Ovrvision System //////////////
 	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-	static extern int ovOpen(int locationID, float marker_meter);
+	static extern int ovOpen(int locationID, float marker_meter, int hmdType);
 	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 	static extern int ovClose();
 	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
@@ -84,9 +84,9 @@ public class Ovrvision : MonoBehaviour
 	
 	//Ovrvision config read write
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int SetParamXMLfromFile(byte[] filename);
+	static extern int ovSetParamXMLfromFile(byte[] filename);
 	[DllImport("ovrvision", CharSet=CharSet.Ansi, CallingConvention=CallingConvention.Cdecl)]
-	static extern int SaveParamXMLtoFile(byte[] filename);
+	static extern int ovSaveParamXMLtoFile(byte[] filename);
 	
 	//camera select define
 	private const int OV_CAMEYE_LEFT = 0;
@@ -101,6 +101,10 @@ public class Ovrvision : MonoBehaviour
 	private const int MARKERGET_MAXNUM10 = 100; //max marker is 10
 	private const int MARKERGET_ARG10 = 10;
 	private const int MARKERGET_RECONFIGURE_NUM = 10;
+	//Oculus Rift HMDType define
+	private const int OV_HMD_OCULUS_OTHER = 0;
+	private const int OV_HMD_OCULUS_DK1 = 1;
+	private const int OV_HMD_OCULUS_DK2 = 2;
 	
 	//Camera GameObject
 	private GameObject go_cameraPlaneLeft;
@@ -121,7 +125,7 @@ public class Ovrvision : MonoBehaviour
 	public bool useOvrvisionAR = false;
 	public float arSize = 0.15f;
 	public int useProcessingQuality = OV_PSQT_HIGH;
-
+	
 	//Chroma-key system
 	public int camViewShader = 0;
 	public Vector2 chroma_hue = new Vector2(1.0f,0.0f);         //x=max y=min (0.0f-1.0f)
@@ -130,29 +134,36 @@ public class Ovrvision : MonoBehaviour
 	
 	//property
 	public OvrvisionProperty camProp = new OvrvisionProperty();
-
+	
 	// ------ Function ------
 	
 	// Use this for initialization
 	void Awake() {
+		//return;
+		int hmdType = OV_HMD_OCULUS_OTHER;
 		//Prop awake
 		camProp.AwakePropSaveToXML();
-		//return;
+		
+		//Hmd Type
+		Ovr.HmdDesc desc = OVRManager.capiHmd.GetDesc();
+		if (desc.Type == Ovr.HmdType.DK1)
+			hmdType = OV_HMD_OCULUS_DK1;
+		else if (desc.Type == Ovr.HmdType.DK2)
+			hmdType = OV_HMD_OCULUS_DK2;
+		
 		//Open camera
-		if (ovOpen(0, arSize) == 0) {
+		if (ovOpen(0, arSize, hmdType) == 0) {
 			camStatus = true;
-			Debug.Log ("Ovrvision is open!!");
 		} else {
 			camStatus = false;
 			Debug.LogError ("Ovrvision open error!!");
 		}
-
 	}
 	
 	// Use this for initialization
 	void Start()
 	{
-
+		//return;
 		// Initialize camera plane object(Left)
 		go_cameraPlaneLeft = this.transform.FindChild("CameraPlaneLeft").gameObject;
 		// Initialize camera plane object(Right)
@@ -176,16 +187,15 @@ public class Ovrvision : MonoBehaviour
 		go_cameraPlaneRight.transform.localPosition = new Vector3(0.0f, 0.0f, 5.0f);
 		go_cameraPlaneRight.transform.localRotation = Quaternion.Euler(270.0f, 0.0f, 0.0f);
 		
-		/*//Set right eye gap
+		//Set right eye gap
 		if (GameObject.Find("OVRCameraRig"))
 			GameObject.Find("OVRCameraRig").GetComponent<OVRCameraRig>().ovrvisionRightEyeGap
-				= new Vector3(ovGetOculusRightGap(0) * 0.01f, ovGetOculusRightGap(1) * 0.01f, ovGetOculusRightGap(2) * 0.01f); // 1/100*/
+				= new Vector3(ovGetOculusRightGap(0) * 0.01f, ovGetOculusRightGap(1) * 0.01f, ovGetOculusRightGap(2) * 0.01f); // 1/100
 		
 		if (camViewShader == 0)
 		{   //Normal shader
 			go_cameraPlaneLeft.renderer.material.shader = Shader.Find("Ovrvision/ovTexture");
 			go_cameraPlaneRight.renderer.material.shader = Shader.Find("Ovrvision/ovTexture");
-			//Debug.Log ("Assign ovTexture!!");
 		}
 		else if (camViewShader == 1)
 		{   //Chroma-key shader
@@ -206,11 +216,10 @@ public class Ovrvision : MonoBehaviour
 			go_cameraPlaneRight.renderer.material.SetFloat("_Color_maxv", chroma_brightness.x);
 			go_cameraPlaneRight.renderer.material.SetFloat("_Color_minv", chroma_brightness.y);
 		}
-
 		
 		if (!camStatus)
 			return;
-
+		
 		//Camera open only
 		
 		//Get texture pointer
@@ -223,10 +232,8 @@ public class Ovrvision : MonoBehaviour
 		
 		go_cameraPlaneLeft.renderer.material.mainTexture = go_CamTexLeft;
 		go_cameraPlaneRight.renderer.material.mainTexture = go_CamTexRight;
-		//Debug.Log ("Plane Textures set!");
 	}
 	
-
 	// Update is called once per frame
 	void Update ()
 	{
@@ -242,7 +249,6 @@ public class Ovrvision : MonoBehaviour
 		if (useOvrvisionAR) {
 			ovGetCamImageForUnityWithAR(go_pixelsPointerLeft, go_pixelsPointerRight, useProcessingQuality);
 			OvrvisionARRender();
-			//Debug.Log ("Get image data!");
 		} else
 			ovGetCamImageForUnity(go_pixelsPointerLeft, go_pixelsPointerRight, useProcessingQuality);
 		
@@ -251,7 +257,6 @@ public class Ovrvision : MonoBehaviour
 		go_CamTexLeft.Apply();
 		go_CamTexRight.SetPixels32(go_pixelsColorRight);
 		go_CamTexRight.Apply();
-		//Debug.Log ("Textures applied!");
 		
 		//Key Input
 		CameraViewKeySetting ();
@@ -302,55 +307,26 @@ public class Ovrvision : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha4))
 			useProcessingQuality = OV_PSQT_REFSET;
 	}
-
-	/*public static Quaternion QuaternionFromMatrix(Matrix4x4 m) { 
-		Debug.Log ("in QFromM");
-		return Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); 
-	}
-
-	public static void TransformFromMatrix(Transform trans1,Matrix4x4 matrix) { 
-		//Debug.Log ("Matrix = " + matrix);
-
-		trans1.position = new Vector3(0, 0, 0);
-		trans1.position = Vector3.zero; //matrix.GetColumn(3); // uses implicit conversion from Vector4 to Vector3 
-		trans1.rotation = Quaternion.identity; //QuaternionFromMatrix(matrix); 
-	}*/
-
-
+	
 	//Ovrvision AR Render to OversitionTracker Objects.
 	int OvrvisionARRender()
 	{
 		ovARRender();
-
+		
 		float[] markerGet = new float[MARKERGET_MAXNUM10];
 		GCHandle marker = GCHandle.Alloc(markerGet, GCHandleType.Pinned);
-
+		
 		//Get marker data
 		int ri = ovARGetData(marker.AddrOfPinnedObject(), MARKERGET_MAXNUM10);
 		
-		/*for (int i = 0; i < ri; i++) {
-					Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
-		}*/
-
-		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[]; 		//Find all objects in scene that have OvrvisionTracker
-
+		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[];
 		foreach (OvrvisionTracker otobj in otobjs)
 		{
-
-			//Debug.Log ("Marker found with id: " + (int)markerGet [i * MARKERGET_ARG10]);
 			//otobj.UpdateTransformNone();
 			for (int i = 0; i < ri; i++)
 			{
-				/*int e = 0;
-				foreach (float j in markerGet) {
-					Debug.Log ("markerGet element "+e+": "+j);
-					e++;
-				}*/
-				
-				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])			//Positions are assigned to markerGet[]
+				if (otobj.markerID == (int)markerGet[i * MARKERGET_ARG10])
 				{
-					//Debug.Log ("markerID: "+otobj.markerID);
-
 					otobj.UpdateTransform(markerGet, i);
 					break;
 				}
@@ -395,8 +371,6 @@ public class Ovrvision : MonoBehaviour
 		ovSetSharpness (prop.sharpness);
 		ovSetGamma (prop.gamma);
 		
-		
-		
 		//change shader
 		if (camViewShader == 0)
 		{   //Normal shader
@@ -421,14 +395,6 @@ public class Ovrvision : MonoBehaviour
 			go_cameraPlaneRight.renderer.material.SetFloat("_Color_mins", chroma_saturation.y);
 			go_cameraPlaneRight.renderer.material.SetFloat("_Color_maxv", chroma_brightness.x);
 			go_cameraPlaneRight.renderer.material.SetFloat("_Color_minv", chroma_brightness.y);
-			
-			
 		}
-		
-		
 	}
-	
-	
-	
-	
 }

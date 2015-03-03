@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 [System.Serializable]
 public class OvrvisionProperty {
 
-    //OVRVISION Dll import
-    //ovrvision_csharp.cpp
-    [DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-    static extern void SaveParamXMLtoTempFile(int[] config1, float[] config2);
+	//OVRVISION Dll import
+	//ovrvision_csharp.cpp
+	[DllImport("ovrvision", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+	static extern void ovSaveParamXMLtoTempFile(int[] config1, float[] config2);
 
 	//properties
     public int exposure;
@@ -73,6 +73,6 @@ public class OvrvisionProperty {
 		config2[1] = focalPoint;
 
         //save
-        SaveParamXMLtoTempFile(config1, config2);
+        ovSaveParamXMLtoTempFile(config1, config2);
     }
 }
