@@ -40,7 +40,7 @@ public class OVRCameraRig : MonoBehaviour
 	/// The right eye camera.
 	/// </summary>
 	private Camera rightEyeCamera;
-
+	
 	/// <summary>
 	/// Always coincides with the pose of the left eye.
 	/// </summary>
@@ -53,85 +53,94 @@ public class OVRCameraRig : MonoBehaviour
 	/// Always coincides with the pose of the right eye.
 	/// </summary>
 	public Transform rightEyeAnchor { get; private set; }
-
+	
 	private bool needsCameraConfigure;
-
+	
 	//Set ovrvision Right-eye Gap
 	public Vector3 ovrvisionRightEyeGap = new Vector3(0.5f, 0.0f, 0.0f);
-
-#region Unity Messages
+	
+	#region Unity Messages
 	private void Awake()
 	{
 		EnsureGameObjectIntegrity();
 		
 		if (!Application.isPlaying)
 			return;
-
+		
 		needsCameraConfigure = true;
 	}
-
+	
 	private void Start()
-	{
-		EnsureGameObjectIntegrity();
-
-		if (!Application.isPlaying)
-			return;
-
-		UpdateCameras();
-		UpdateAnchors();
-	}
-
-#if !UNITY_ANDROID || UNITY_EDITOR
-	private void LateUpdate()
-#else
-	private void Update()
-#endif
 	{
 		EnsureGameObjectIntegrity();
 		
 		if (!Application.isPlaying)
 			return;
-
+		
 		UpdateCameras();
 		UpdateAnchors();
 	}
-
-#endregion
-
+	
+	#if !UNITY_ANDROID || UNITY_EDITOR
+	private void LateUpdate()
+		#else
+		private void Update()
+			#endif
+	{
+		EnsureGameObjectIntegrity();
+		
+		if (!Application.isPlaying)
+			return;
+		
+		UpdateCameras();
+		UpdateAnchors();
+	}
+	
+	#endregion
+	
 	private void UpdateAnchors()
 	{
 		OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
 		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
-		//Debug.Log ("anchor = " + leftEye.orientation);
+		
+		leftEyeAnchor.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+		centerEyeAnchor.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+		rightEyeAnchor.localPosition = ovrvisionRightEyeGap;
+		
+		/*
+		OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
+		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
+
 		leftEyeAnchor.localRotation = leftEye.orientation;
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
 		leftEyeAnchor.localPosition = leftEye.position;
 		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position);
-		rightEyeAnchor.localPosition = rightEye.position;
+		rightEyeAnchor.localPosition = rightEye.position;]
+		*/
 	}
-
+	
 	private void UpdateCameras()
 	{
 		if (needsCameraConfigure)
 		{
 			leftEyeCamera = ConfigureCamera(OVREye.Left);
 			rightEyeCamera = ConfigureCamera(OVREye.Right);
-
-#if !UNITY_ANDROID || UNITY_EDITOR
-
-#if OVR_USE_PROJ_MATRIX
+			
+			#if !UNITY_ANDROID || UNITY_EDITOR
+			
+			#if OVR_USE_PROJ_MATRIX
 			OVRManager.display.ForceSymmetricProj(false);
-#else
+			#else
 			OVRManager.display.ForceSymmetricProj(true);
-#endif
-
+			#endif
+			
 			needsCameraConfigure = false;
-#endif
+			#endif
 		}
 	}
-
+	
 	private void EnsureGameObjectIntegrity()
 	{
 		if (leftEyeAnchor == null)
@@ -140,7 +149,7 @@ public class OVRCameraRig : MonoBehaviour
 			centerEyeAnchor = ConfigureEyeAnchor(OVREye.Center);
 		if (rightEyeAnchor == null)
 			rightEyeAnchor = ConfigureEyeAnchor(OVREye.Right);
-
+		
 		if (leftEyeCamera == null)
 		{
 			leftEyeCamera = leftEyeAnchor.GetComponent<Camera>();
@@ -149,7 +158,7 @@ public class OVRCameraRig : MonoBehaviour
 				leftEyeCamera = leftEyeAnchor.gameObject.AddComponent<Camera>();
 			}
 		}
-
+		
 		if (rightEyeCamera == null)
 		{
 			rightEyeCamera = rightEyeAnchor.GetComponent<Camera>();
@@ -159,36 +168,36 @@ public class OVRCameraRig : MonoBehaviour
 			}
 		}
 	}
-
+	
 	private Transform ConfigureEyeAnchor(OVREye eye)
 	{
 		string name = eye.ToString() + "EyeAnchor";
 		Transform anchor = transform.Find(name);
-
+		
 		if (anchor == null)
 		{
 			string oldName = "Camera" + eye.ToString();
 			anchor = transform.Find(oldName);
 		}
-
+		
 		if (anchor == null)
 			anchor = new GameObject(name).transform;
-
+		
 		anchor.parent = transform;
 		anchor.localScale = Vector3.one;
 		anchor.localPosition = Vector3.zero;
 		anchor.localRotation = Quaternion.identity;
-
+		
 		return anchor;
 	}
-
+	
 	private Camera ConfigureCamera(OVREye eye)
 	{
 		Transform anchor = (eye == OVREye.Left) ? leftEyeAnchor : rightEyeAnchor;
 		Camera cam = anchor.GetComponent<Camera>();
-
+		
 		OVRDisplay.EyeRenderDesc eyeDesc = OVRManager.display.GetEyeRenderDesc(eye);
-
+		
 		cam.fieldOfView = eyeDesc.fov.y;
 		cam.aspect = eyeDesc.resolution.x / eyeDesc.resolution.y;
 		cam.rect = new Rect(0f, 0f, OVRManager.instance.virtualTextureScale, OVRManager.instance.virtualTextureScale);
@@ -197,13 +206,13 @@ public class OVRCameraRig : MonoBehaviour
 		// AA is documented to have no effect in deferred, but it causes black screens.
 		if (cam.actualRenderingPath == RenderingPath.DeferredLighting)
 			QualitySettings.antiAliasing = 0;
-
-#if !UNITY_ANDROID || UNITY_EDITOR
-#if OVR_USE_PROJ_MATRIX
+		
+		#if !UNITY_ANDROID || UNITY_EDITOR
+		#if OVR_USE_PROJ_MATRIX
 		cam.projectionMatrix = OVRManager.display.GetProjection((int)eye, cam.nearClipPlane, cam.farClipPlane);
-#endif
-#endif
-
+		#endif
+		#endif
+		
 		return cam;
 	}
 }
