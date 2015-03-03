@@ -1,0 +1,141 @@
+fileFormatVersion: 2
+guid: 493e62cd0eefe40e8bacabf970aade59
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Base
+    100002: jaw
+    100004: jaw 1
+    100006: jaw_hinge
+    100008: joint11
+    100010: joint13
+    100012: joint14
+    100014: joint15
+    100016: joint16
+    100018: joint17
+    100020: joint19
+    100022: joint2
+    100024: joint20
+    100026: joint21
+    100028: joint22
+    100030: joint23
+    100032: joint24
+    100034: joint27
+    100036: joint28
+    100038: joint3
+    100040: joint4
+    100042: joint5
+    100044: joint7
+    100046: joint8
+    100048: joint9
+    100050: Left_Elbow
+    100052: middle_elbow
+    100054: nurbsCircle1
+    100056: nurbsCircle2
+    100058: nurbsCircle3
+    100060: nurbsCircle4
+    100062: nurbsCircle5
+    100064: nurbsCircle6
+    100066: nurbsCircle7
+    100068: nurbsCircle8
+    100070: nurbsCircle9
+    100072: Right_Elbow
+    100074: //RootNode
+    100076: SkullShroomTree
+    400000: Base
+    400002: jaw
+    400004: jaw 1
+    400006: jaw_hinge
+    400008: joint11
+    400010: joint13
+    400012: joint14
+    400014: joint15
+    400016: joint16
+    400018: joint17
+    400020: joint19
+    400022: joint2
+    400024: joint20
+    400026: joint21
+    400028: joint22
+    400030: joint23
+    400032: joint24
+    400034: joint27
+    400036: joint28
+    400038: joint3
+    400040: joint4
+    400042: joint5
+    400044: joint7
+    400046: joint8
+    400048: joint9
+    400050: Left_Elbow
+    400052: middle_elbow
+    400054: nurbsCircle1
+    400056: nurbsCircle2
+    400058: nurbsCircle3
+    400060: nurbsCircle4
+    400062: nurbsCircle5
+    400064: nurbsCircle6
+    400066: nurbsCircle7
+    400068: nurbsCircle8
+    400070: nurbsCircle9
+    400072: Right_Elbow
+    400074: //RootNode
+    400076: SkullShroomTree
+    4300000: SkullShroomTree
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: SkullShroomTree
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

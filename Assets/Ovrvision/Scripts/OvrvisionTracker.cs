@@ -24,79 +24,85 @@ public class OvrvisionTracker : MonoBehaviour {
 	Vector3 S_marker = Vector3.one;					//Marker Scale
 
 	Matrix4x4 displayNewPosition = Matrix4x4.zero;
+	public bool Parented = false;
 
 	// ------ Function ------
 
 	// Tracker initialization
 	public void Start()
 	{
-		if (GameObject.Find("CenterEyeAnchor"))
-			this.transform.parent = GameObject.Find("CenterEyeAnchor").transform;
+		if (Parented) {
+						if (GameObject.Find ("LeftEyeAnchor"))
+				this.transform.parent = GameObject.Find ("LeftEyeAnchor").transform;
+				}
 	}
 
 	// UpdateTracker
 	public void UpdateTransform (float[] markerGet, int elementNo) {
 		int i = elementNo * MARKERGET_ARG10;
+		if (Parented) 
+		{
+			// Original transforms
+			this.transform.localPosition = new Vector3 (markerGet [i + 1], markerGet [i + 2], markerGet [i + 3]);
+			this.transform.localRotation = new Quaternion (markerGet [i + 4], markerGet [i + 5], markerGet [i + 6], markerGet [i + 7]);
+			//Debug.Log ("Transform Vector: " + markerGet [i + 1]+", "+ markerGet [i + 2]+", "+ markerGet [i + 3]);
+			//Debug.Log ("Transform Quat: " + markerGet [i + 4]+", "+ markerGet [i + 5]+", "+ markerGet [i + 6]+", "+ markerGet [i + 7]);
+		}else
+		{
+			Debug.Log ("Camera matrix: " + T_camera);
 
-		// Original transforms
-		this.transform.localPosition = new Vector3(markerGet[i + 1], markerGet[i + 2], markerGet[i + 3]);
-		this.transform.localRotation = new Quaternion (markerGet[i+4],markerGet[i+5],markerGet[i+6],markerGet[i+7]);
-		//Debug.Log ("Transform Vector: " + markerGet [i + 1]+", "+ markerGet [i + 2]+", "+ markerGet [i + 3]);
-		//Debug.Log ("Transform Quat: " + markerGet [i + 4]+", "+ markerGet [i + 5]+", "+ markerGet [i + 6]+", "+ markerGet [i + 7]);
+			V_marker = new Vector3 (markerGet [i + 1], markerGet [i + 2], markerGet [i + 3]);
+			R_marker = new Quaternion (markerGet [i + 4], markerGet [i + 5], markerGet [i + 6], markerGet [i + 7]);	
+			S_marker = Vector3.one;
+			T_marker.SetTRS (V_marker, R_marker, S_marker);
+			//Debug.Log ("Marker OLD Translation: " + V_marker);
+			//Debug.Log ("Marker OLD Rotation: " + R_marker);
+			//Debug.Log ("Marker OLD Scale: " + S_marker);
+			Debug.Log ("Marker matrix: " + T_marker);
+			
+			Matrix4x4 T_marker_world = T_camera * T_marker;				//Multiply matrices
+			//Matrix4x4 T_marker_world = T_marker * T_camera;				//Multiply matrices
+			Debug.Log ("Marker WORLD matrix: " + T_marker_world);
+			
+			
+			//float new_marker_position_x = (float)T_marker_world [0,0];
+			//float new_marker_position_y = (float)T_marker_world [1,1];
+			//float new_marker_position_z = (float)T_marker_world [2,2];
+			//Vector3 Marker_position_NEW = new Vector3 (new_marker_position_x, new_marker_position_y, new_marker_position_z );
+			Vector3 Marker_position_NEW = T_marker_world.GetColumn (3);
+			//Marker_position_NEW.y = Marker_position_NEW.y + 0.5f;
+			
+			//float new_marker_quaternion_1 = (float)(T_marker_world [3,0]);
+			//float new_marker_quaternion_2 = (float)(T_marker_world [3,1]);
+			//float new_marker_quaternion_3 = (float)(T_marker_world [3,2]);
+			//float new_marker_quaternion_4= (float)(T_marker_world [3,3]);
+			//Quaternion Marker_rotation_NEW = new Quaternion (new_marker_quaternion_1, new_marker_quaternion_2, new_marker_quaternion_3, new_marker_quaternion_4);
+			Quaternion Marker_rotation_NEW = QuaternionFromMatrix (T_marker_world);
 
-		/*Debug.Log ("Camera matrix: " + T_camera);
+			Vector3 Marker_scale_NEW = new Vector3(
+				T_marker_world.GetColumn(0).magnitude,
+				T_marker_world.GetColumn(1).magnitude,
+				T_marker_world.GetColumn(2).magnitude
+				);
 
-		V_marker = new Vector3 (markerGet [i + 1], markerGet [i + 2], markerGet [i + 3]);
-		R_marker = new Quaternion (markerGet [i + 4], markerGet [i + 5], markerGet [i + 6], markerGet [i + 7]);	
-		S_marker = Vector3.one;
-		T_marker.SetTRS (V_marker, R_marker, S_marker);
-		//Debug.Log ("Marker OLD Translation: " + V_marker);
-		//Debug.Log ("Marker OLD Rotation: " + R_marker);
-		//Debug.Log ("Marker OLD Scale: " + S_marker);
-		Debug.Log ("Marker matrix: " + T_marker);
-		
-		Matrix4x4 T_marker_world = T_camera * T_marker;				//Multiply matrices
-		Debug.Log ("Marker WORLD matrix: " + T_marker_world);
-		
-		
-		//float new_marker_position_x = (float)T_marker_world [0,0];
-		//float new_marker_position_y = (float)T_marker_world [1,1];
-		//float new_marker_position_z = (float)T_marker_world [2,2];
-		//Vector3 Marker_position_NEW = new Vector3 (new_marker_position_x, new_marker_position_y, new_marker_position_z );
-		Vector3 Marker_position_NEW = T_marker_world.GetColumn (3);
-		//Marker_position_NEW.y = Marker_position_NEW.y + 0.5f;
-		
-		//float new_marker_quaternion_1 = (float)(T_marker_world [3,0]);
-		//float new_marker_quaternion_2 = (float)(T_marker_world [3,1]);
-		//float new_marker_quaternion_3 = (float)(T_marker_world [3,2]);
-		//float new_marker_quaternion_4= (float)(T_marker_world [3,3]);
-		//Quaternion Marker_rotation_NEW = new Quaternion (new_marker_quaternion_1, new_marker_quaternion_2, new_marker_quaternion_3, new_marker_quaternion_4);
-		Quaternion Marker_rotation_NEW = QuaternionFromMatrix (T_marker_world);
-
-		Vector3 Marker_scale_NEW = new Vector3(
-			T_marker_world.GetColumn(0).magnitude,
-			T_marker_world.GetColumn(1).magnitude,
-			T_marker_world.GetColumn(2).magnitude
-			);
-
-		// FOR DISPLAYING THE FLOAT VALUES BETTER, because Debug.Log for Vectors truncates float values
-		Vector4 posVector = new Vector4 (Marker_position_NEW.x, Marker_position_NEW.y, Marker_position_NEW.z, 0);
-		Vector4 rotVector = new Vector4 (Marker_rotation_NEW.w, Marker_rotation_NEW.x, Marker_rotation_NEW.y, Marker_rotation_NEW.z);
-		Vector4 scaleVector = new Vector4(Marker_scale_NEW.x, Marker_scale_NEW.y, Marker_scale_NEW.z, 0);
-		
-		displayNewPosition.SetRow (0, posVector);
-		displayNewPosition.SetRow (1, rotVector);
-		displayNewPosition.SetRow (2, scaleVector);
-		Debug.Log ("NEW POS/ROT/SCALE: " + displayNewPosition);
+			// FOR DISPLAYING THE FLOAT VALUES BETTER, because Debug.Log for Vectors truncates float values
+			Vector4 posVector = new Vector4 (Marker_position_NEW.x, Marker_position_NEW.y, Marker_position_NEW.z, 0);
+			Vector4 rotVector = new Vector4 (Marker_rotation_NEW.w, Marker_rotation_NEW.x, Marker_rotation_NEW.y, Marker_rotation_NEW.z);
+			Vector4 scaleVector = new Vector4(Marker_scale_NEW.x, Marker_scale_NEW.y, Marker_scale_NEW.z, 0);
+			
+			displayNewPosition.SetRow (0, posVector);
+			displayNewPosition.SetRow (1, rotVector);
+			displayNewPosition.SetRow (2, scaleVector);
+			Debug.Log ("NEW POS/ROT/SCALE: " + displayNewPosition);
 
 
-		// Apply new transformations
-		this.transform.position = Marker_position_NEW;
-		this.transform.rotation = Marker_rotation_NEW;
-		this.transform.localScale = Marker_scale_NEW;
-		
-		Debug.Log ("===============");
-		*/
+			// Apply new transformations
+			this.transform.position = Marker_position_NEW;
+			this.transform.rotation = Marker_rotation_NEW;
+			this.transform.localScale = Marker_scale_NEW;
+			
+			Debug.Log ("===============");
+		}
 
 
 
@@ -107,9 +113,9 @@ public class OvrvisionTracker : MonoBehaviour {
 	}
 	
 	public void Update(){
-		V_camera = GameObject.Find ("CenterEyeAnchor").transform.localPosition;
-		R_camera = GameObject.Find ("CenterEyeAnchor").transform.localRotation;
-		S_camera = GameObject.Find ("CenterEyeAnchor").transform.localScale;
+		V_camera = GameObject.Find ("LeftEyeAnchor").transform.position;
+		R_camera = GameObject.Find ("LeftEyeAnchor").transform.rotation;
+		S_camera = GameObject.Find ("LeftEyeAnchor").transform.localScale;
 		T_camera.SetTRS (V_camera, R_camera, S_camera);
 
 	}

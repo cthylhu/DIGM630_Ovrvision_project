@@ -1,0 +1,283 @@
+fileFormatVersion: 2
+guid: 761d91fa9d3b14cd7b2c0a11b7dcb6e8
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: group
+    100004: group1
+    100006: joint1
+    100008: joint13
+    100010: joint14
+    100012: joint14 1
+    100014: joint15
+    100016: joint16
+    100018: joint17
+    100020: joint18
+    100022: joint19
+    100024: joint2
+    100026: joint20
+    100028: joint21
+    100030: joint22
+    100032: joint24
+    100034: joint24 1
+    100036: joint24 10
+    100038: joint24 2
+    100040: joint24 3
+    100042: joint24 4
+    100044: joint24 5
+    100046: joint24 6
+    100048: joint24 7
+    100050: joint24 8
+    100052: joint24 9
+    100054: joint25
+    100056: joint26
+    100058: joint27
+    100060: joint28
+    100062: joint29
+    100064: joint3
+    100066: joint30
+    100068: joint31
+    100070: joint32
+    100072: joint33
+    100074: joint34
+    100076: joint35
+    100078: joint4
+    100080: joint5
+    100082: joint6
+    100084: nurbsCircle1
+    100086: polySurface1
+    100088: polySurface2
+    400000: //RootNode
+    400002: group
+    400004: group1
+    400006: joint1
+    400008: joint13
+    400010: joint14
+    400012: joint14 1
+    400014: joint15
+    400016: joint16
+    400018: joint17
+    400020: joint18
+    400022: joint19
+    400024: joint2
+    400026: joint20
+    400028: joint21
+    400030: joint22
+    400032: joint24
+    400034: joint24 1
+    400036: joint24 10
+    400038: joint24 2
+    400040: joint24 3
+    400042: joint24 4
+    400044: joint24 5
+    400046: joint24 6
+    400048: joint24 7
+    400050: joint24 8
+    400052: joint24 9
+    400054: joint25
+    400056: joint26
+    400058: joint27
+    400060: joint28
+    400062: joint29
+    400064: joint3
+    400066: joint30
+    400068: joint31
+    400070: joint32
+    400072: joint33
+    400074: joint34
+    400076: joint35
+    400078: joint4
+    400080: joint5
+    400082: joint6
+    400084: nurbsCircle1
+    400086: polySurface1
+    400088: polySurface2
+    2300000: polySurface2
+    3300000: polySurface2
+    4300000: polySurface1
+    4300002: polySurface2
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: polySurface1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group
+        weight: 1
+      - path: group/polySurface1
+        weight: 1
+      - path: group/polySurface1/polySurface2
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint15
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint15/joint14
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint17
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint17/joint21
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint17/joint21/joint14
+          1
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint22
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint25
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint25/joint24
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint26
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint26/joint24
+          1
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint27
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint27/joint24
+          2
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint28
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint28/joint24
+          3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint29
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint29/joint24
+          4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint30
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint30/joint24
+          5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint31
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint31/joint24
+          6
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint32
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint32/joint24
+          7
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint33
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint33/joint24
+          8
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint34
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint34/joint24
+          9
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint35
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint35/joint24
+          10
+        weight: 1
+      - path: nurbsCircle1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
