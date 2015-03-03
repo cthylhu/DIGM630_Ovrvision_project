@@ -100,14 +100,14 @@ public class OVRCameraRig : MonoBehaviour
 	
 	private void UpdateAnchors()
 	{
-		OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
+		/*OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
 		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
 		
 		leftEyeAnchor.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 		centerEyeAnchor.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-		rightEyeAnchor.localPosition = ovrvisionRightEyeGap;
+		rightEyeAnchor.localPosition = ovrvisionRightEyeGap;*/
 		
-		/*
+
 		OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
 		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
 
@@ -117,8 +117,8 @@ public class OVRCameraRig : MonoBehaviour
 
 		leftEyeAnchor.localPosition = leftEye.position;
 		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position);
-		rightEyeAnchor.localPosition = rightEye.position;]
-		*/
+		rightEyeAnchor.localPosition = new Vector3(rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f);
+
 	}
 	
 	private void UpdateCameras()
