@@ -5,13 +5,14 @@
 \******************************************************************************/
 
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using Leap;
 
 // Overall Controller object that will instantiate hands and tools when they appear.
 public class HandController : MonoBehaviour {
 
-  // Reference distance from thumb base to pinky base in mm.
+	// Reference distance from thumb base to pinky base in mm.
   protected const float GIZMO_SCALE = 5.0f;
   protected const float MM_TO_M = 0.001f;
 
@@ -49,6 +50,9 @@ public class HandController : MonoBehaviour {
   private bool show_hands_ = true;
   private long prev_graphics_id_ = 0;
   private long prev_physics_id_ = 0;
+
+  // NEW VARIABLES
+	public int layernum = 0;
   
   void OnDrawGizmos() {
     // Draws the little Leap Motion Controller in the Editor view.
@@ -88,7 +92,14 @@ public class HandController : MonoBehaviour {
       recorder_.Load(recordingAsset);
   }
 
-  public void IgnoreCollisionsWithHands(GameObject to_ignore, bool ignore = true) {
+	public static void SetLayerRecursively(GameObject go, int layerNumber) {						//SETTING LAYER FUNCTION
+		if (go == null) return;
+		foreach (Transform trans in go.GetComponentsInChildren<Transform>(true)) {
+			trans.gameObject.layer = layerNumber;
+		}
+	}
+	
+	public void IgnoreCollisionsWithHands(GameObject to_ignore, bool ignore = true) {
     foreach (HandModel hand in hand_physics_.Values)
       Leap.Utils.IgnoreCollisions(hand.gameObject, to_ignore, ignore);
   }
@@ -98,6 +109,14 @@ public class HandController : MonoBehaviour {
                            as HandModel;
     hand_model.gameObject.SetActive(true);
     Leap.Utils.IgnoreCollisions(hand_model.gameObject, gameObject);
+
+	if (this.gameObject.name == "HandControllerL") {
+		layernum = 8;		
+	}
+	if (this.gameObject.name == "HandControllerR") {
+		layernum = 9;
+	}
+	SetLayerRecursively(hand_model.gameObject, layernum);												//SETTING HAND LAYER
     return hand_model;
   }
 

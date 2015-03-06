@@ -49,7 +49,7 @@ public class OvrvisionTracker : MonoBehaviour {
 			//Debug.Log ("Transform Quat: " + markerGet [i + 4]+", "+ markerGet [i + 5]+", "+ markerGet [i + 6]+", "+ markerGet [i + 7]);
 		}else
 		{
-			Debug.Log ("Camera matrix: " + T_camera);
+			//Debug.Log ("Camera matrix: " + T_camera);
 
 			V_marker = new Vector3 (markerGet [i + 1], markerGet [i + 2], markerGet [i + 3]);
 			R_marker = new Quaternion (markerGet [i + 4], markerGet [i + 5], markerGet [i + 6], markerGet [i + 7]);	
@@ -58,17 +58,16 @@ public class OvrvisionTracker : MonoBehaviour {
 			//Debug.Log ("Marker OLD Translation: " + V_marker);
 			//Debug.Log ("Marker OLD Rotation: " + R_marker);
 			//Debug.Log ("Marker OLD Scale: " + S_marker);
-			Debug.Log ("Marker matrix: " + T_marker);
+			//Debug.Log ("Marker matrix: " + T_marker);
 			
 			Matrix4x4 T_marker_world = T_camera * T_marker;				//Multiply matrices
-			//Matrix4x4 T_marker_world = T_marker * T_camera;				//Multiply matrices
-			Debug.Log ("Marker WORLD matrix: " + T_marker_world);
+			//Debug.Log ("Marker WORLD matrix: " + T_marker_world);
 			
-			Vector3 Marker_position_NEW = T_marker_world.GetColumn (3);
+			Vector3 Marker_position_NEW = T_marker_world.GetColumn (3);					// Extract new position from matrix
 
-			Quaternion Marker_rotation_NEW = QuaternionFromMatrix (T_marker_world);
+			Quaternion Marker_rotation_NEW = QuaternionFromMatrix (T_marker_world);		//Extract new rotation from matrix
 
-			Vector3 Marker_scale_NEW = new Vector3(
+			Vector3 Marker_scale_NEW = new Vector3(										//Extract new scale from matrix
 				T_marker_world.GetColumn(0).magnitude,
 				T_marker_world.GetColumn(1).magnitude,
 				T_marker_world.GetColumn(2).magnitude
@@ -82,7 +81,7 @@ public class OvrvisionTracker : MonoBehaviour {
 			displayNewPosition.SetRow (0, posVector);
 			displayNewPosition.SetRow (1, rotVector);
 			displayNewPosition.SetRow (2, scaleVector);
-			Debug.Log ("NEW POS/ROT/SCALE: " + displayNewPosition);
+			//Debug.Log ("NEW POS/ROT/SCALE: " + displayNewPosition);
 
 
 			// Apply new transformations
@@ -90,7 +89,7 @@ public class OvrvisionTracker : MonoBehaviour {
 			this.transform.rotation = Marker_rotation_NEW;
 			this.transform.localScale = Marker_scale_NEW;
 			
-			Debug.Log ("===============");
+			//Debug.Log ("===============");
 		}
 
 

@@ -21,7 +21,15 @@ public class watchtapping : MonoBehaviour {
 	void Start () {
 
 	}
-	
+
+	public static void HideRenderRecursively(GameObject go) {						//Turn off render recursively
+		if (go == null) return;
+		foreach (Transform trans in go.GetComponentsInChildren<Transform>(true)) {
+			if (trans.gameObject.renderer == null) return;
+			trans.gameObject.renderer.enabled = false;
+		}
+	}
+
 	void OnTriggerEnter(Collider other) {
 		
 		if (other.name == ("L_index_bone3")) {
@@ -38,20 +46,23 @@ public class watchtapping : MonoBehaviour {
 				GameObject.Find("VRJellyFishTree").collider.enabled = true;
 
 				GameObject.Find("GhostTree").renderer.enabled = true;
-				GameObject.Find("GhostTree").collider.enabled = true;
+				GameObject.Find("VRGhostTree").collider.enabled = true;
 
 				GameObject.Find("Planet").renderer.enabled = true;
 				GameObject.Find("Planet2").renderer.enabled = true;
 				GameObject.Find ("TestPlanet").renderer.enabled = false;
 				GameObject.Find ("TestPlanet").GetComponent<PlotPlant>().enabled = false;
 
+				HideRenderRecursively(GameObject.Find ("GlowSeedButton"));
+				HideRenderRecursively(GameObject.Find ("GhostSeedButton"));
+				HideRenderRecursively(GameObject.Find ("CandySeedButton"));
 				/*GameObject.Find ("GlowSeedButton").renderer.enabled= false;
 				GameObject.Find ("GhostSeedButton").renderer.enabled= false;
-				GameObject.Find ("CandySeedButton").renderer.enabled= false;
+				GameObject.Find ("CandySeedButton").renderer.enabled= false;*/
 
-				GameObject.Find ("GlowSeedButtonCollide").collider.enabled= false;
-				GameObject.Find ("GhostSeedButtonCollide").collider.enabled= false;
-				GameObject.Find ("CandySeedButtonCollide").collider.enabled= false;*/
+				GameObject.Find ("GlowSeedButton").collider.enabled= false;
+				GameObject.Find ("GhostSeedButton").collider.enabled= false;
+				GameObject.Find ("CandySeedButton").collider.enabled= false;
 
 				cooldownTime -= Time.deltaTime;
 	
@@ -72,20 +83,20 @@ public class watchtapping : MonoBehaviour {
 				GameObject.Find("VRJellyFishTree").collider.enabled = false;
 
 				GameObject.Find("GhostTree").renderer.enabled = false;
-				GameObject.Find("GhostTree").collider.enabled = false;
+				GameObject.Find("VRGhostTree").collider.enabled = false;
 
 				GameObject.Find("Planet").renderer.enabled = false;
 				GameObject.Find("Planet2").renderer.enabled = false;
 				GameObject.Find ("TestPlanet").renderer.enabled = true;
 				GameObject.Find ("TestPlanet").GetComponent<PlotPlant>().enabled = true;
 			
-				/*GameObject.Find ("GlowSeedButton").renderer.enabled= true;
+				GameObject.Find ("GlowSeedButton").renderer.enabled= true;
 				GameObject.Find ("GhostSeedButton").renderer.enabled= true;
 				GameObject.Find ("CandySeedButton").renderer.enabled= true;
 
-				GameObject.Find ("GlowSeedButtonCollide").collider.enabled= true;
-				GameObject.Find ("GhostSeedButtonCollide").collider.enabled= true;
-				GameObject.Find ("CandySeedButtonCollide").collider.enabled= true;*/
+				GameObject.Find ("GlowSeedButton").collider.enabled= true;
+				GameObject.Find ("GhostSeedButton").collider.enabled= true;
+				GameObject.Find ("CandySeedButton").collider.enabled= true;
 
 				cooldownTime -= Time.deltaTime;
 				if (cooldownTime <= 0) {

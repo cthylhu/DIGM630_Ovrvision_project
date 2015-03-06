@@ -145,10 +145,10 @@ public class Ovrvision : MonoBehaviour
 		camProp.AwakePropSaveToXML();
 		
 		//Hmd Type
-		Ovr.HmdDesc desc = OVRManager.capiHmd.GetDesc();
+		/*Ovr.HmdDesc desc = OVRManager.capiHmd.GetDesc();
 		if (desc.Type == Ovr.HmdType.DK1)
 			hmdType = OV_HMD_OCULUS_DK1;
-		else if (desc.Type == Ovr.HmdType.DK2)
+		else if (desc.Type == Ovr.HmdType.DK2)*/
 			hmdType = OV_HMD_OCULUS_DK2;
 		
 		//Open camera
@@ -190,7 +190,7 @@ public class Ovrvision : MonoBehaviour
 		//Set right eye gap
 		if (GameObject.Find("OVRCameraRig"))
 			GameObject.Find("OVRCameraRig").GetComponent<OVRCameraRig>().ovrvisionRightEyeGap
-				= new Vector3(ovGetOculusRightGap(0) * 0.01f , ovGetOculusRightGap(1) * 0.01f, ovGetOculusRightGap(2) * 0.01f); // 1/100
+				= new Vector3(ovGetOculusRightGap(0) * 0.01f +0.5f, ovGetOculusRightGap(1) * 0.01f, ovGetOculusRightGap(2) * 0.01f); // 1/100
 		
 		if (camViewShader == 0)
 		{   //Normal shader

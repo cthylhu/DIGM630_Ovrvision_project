@@ -59,6 +59,8 @@ public class OVRCameraRig : MonoBehaviour
 	//Set ovrvision Right-eye Gap
 	public Vector3 ovrvisionRightEyeGap = new Vector3(0.5f, 0.0f, 0.0f);
 	
+	Matrix4x4 display = Matrix4x4.zero;
+	
 	#region Unity Messages
 	private void Awake()
 	{
@@ -112,12 +114,28 @@ public class OVRCameraRig : MonoBehaviour
 		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
 
 		leftEyeAnchor.localRotation = leftEye.orientation;
-		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
+		centerEyeAnchor.localRotation = rightEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
 		leftEyeAnchor.localPosition = leftEye.position;
 		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position);
+
+		//float centerx = leftEye.position.x +rightEye.position.x/2.0f + 0.2f;
+		
+		//centerEyeAnchor.localPosition = 
+			//new Vector3(centerx, (leftEye.position.y +rightEye.position.y)/2.0f, (leftEye.position.z +rightEye.position.z)/2.0f);
 		rightEyeAnchor.localPosition = new Vector3(rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f);
+		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x, rightEye.position.y, rightEye.position.z);
+
+		Vector4 Lpos = new Vector4 (leftEyeAnchor.localPosition.x, leftEyeAnchor.localPosition.y, leftEyeAnchor.localPosition.z, 0);
+		Vector4 Cpos = new Vector4 (centerEyeAnchor.localPosition.x, centerEyeAnchor.localPosition.y, centerEyeAnchor.localPosition.z, 0);
+		Vector4 Rpos = new Vector4 (rightEyeAnchor.localPosition.x, rightEyeAnchor.localPosition.y, rightEyeAnchor.localPosition.z, 0);
+
+		display.SetRow (0, Lpos);
+		display.SetRow (1, Cpos);
+		display.SetRow (2, Rpos);
+		//Debug.Log ("Eye anchor matrix: " + display);
+
 
 	}
 	
