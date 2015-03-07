@@ -114,17 +114,13 @@ public class OVRCameraRig : MonoBehaviour
 		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
 
 		leftEyeAnchor.localRotation = leftEye.orientation;
-		centerEyeAnchor.localRotation = rightEye.orientation; // using left eye for now
+		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
-		leftEyeAnchor.localPosition = leftEye.position;
-		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position);
-
-		//float centerx = leftEye.position.x +rightEye.position.x/2.0f + 0.2f;
-		
-		//centerEyeAnchor.localPosition = 
-			//new Vector3(centerx, (leftEye.position.y +rightEye.position.y)/2.0f, (leftEye.position.z +rightEye.position.z)/2.0f);
-		rightEyeAnchor.localPosition = new Vector3(rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f);
+		leftEyeAnchor.localPosition = leftEye.position*9.5f;
+		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position)*9.5f;
+		rightEyeAnchor.localPosition = new Vector3(rightEye.position.x, rightEye.position.y, rightEye.position.z)*9.5f;
+		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f)*10.0f;
 		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x, rightEye.position.y, rightEye.position.z);
 
 		Vector4 Lpos = new Vector4 (leftEyeAnchor.localPosition.x, leftEyeAnchor.localPosition.y, leftEyeAnchor.localPosition.z, 0);

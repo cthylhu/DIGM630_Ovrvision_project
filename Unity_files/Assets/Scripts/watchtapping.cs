@@ -40,13 +40,13 @@ public class watchtapping : MonoBehaviour {
 		
 				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
 
-				GameObject.Find("VRHornedbellTree").renderer.enabled = true;
-				GameObject.Find("VRJellyFishTree").renderer.enabled = true;
-				GameObject.Find("VRHornedbellTree").collider.enabled = true;
-				GameObject.Find("VRJellyFishTree").collider.enabled = true;
+				//GameObject.Find("VRHornedbellTree").renderer.enabled = true;
+				//GameObject.Find("VRJellyFishTree").renderer.enabled = true;
+				//GameObject.Find("VRHornedbellTree").collider.enabled = true;
+				//GameObject.Find("VRJellyFishTree").collider.enabled = true;
 
-				GameObject.Find("GhostTree").renderer.enabled = true;
-				GameObject.Find("VRGhostTree").collider.enabled = true;
+				//GameObject.Find("GhostTree").renderer.enabled = true;
+				//GameObject.Find("VRGhostTree").collider.enabled = true;
 
 				GameObject.Find("Planet").renderer.enabled = true;
 				GameObject.Find("Planet2").renderer.enabled = true;
@@ -77,13 +77,14 @@ public class watchtapping : MonoBehaviour {
 			if (Gameworld == new Vector3 (1, 1, 1)) {
 	
 				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-				GameObject.Find("VRHornedbellTree").renderer.enabled = false;
-				GameObject.Find("VRJellyFishTree").renderer.enabled = false;
-				GameObject.Find("VRHornedbellTree").collider.enabled = false;
-				GameObject.Find("VRJellyFishTree").collider.enabled = false;
 
-				GameObject.Find("GhostTree").renderer.enabled = false;
-				GameObject.Find("VRGhostTree").collider.enabled = false;
+				//GameObject.Find("VRHornedbellTree").renderer.enabled = false;
+				//GameObject.Find("VRJellyFishTree").renderer.enabled = false;
+				//GameObject.Find("VRHornedbellTree").collider.enabled = false;
+				//GameObject.Find("VRJellyFishTree").collider.enabled = false; 
+
+				//GameObject.Find("GhostTree").renderer.enabled = false;
+				//GameObject.Find("VRGhostTree").collider.enabled = false;
 
 				GameObject.Find("Planet").renderer.enabled = false;
 				GameObject.Find("Planet2").renderer.enabled = false;
