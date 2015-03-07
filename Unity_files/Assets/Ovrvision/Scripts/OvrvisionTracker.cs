@@ -35,6 +35,7 @@ public class OvrvisionTracker : MonoBehaviour {
 			if (GameObject.Find ("LeftEyeAnchor"))
 				this.transform.parent = GameObject.Find ("LeftEyeAnchor").transform;
 		}
+		this.transform.localPosition = new Vector3 (-10000.0f, -10000.0f, -10000.0f);
 	}
 
 	// UpdateTracker

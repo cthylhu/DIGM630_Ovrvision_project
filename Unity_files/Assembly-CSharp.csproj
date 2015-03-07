@@ -136,10 +136,12 @@
      <Compile Include="Assets\Portalizer\PortalizerResources\Scripts\PortalView.cs" />
      <Compile Include="Assets\Scripts\Button.cs" />
      <Compile Include="Assets\Scripts\OVRHeadTracking.cs" />
-     <Compile Include="Assets\Scripts\Plants.cs" />
+     <Compile Include="Assets\Scripts\PlantingSeed.cs" />
      <Compile Include="Assets\Scripts\PlotPlant.cs" />
+     <Compile Include="Assets\Scripts\PokePlants.cs" />
      <Compile Include="Assets\Scripts\Righthand.cs" />
      <Compile Include="Assets\Scripts\Righthand_info.cs" />
+     <Compile Include="Assets\Scripts\raycasttest.cs" />
      <Compile Include="Assets\Scripts\sounds.cs" />
      <Compile Include="Assets\Scripts\watchtapping.cs" />
      <None Include="Assets\LeapMotion\Resources\LeapIRUndistorted.shader" />

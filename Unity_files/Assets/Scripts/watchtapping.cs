@@ -15,7 +15,7 @@ public class watchtapping : MonoBehaviour {
 	
 	private float cooldownTime;
 	public float MaxcooldownTime;
-	
+	public static bool setorigin = false;
 	private Vector3 Gameworld;
 
 	void Start () {
@@ -37,7 +37,9 @@ public class watchtapping : MonoBehaviour {
 			audio.PlayOneShot (spaceswitch);
 
 			if (Gameworld == new Vector3 (0, 0, 0)) {
-		
+				Debug.Log ("Switch triggered!");
+				setorigin = true;
+
 				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
 
 				//GameObject.Find("VRHornedbellTree").renderer.enabled = true;
@@ -48,8 +50,6 @@ public class watchtapping : MonoBehaviour {
 				//GameObject.Find("GhostTree").renderer.enabled = true;
 				//GameObject.Find("VRGhostTree").collider.enabled = true;
 
-				GameObject.Find("Planet").renderer.enabled = true;
-				GameObject.Find("Planet2").renderer.enabled = true;
 				GameObject.Find ("TestPlanet").renderer.enabled = false;
 				GameObject.Find ("TestPlanet").GetComponent<PlotPlant>().enabled = false;
 
@@ -86,8 +86,6 @@ public class watchtapping : MonoBehaviour {
 				//GameObject.Find("GhostTree").renderer.enabled = false;
 				//GameObject.Find("VRGhostTree").collider.enabled = false;
 
-				GameObject.Find("Planet").renderer.enabled = false;
-				GameObject.Find("Planet2").renderer.enabled = false;
 				GameObject.Find ("TestPlanet").renderer.enabled = true;
 				GameObject.Find ("TestPlanet").GetComponent<PlotPlant>().enabled = true;
 			

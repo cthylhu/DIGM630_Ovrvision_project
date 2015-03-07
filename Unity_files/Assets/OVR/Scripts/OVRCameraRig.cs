@@ -103,35 +103,34 @@ public class OVRCameraRig : MonoBehaviour
 	private void UpdateAnchors()
 	{
 		/*OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
-		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
-		
-		leftEyeAnchor.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-		centerEyeAnchor.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-		rightEyeAnchor.localPosition = ovrvisionRightEyeGap;*/
+		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);*/
 		
 
-		OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
-		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
+		//leftEyeAnchor.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
+		//centerEyeAnchor.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
+		//rightEyeAnchor.localPosition = ovrvisionRightEyeGap;
+
+		OVRPose leftEye = OVRManager.display.GetEyePose (OVREye.Left);
+		OVRPose rightEye = OVRManager.display.GetEyePose (OVREye.Right);
 
 		leftEyeAnchor.localRotation = leftEye.orientation;
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
-		leftEyeAnchor.localPosition = leftEye.position*9.5f;
-		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position)*9.5f;
-		rightEyeAnchor.localPosition = new Vector3(rightEye.position.x, rightEye.position.y, rightEye.position.z)*9.5f;
+		leftEyeAnchor.localPosition = leftEye.position * 9.5f;
+		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 9.5f;
+		rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x, rightEye.position.y, rightEye.position.z) * 9.5f;
 		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f)*10.0f;
 		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x, rightEye.position.y, rightEye.position.z);
 
-		Vector4 Lpos = new Vector4 (leftEyeAnchor.localPosition.x, leftEyeAnchor.localPosition.y, leftEyeAnchor.localPosition.z, 0);
+		/*Vector4 Lpos = new Vector4 (leftEyeAnchor.localPosition.x, leftEyeAnchor.localPosition.y, leftEyeAnchor.localPosition.z, 0);
 		Vector4 Cpos = new Vector4 (centerEyeAnchor.localPosition.x, centerEyeAnchor.localPosition.y, centerEyeAnchor.localPosition.z, 0);
 		Vector4 Rpos = new Vector4 (rightEyeAnchor.localPosition.x, rightEyeAnchor.localPosition.y, rightEyeAnchor.localPosition.z, 0);
 
 		display.SetRow (0, Lpos);
 		display.SetRow (1, Cpos);
 		display.SetRow (2, Rpos);
-		//Debug.Log ("Eye anchor matrix: " + display);
-
+		Debug.Log ("Eye anchor matrix: " + display);*/
 
 	}
 	

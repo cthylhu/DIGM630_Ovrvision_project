@@ -124,32 +124,8 @@ public class PlotPlant : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
-
-
 		//popfromdirt = GameObject.Find ("Test_Plant_Planet").transform.localPosition.y;
-
-
-		//if (Input.GetKeyDown ("a")) {
-		/*
-		if (righthand.plotplant) {
-						if (planted == 0) {
-								//Debug.Log ("You are planting!");
-								Renderer[] children = GetComponentsInChildren<Renderer> ();
-								foreach (Renderer r in children) {
-										//Debug.Log("Child: " + r.name);
-										if (r.name == "Test_Plant_Planet") {
-												r.renderer.enabled = true;
-												plantheight = plantSeed.transform.localPosition;
-												plantSeed.transform.localPosition += new Vector3 (0, 0.02f, 0);
-												planted = 1;
-										} else {
-												r.renderer.enabled = false;
-										}
-								}
-						}
-				}
-*/
+		
 		switch (Planting) {
 			
 		case GestureState.none:

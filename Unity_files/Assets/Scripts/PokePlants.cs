@@ -3,10 +3,10 @@ using System.Collections;
 using Leap;
 
 
-public class Plants : MonoBehaviour {
+public class PokePlants : MonoBehaviour {
 	
 	//scripts
-	public sounds sounds;
+	public sounds sound; 
 	public AudioClip movement_poke;
 	
 	// Use this for initialization
