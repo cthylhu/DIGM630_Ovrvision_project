@@ -135,7 +135,10 @@
      <Compile Include="Assets\Ovrvision\Scripts\OvrvisionTracker.cs" />
      <Compile Include="Assets\Portalizer\PortalizerResources\Scripts\PortalView.cs" />
      <Compile Include="Assets\Scripts\Button.cs" />
-     <Compile Include="Assets\Scripts\OVRHeadTracking.cs" />
+     <Compile Include="Assets\Scripts\FallandFloat.cs" />
+     <Compile Include="Assets\Scripts\Family.cs" />
+     <Compile Include="Assets\Scripts\Grab.cs" />
+     <Compile Include="Assets\Scripts\Lefthand.cs" />
      <Compile Include="Assets\Scripts\PlantingSeed.cs" />
      <Compile Include="Assets\Scripts\PlotPlant.cs" />
      <Compile Include="Assets\Scripts\PokePlants.cs" />

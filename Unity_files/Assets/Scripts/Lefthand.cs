@@ -2,18 +2,17 @@
 using System.Collections;
 using Leap;
 
-public class Righthand : MonoBehaviour {
+public class Lefthand : MonoBehaviour {
 	Controller Controller = new Controller();
 	public static bool plotplant;
-	public static bool dighole;
 	public static bool openhand;
 	public static bool normalgrow;
 	public static bool reversegrow;
 	public static bool magicgrow;
 	public static bool fist;
 	public Vector3 palmposition;
-
-
+	
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -29,16 +28,16 @@ public class Righthand : MonoBehaviour {
 		Frame perviousframe6 = Controller.Frame (6);
 		
 		// Right Hand variables
-		Hand rightmost = startframe.Hands.Rightmost;
-		Arm arm = rightmost.Arm;
+		Hand leftmost = startframe.Hands.Leftmost;
+		Arm arm = leftmost.Arm;
 		
-		if ((rightmost.IsRight) && (startframe.Hands.Count > 0)) {
+		if ((leftmost.IsLeft) && (startframe.Hands.Count > 0)) {
 			
-			Finger thumb = rightmost.Fingers [0];
-			Finger index = rightmost.Fingers [1];
-			Finger middle = rightmost.Fingers [2];
-			Finger ring = rightmost.Fingers [3];
-			Finger pinky = rightmost.Fingers [4];
+			Finger thumb = leftmost.Fingers [0];
+			Finger index = leftmost.Fingers [1];
+			Finger middle = leftmost.Fingers [2];
+			Finger ring = leftmost.Fingers [3];
+			Finger pinky = leftmost.Fingers [4];
 			
 			
 			float ringtipSpeed_x = ring.TipVelocity.x;
@@ -47,29 +46,29 @@ public class Righthand : MonoBehaviour {
 			
 			//float trans_ringtipSpeed_z = perviousframe.Hands.Rightmost.Fingers [3].TipVelocity.z - ringtipSpeed_z;
 			
-			float pitch = rightmost.Direction.Pitch * 180.0f / Mathf.PI;
-			float roll = rightmost.PalmNormal.Roll * 180.0f / Mathf.PI;
-			float yaw = rightmost.Direction.Yaw * 180.0f / Mathf.PI;
-			float Grab = rightmost.GrabStrength;
-			float Pinch = rightmost.PinchStrength;
-			float radius = rightmost.SphereRadius;
-			float handmove_x = rightmost.PalmPosition.x;
-			float handmove_y = rightmost.PalmPosition.y;
-			float handmove_z = rightmost.PalmPosition.z;
+			float pitch = leftmost.Direction.Pitch * 180.0f / Mathf.PI;
+			float roll = leftmost.PalmNormal.Roll * 180.0f / Mathf.PI;
+			float yaw = leftmost.Direction.Yaw * 180.0f / Mathf.PI;
+			float Grab = leftmost.GrabStrength;
+			float Pinch = leftmost.PinchStrength;
+			float radius = leftmost.SphereRadius;
+			float handmove_x = leftmost.PalmPosition.x;
+			float handmove_y = leftmost.PalmPosition.y;
+			float handmove_z = leftmost.PalmPosition.z;
 			
-			float wrist_x = rightmost.Arm.WristPosition.x;
-			float wrist_y = rightmost.Arm.WristPosition.y;
-			float wrist_z = rightmost.Arm.WristPosition.z;
-			float elbow_x = rightmost.Arm.ElbowPosition.x;
-			float elbow_y = rightmost.Arm.ElbowPosition.y;
-			float elbow_z = rightmost.Arm.ElbowPosition.z;
+			float wrist_x = leftmost.Arm.WristPosition.x;
+			float wrist_y = leftmost.Arm.WristPosition.y;
+			float wrist_z = leftmost.Arm.WristPosition.z;
+			float elbow_x = leftmost.Arm.ElbowPosition.x;
+			float elbow_y = leftmost.Arm.ElbowPosition.y;
+			float elbow_z = leftmost.Arm.ElbowPosition.z;
 			
 			Vector3 handcenter = new Vector3 (handmove_x, handmove_y, -handmove_z);
-
+			
 			palmposition = handcenter;
-
+			
 			Vector3 wristposition= new Vector3 ( wrist_x ,wrist_y ,-wrist_z );
-
+			
 			
 			float transRadius = perviousframe6.Hands.Rightmost.SphereRadius - radius;
 			float transPitch = perviousframe10.Hands.Rightmost.Direction.Pitch - pitch;
@@ -84,11 +83,10 @@ public class Righthand : MonoBehaviour {
 			float transWave_y_3 = perviousframe3.Hands.Rightmost.PalmPosition.y - handmove_y;
 			float transWave_z_3 = perviousframe3.Hands.Rightmost.PalmPosition.z - handmove_z;
 			float transWave_x_3 = perviousframe3.Hands.Rightmost.PalmPosition.x - handmove_x;
-
+			
 			// Gesture booleans
-					
-		    plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
-			dighole = !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended && transWave_y_3>5 && roll<20 && roll>-20;
+			
+			plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
 			openhand = Grab<0.2;
 			fist = Grab >0.8;
 			//Debug.Log ("Open hand?: " +openhand);
@@ -100,5 +98,5 @@ public class Righthand : MonoBehaviour {
 		}
 		
 	}
-
+	
 }

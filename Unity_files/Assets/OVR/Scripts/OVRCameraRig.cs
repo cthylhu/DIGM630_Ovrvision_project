@@ -117,9 +117,29 @@ public class OVRCameraRig : MonoBehaviour
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
-		leftEyeAnchor.localPosition = leftEye.position * 9.5f;
-		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 9.5f;
-		rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x, rightEye.position.y, rightEye.position.z) * 9.5f;
+		/*
+		leftEyeAnchor.localPosition.x = leftEye.position.x * 6.5f;
+		leftEyeAnchor.localPosition.y = leftEye.position.y * 6.5f;
+		leftEyeAnchor.localPosition.z = leftEye.position.z * 10.0f;
+		leftEye.position = new Vector3 (leftEyeAnchor.localPosition.x, leftEyeAnchor.localPosition.y, leftEyeAnchor.localPosition.z);
+
+
+        */
+
+		leftEyeAnchor.localPosition = new Vector3 (leftEye.position.x * 6.5f, leftEye.position.y * 6.5f, leftEye.position.z * 20.0f);
+		rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x * 6.5f, rightEye.position.y * 6.5f, rightEye.position.z * 20.0f);
+
+		/*
+		rightEyeAnchor.localPosition.x = rightEye.position.x * 6.5f;
+		rightEyeAnchor.localPosition.y = rightEye.position.y * 6.5f;
+		rightEyeAnchor.localPosition.z = rightEye.position.z * 10.0f;
+		rightEye.position = new Vector3 (rightEyeAnchor.localPosition.x, rightEyeAnchor.localPosition.y, rightEyeAnchor.localPosition.z);
+         */
+
+		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 6.5f;
+
+
+		//rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x*6.5f, rightEye.position.y*6.5f, rightEye.position.z*9.5f) *6.5f;
 		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f)*10.0f;
 		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x, rightEye.position.y, rightEye.position.z);
 

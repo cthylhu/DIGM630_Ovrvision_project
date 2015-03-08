@@ -8,6 +8,7 @@ public class sounds : MonoBehaviour {
 	public AudioClip CandySeedButton;
 	public AudioClip ColorPickerButton;
 	public AudioClip GhostSeedButton;
+	public AudioClip planted;
 
 	// Use this for initialization
 	void Start () {
