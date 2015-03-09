@@ -8,6 +8,8 @@ public class PlantingSeed : MonoBehaviour {
 	GameObject basePlanet;
 	GameObject holeModel;
 	GameObject sproutModel;
+	GameObject PortalObject;
+	GameObject[] AllPortals;
 
 	int hitcount = 1;
 
@@ -18,18 +20,28 @@ public class PlantingSeed : MonoBehaviour {
 			if(t.name == name)
 				return t.gameObject;
 		}
-		
 		return null;
 	}
-	
+
+	public void TurnOffAllPortals (){
+		AllPortals = GameObject.FindGameObjectsWithTag("Portal1");
+		foreach (GameObject p in AllPortals) {
+			p.transform.Find ("Active").gameObject.renderer.enabled = false;
+			p.transform.Find ("Inactive").gameObject.renderer.enabled = false;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
-		basePlanet = FindInChildren (GameObject.Find ("CubeGameObject"), "TestPlanet");
-		holeModel = FindInChildren (GameObject.Find ("CubeGameObject"), "Planet_with_hole");
-		sproutModel = FindInChildren (GameObject.Find ("CubeGameObject"), "Planet_with_plant");
+		basePlanet = FindInChildren (GameObject.Find ("AREnvironment"), "TestPlanet");
+		holeModel = FindInChildren (GameObject.Find ("AREnvironment"), "Planet_with_hole");
+		sproutModel = FindInChildren (GameObject.Find ("AREnvironment"), "Planet_with_plant");
 
 		Debug.Log ("HoleModel: " + holeModel.name);
 		Debug.Log ("SproutModel: " + sproutModel.name);
+
+		PortalObject = FindInChildren (GameObject.Find ("AREnvironment"), "Portal1");
+		TurnOffAllPortals ();
 
 	}
 
@@ -56,6 +68,7 @@ public class PlantingSeed : MonoBehaviour {
 		Righthand.reversegrow = false;  
 		
 	}
+
 	// Update is called once per frame
 
 	void Update () {
@@ -70,8 +83,9 @@ public class PlantingSeed : MonoBehaviour {
 
 			if (hit.collider.name == "CubeGameObject"){
 				basePlanet = hit.collider.transform.Find("TestPlanet").gameObject;										// Set specific baseplanet
-				holeModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_hole").gameObject;		//Set specific holeModel
-				sproutModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_plant").gameObject;	//Set specific sproutModel
+				holeModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_hole").gameObject;		// Set specific holeModel
+				sproutModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_plant").gameObject;	// Set specific sproutModel
+				PortalObject = basePlanet.transform.parent.gameObject.transform.Find("PortalContainer").gameObject.transform.Find ("Portal1").gameObject;
 
 				//Debug.Log ("Parent: "+childOfCollider);
 				basePlanet.renderer.material.SetColor ("_OutlineColor", Color.green);
@@ -84,8 +98,8 @@ public class PlantingSeed : MonoBehaviour {
 				hitcount++;
 			
 
-			// 2. Dig a hole in the ground
-			// Detect finger-poke collision with planet
+				// 2. Dig a hole in the ground
+				// Detect finger-poke collision with planet
 				//if (Righthand.dighole) {
 				if (Input.GetKeyDown ("a")) {
 					if (!(basePlanet.GetComponent<PlanetInfo>().dighole)) {
@@ -100,8 +114,8 @@ public class PlantingSeed : MonoBehaviour {
 					
 				}
 
-			// 3. Detect what type of plant you want to plant
-			// Detect finger-poke collision with button
+				// 3. Detect what type of plant you want to plant
+				// Detect finger-poke collision with button
 				if (Input.GetKeyDown ("z")) {
 					basePlanet.GetComponent<PlanetInfo>().plantType = 1;
 				}
@@ -112,7 +126,7 @@ public class PlantingSeed : MonoBehaviour {
 					basePlanet.GetComponent<PlanetInfo>().plantType = 3;
 				}
 
-			//4. Plant the seed
+				//4. Plant the seed
 				if (basePlanet.GetComponent<PlanetInfo>().dighole) {
 					//if (seedinsoil) {
 					if (Input.GetKeyDown ("s")) {
@@ -131,7 +145,15 @@ public class PlantingSeed : MonoBehaviour {
 					}
 				}
 
+				// 5. Check if player wants to open a portal preview
 				if (basePlanet.GetComponent<PlanetInfo>().planted) {
+
+					if (Input.GetKeyDown ("o")) {
+						OpenPortal();
+					}
+
+
+
 					if (Righthand.normalgrow ) {
 						NormalGrow();
 					}
@@ -148,12 +170,25 @@ public class PlantingSeed : MonoBehaviour {
 			sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 		}
 
+		if (Input.GetKeyDown ("p")) {
+			ClosePortal();
+		}
 
 	}
 
 
 
-
+	public void OpenPortal (){
+		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
+		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;
+		
+	}
+	
+	public void ClosePortal (){
+		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = false;
+		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = false;
+		
+	}
 
 
 

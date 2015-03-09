@@ -2,36 +2,48 @@
 using System.Collections;
 
 public class PortalController : MonoBehaviour {
-	bool openPortal = false;
+	bool opened = false;
+	GameObject PortalObject;
 
 	// Use this for initialization
 	void Start () {
-		GameObject.Find ("Portal1").transform.Find ("Active").gameObject.renderer.enabled = false;
-		GameObject.Find ("Portal1").transform.Find ("Inactive").gameObject.renderer.enabled = false;
-		//GameObject.Find("Portal1").transform.parent = GameObject.Find("LeftEyeAnchor").transform;
-		//GameObject.Find("Portal1").transform.parent.transform.localPosition = new Vector3(0.0f, 0.0f, 3.0f);
+		PortalObject = GameObject.Find ("Portal1");
+		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = false;
+		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 
-		if (!openPortal){
+		/*if (!opened){
 			// If player <insert gesture> while looking at a planet, activate Portal
 			if (Input.GetKeyDown ("o")) {
-				GameObject.Find ("Portal1").transform.Find ("Active").gameObject.renderer.enabled = true;
-				GameObject.Find ("Portal1").transform.Find ("Inactive").gameObject.renderer.enabled = true;
-				openPortal = true;
+				PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
+				PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;
+				opened = true;
 			}
 
 		}
 		else{
 			// If player <insert other gesture> while looking at a planet, deactivate Portal
 			if (Input.GetKeyDown ("p")) {
-				GameObject.Find ("Portal1").transform.Find ("Active").gameObject.renderer.enabled = false;
-				GameObject.Find ("Portal1").transform.Find ("Inactive").gameObject.renderer.enabled = false;
-				openPortal = false;
+				PortalObject.transform.Find ("Active").gameObject.renderer.enabled = false;
+				PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = false;
+				opened = false;
 			}
-		}
+		}*/
+	}
+
+	public void OpenPortal (){
+		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
+		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;
+
+	}
+
+	public void ClosePortal (){
+		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = false;
+		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = false;
+
 	}
 }

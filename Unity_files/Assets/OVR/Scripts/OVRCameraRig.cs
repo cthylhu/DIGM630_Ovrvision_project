@@ -60,6 +60,7 @@ public class OVRCameraRig : MonoBehaviour
 	public Vector3 ovrvisionRightEyeGap = new Vector3(0.5f, 0.0f, 0.0f);
 	
 	Matrix4x4 display = Matrix4x4.zero;
+	GameObject[] AllPortals;
 	
 	#region Unity Messages
 	private void Awake()
@@ -70,6 +71,7 @@ public class OVRCameraRig : MonoBehaviour
 			return;
 		
 		needsCameraConfigure = true;
+		AllPortals = GameObject.FindGameObjectsWithTag("PortalContainer");
 	}
 	
 	private void Start()
@@ -81,6 +83,8 @@ public class OVRCameraRig : MonoBehaviour
 		
 		UpdateCameras();
 		UpdateAnchors();
+
+
 	}
 	
 	#if !UNITY_ANDROID || UNITY_EDITOR
@@ -109,7 +113,13 @@ public class OVRCameraRig : MonoBehaviour
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
-		GameObject.Find("PortalContainer1").transform.localRotation = leftEye.orientation;
+		GameObject.Find ("PortalContainer2").transform.localRotation = leftEyeAnchor.localRotation;
+
+		foreach(GameObject p in AllPortals)
+		{
+			p.transform.localRotation = leftEye.orientation;
+		}
+
 		//Debug.Log ("Portal orientation: "+GameObject.Find("Portal1").transform.localRotation.eulerAngles);
 		/*
 		// Original OVR positioning 
