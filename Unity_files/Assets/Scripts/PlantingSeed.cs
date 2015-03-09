@@ -77,7 +77,7 @@ public class PlantingSeed : MonoBehaviour {
 		Vector3 fwd = GameObject.Find("CenterEyeAnchor").transform.forward;
 		RaycastHit hit;
 
-		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 20)){
+		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 50)){
 			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
 			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
@@ -97,8 +97,25 @@ public class PlantingSeed : MonoBehaviour {
 
 				hitcount++;
 			
-
-				// 2. Dig a hole in the ground
+				// 2. Detect what type of plant you want to plant
+				// Detect finger-poke collision with button
+				if (Input.GetKeyDown ("z")) {
+					basePlanet.GetComponent<PlanetInfo>().plantType = 1;
+				}
+				if (Input.GetKeyDown ("x")) {
+					basePlanet.GetComponent<PlanetInfo>().plantType = 2;
+				}
+				if (Input.GetKeyDown ("c")) {
+					basePlanet.GetComponent<PlanetInfo>().plantType = 3;
+				}
+				if (Input.GetKeyDown ("v")) {
+					basePlanet.GetComponent<PlanetInfo>().plantType = 4;
+				}
+				if (Input.GetKeyDown ("b")) {
+					basePlanet.GetComponent<PlanetInfo>().plantType = 5;
+				}
+				
+				// 3. Dig a hole in the ground
 				// Detect finger-poke collision with planet
 				//if (Righthand.dighole) {
 				if (Input.GetKeyDown ("a")) {
@@ -114,17 +131,6 @@ public class PlantingSeed : MonoBehaviour {
 					
 				}
 
-				// 3. Detect what type of plant you want to plant
-				// Detect finger-poke collision with button
-				if (Input.GetKeyDown ("z")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 1;
-				}
-				if (Input.GetKeyDown ("x")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 2;
-				}
-				if (Input.GetKeyDown ("c")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 3;
-				}
 
 				//4. Plant the seed
 				if (basePlanet.GetComponent<PlanetInfo>().dighole) {
@@ -153,7 +159,6 @@ public class PlantingSeed : MonoBehaviour {
 					}
 
 
-
 					if (Righthand.normalgrow ) {
 						NormalGrow();
 					}
@@ -170,6 +175,7 @@ public class PlantingSeed : MonoBehaviour {
 			sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 		}
 
+		// Player can close any portal at any time
 		if (Input.GetKeyDown ("p")) {
 			ClosePortal();
 		}
@@ -179,6 +185,32 @@ public class PlantingSeed : MonoBehaviour {
 
 
 	public void OpenPortal (){
+		// Parent portal under the appropriate view object
+		Debug.Log ("Plant type: "+basePlanet.GetComponent<PlanetInfo> ().plantType);
+
+		switch (basePlanet.GetComponent<PlanetInfo> ().plantType) {
+		
+		case 0:
+			GameObject.Find ("Portal2").transform.position = new Vector3(-1000.0f, -1000.0f, -1000.0f);
+			break;
+		case 1:
+			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_hornbell").transform.Find ("PortalContainer2"), false);
+			break;
+		case 2:
+			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_candyfaces").transform.Find ("PortalContainer2"), false);
+			break;
+		case 3:
+			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_skullshroom").transform.Find ("PortalContainer2"), false);
+			break;
+		case 4:
+			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_ghosttree").transform.Find ("PortalContainer2"), false);
+			break;
+		case 5:
+			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_lollipop").transform.Find ("PortalContainer2"), false);
+			break;
+		}
+
+
 		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
 		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;
 		
