@@ -2,10 +2,7 @@
 using System.Collections;
 
 public class PlantingSeed : MonoBehaviour {
-	public bool planted = false;
-	public bool dighole = false;
-	public bool seedinsoil = false;
-	public int plantType = 0;
+
 	public Righthand Righthand;
 
 	GameObject basePlanet;
@@ -41,7 +38,7 @@ public class PlantingSeed : MonoBehaviour {
 
 	void CheckSeed(bool droptosoil){
 
-		seedinsoil = droptosoil;
+		basePlanet.GetComponent<PlanetInfo>().seedinsoil = droptosoil;
 
 		}
 
@@ -72,7 +69,10 @@ public class PlantingSeed : MonoBehaviour {
 			Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
 			Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
-			basePlanet = hit.collider.transform.Find("TestPlanet").gameObject;
+			basePlanet = hit.collider.transform.Find("TestPlanet").gameObject;				// Set specific baseplanet
+			holeModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_hole").gameObject;
+			sproutModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_plant").gameObject;
+
 			//Debug.Log ("Parent: "+childOfCollider);
 			basePlanet.renderer.material.SetColor ("_OutlineColor", Color.green);
 
@@ -131,7 +131,7 @@ public class PlantingSeed : MonoBehaviour {
 				}
 			}
 
-			if (planted) {
+			if (basePlanet.GetComponent<PlanetInfo>().planted) {
 				if (Righthand.normalgrow ) {
 					NormalGrow();
 				}
