@@ -64,9 +64,9 @@ public class PlantingSeed : MonoBehaviour {
 		Vector3 fwd = GameObject.Find("CenterEyeAnchor").transform.forward;
 		RaycastHit hit;
 
-		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 9)){
-			Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
-			Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
+		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 20)){
+			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
+			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
 			if (hit.collider.name == "CubeGameObject"){
 				basePlanet = hit.collider.transform.Find("TestPlanet").gameObject;										// Set specific baseplanet

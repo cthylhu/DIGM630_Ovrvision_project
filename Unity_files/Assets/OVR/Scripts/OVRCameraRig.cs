@@ -109,6 +109,8 @@ public class OVRCameraRig : MonoBehaviour
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
+		GameObject.Find("PortalContainer1").transform.localRotation = leftEye.orientation;
+		//Debug.Log ("Portal orientation: "+GameObject.Find("Portal1").transform.localRotation.eulerAngles);
 		/*
 		// Original OVR positioning 
 		leftEyeAnchor.localPosition = leftEye.position;

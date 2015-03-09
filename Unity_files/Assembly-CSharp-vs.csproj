@@ -143,6 +143,7 @@
      <Compile Include="Assets\Scripts\PlantingSeed.cs" />
      <Compile Include="Assets\Scripts\PlotPlant.cs" />
      <Compile Include="Assets\Scripts\PokePlants.cs" />
+     <Compile Include="Assets\Scripts\PortalController.cs" />
      <Compile Include="Assets\Scripts\Righthand.cs" />
      <Compile Include="Assets\Scripts\Righthand_info.cs" />
      <Compile Include="Assets\Scripts\raycasttest.cs" />
