@@ -2,28 +2,39 @@
 using System.Collections;
 
 public class PlantingSeed : MonoBehaviour {
-	 public bool planted = false;
-	public  bool  dighole = false;
-	 public bool seedinsoil = false;
+	public bool planted = false;
+	public bool dighole = false;
+	public bool seedinsoil = false;
 	public int plantType = 0;
 	public Righthand Righthand;
-	
-	Transform holeModel;
-	Transform sproutModel;
-	Material holeMat;
-	Material sproutMat;
-	int hitcount = 0;
 
+	GameObject basePlanet;
+	GameObject holeModel;
+	GameObject sproutModel;
+
+	int hitcount = 1;
+
+	public static GameObject FindInChildren(GameObject gameObject, string name)
+	{
+		foreach(Transform t in gameObject.GetComponentsInChildren<Transform>())
+		{
+			if(t.name == name)
+				return t.gameObject;
+		}
+		
+		return null;
+	}
+	
 	// Use this for initialization
 	void Start () {
-		//Debug.Log (gameObject.name);
+		basePlanet = FindInChildren (GameObject.Find ("CubeGameObject"), "TestPlanet");
 
-		holeModel = this.transform.FindChild ("Planet_with_hole");
-		sproutModel = this.transform.FindChild ("Planet_with_plant");
-		holeMat = holeModel.renderer.material;
-		sproutMat = sproutModel.renderer.material;
-		Debug.Log ("Hole mat: "+holeMat.name);
-		Debug.Log ("Sprout mat: "+sproutMat.name);
+		holeModel = FindInChildren (GameObject.Find ("CubeGameObject"), "Planet_with_hole");
+		sproutModel = FindInChildren (GameObject.Find ("CubeGameObject"), "Planet_with_plant");
+
+		Debug.Log ("HoleModel: " + holeModel.name);
+		Debug.Log ("SproutModel: " + sproutModel.name);
+
 	}
 
 	// Check whether there is seed in soil
@@ -39,7 +50,7 @@ public class PlantingSeed : MonoBehaviour {
 		this.transform.localScale -= new Vector3 (0.01f,0.01f,0.01f) ;
 		//plantsize = plantSeed.transform.localScale;
 		
-		Righthand.normalgrow = false;  
+		Righthand.normalgrow = false;
 	}
 	
 	
@@ -51,63 +62,71 @@ public class PlantingSeed : MonoBehaviour {
 	}
 	// Update is called once per frame
 
-		void Update () {
+	void Update () {
 
-		// 1. Detect which planet you're looking at
+		// 1. Detect if you're looking at a planet
 		Vector3 fwd = GameObject.Find("CenterEyeAnchor").transform.forward;
 		RaycastHit hit;
+
 		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 9)){
-//			Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
+			Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
+			Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
+
+			basePlanet = hit.collider.transform.Find("TestPlanet").gameObject;
+			//Debug.Log ("Parent: "+childOfCollider);
+			basePlanet.renderer.material.SetColor ("_OutlineColor", Color.green);
+
+			//this.renderer.material.SetColor ("_OutlineColor", Color.green);
+
+			holeModel.renderer.material.SetColor ("_OutlineColor", Color.green);
+			sproutModel.renderer.material.SetColor ("_OutlineColor", Color.green);
+
 			hitcount++;
-			this.renderer.material.SetColor ("_OutlineColor", Color.green);
-			holeMat.SetColor ("_OutlineColor", Color.green);
-			sproutMat.SetColor ("_OutlineColor", Color.green);
 
-			//Debug.Log ("hParent: "+holeModel.parent);
-			//Debug.Log ("sParent: "+sproutModel.parent);
 
-			// 2. Dig a hole in the ground
-			// Detect finger-poke collision with planet
-			if (Righthand.dighole) {
-				
-				if (!dighole) {
+		// 2. Dig a hole in the ground
+		// Detect finger-poke collision with planet
+			//if (Righthand.dighole) {
+			if (Input.GetKeyDown ("a")) {
+				if (!(basePlanet.GetComponent<PlanetInfo>().dighole)) {
 					Debug.Log ("Diggy diggy hole!");
 					
-					this.renderer.enabled = false;
+					basePlanet.renderer.enabled = false;
 					holeModel.renderer.enabled = true;
 					sproutModel.renderer.enabled = false;
-					dighole = true;
+					basePlanet.GetComponent<PlanetInfo>().dighole = true;
 					
 				}
 				
 			}
 
-			// 3. Detect what type of plant you want to plant
-			// Detect finger-poke collision with button
+		// 3. Detect what type of plant you want to plant
+		// Detect finger-poke collision with button
 			if (Input.GetKeyDown ("z")) {
-				plantType = 1;
+				basePlanet.GetComponent<PlanetInfo>().plantType = 1;
 			}
 			if (Input.GetKeyDown ("x")) {
-				plantType = 2;
+				basePlanet.GetComponent<PlanetInfo>().plantType = 2;
 			}
 			if (Input.GetKeyDown ("c")) {
-				plantType = 3;
+				basePlanet.GetComponent<PlanetInfo>().plantType = 3;
 			}
 
-			//4. Plant the seed
-			if (dighole) {
-				if (seedinsoil) {
-					this.renderer.enabled = false;
+		//4. Plant the seed
+			if (basePlanet.GetComponent<PlanetInfo>().dighole) {
+				//if (seedinsoil) {
+				if (Input.GetKeyDown ("s")) {
+					basePlanet.renderer.enabled = false;
 					holeModel.renderer.enabled = false;
 					sproutModel.renderer.enabled = true;
-					planted = true;
-					seedinsoil = false;
+					basePlanet.GetComponent<PlanetInfo>().planted = true;
+					basePlanet.GetComponent<PlanetInfo>().seedinsoil = false;
 
 					/*
 					GameObject.Find ("GlowSeed").GetComponent<FallandFloat>().droptosoil = false;
 					GameObject.Find ("GhostSeed").GetComponent<FallandFloat>().droptosoil = false;
 					GameObject.Find ("CandySeed").GetComponent<FallandFloat>().droptosoil = false;
-                   */
+	           */
 						
 				}
 			}
@@ -124,7 +143,7 @@ public class PlantingSeed : MonoBehaviour {
 
 		}
 		else{
-			this.renderer.material.SetColor ("_OutlineColor", Color.clear);
+			basePlanet.renderer.material.SetColor ("_OutlineColor", Color.clear);
 			holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 			sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 		}

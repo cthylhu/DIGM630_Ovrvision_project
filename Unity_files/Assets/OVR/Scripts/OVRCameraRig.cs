@@ -102,20 +102,24 @@ public class OVRCameraRig : MonoBehaviour
 	
 	private void UpdateAnchors()
 	{
-		/*OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
-		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);*/
-		
-
-		//leftEyeAnchor.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
-		//centerEyeAnchor.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
-		//rightEyeAnchor.localPosition = ovrvisionRightEyeGap;
-
-		OVRPose leftEye = OVRManager.display.GetEyePose (OVREye.Left);
-		OVRPose rightEye = OVRManager.display.GetEyePose (OVREye.Right);
+		OVRPose leftEye = OVRManager.display.GetEyePose(OVREye.Left);
+		OVRPose rightEye = OVRManager.display.GetEyePose(OVREye.Right);
 
 		leftEyeAnchor.localRotation = leftEye.orientation;
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
+
+		/*
+		// Original OVR positioning 
+		leftEyeAnchor.localPosition = leftEye.position;
+		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position);
+		rightEyeAnchor.localPosition = rightEye.position;
+		
+		// Original Ovrvision positioning (stuck camera)
+		leftEyeAnchor.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
+		centerEyeAnchor.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
+		rightEyeAnchor.localPosition = ovrvisionRightEyeGap;
+		 */
 
 		/*
 		leftEyeAnchor.localPosition.x = leftEye.position.x * 6.5f;
@@ -126,8 +130,8 @@ public class OVRCameraRig : MonoBehaviour
 
         */
 
-		leftEyeAnchor.localPosition = new Vector3 (leftEye.position.x * 6.5f, leftEye.position.y * 6.5f, leftEye.position.z * 20.0f);
-		rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x * 6.5f, rightEye.position.y * 6.5f, rightEye.position.z * 20.0f);
+		//leftEyeAnchor.localPosition = new Vector3 (leftEye.position.x * 6.5f, leftEye.position.y * 6.5f, leftEye.position.z * 20.0f);
+		//rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x * 6.5f, rightEye.position.y * 6.5f, rightEye.position.z * 20.0f);
 
 		/*
 		rightEyeAnchor.localPosition.x = rightEye.position.x * 6.5f;
@@ -136,7 +140,11 @@ public class OVRCameraRig : MonoBehaviour
 		rightEye.position = new Vector3 (rightEyeAnchor.localPosition.x, rightEyeAnchor.localPosition.y, rightEyeAnchor.localPosition.z);
          */
 
-		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 6.5f;
+		//centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 6.5f;
+
+		leftEyeAnchor.localPosition = leftEye.position * 9.5f;
+		rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x, rightEye.position.y, rightEye.position.z) * 9.5f;
+		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 9.5f;
 
 
 		//rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x*6.5f, rightEye.position.y*6.5f, rightEye.position.z*9.5f) *6.5f;
