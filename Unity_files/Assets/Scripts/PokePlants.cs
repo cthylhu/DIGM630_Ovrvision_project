@@ -24,7 +24,7 @@ public class PokePlants : MonoBehaviour {
 	// left index poke the ghost then switch from AR to VR
 	
 	void OnTriggerEnter(Collider other){
-		Debug.Log("Object: " + this.name);
+		//Debug.Log("Object: " + this.name);
 		if ((other.name == ("L_index_bone3"))||(other.name == ("R_index_bone3"))) {
 			
 			audio.PlayOneShot(movement_poke,1.0f);

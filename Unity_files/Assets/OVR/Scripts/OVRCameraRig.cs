@@ -114,14 +114,14 @@ public class OVRCameraRig : MonoBehaviour
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
 
-		foreach(GameObject p in AllPortals)
+		/*foreach(GameObject p in AllPortals)
 		{
 			if (p.name == "PortalContainer"){
 				p.transform.localRotation = leftEyeAnchor.localRotation;
 			}
 			else
 				p.transform.localRotation = leftEyeAnchor.localRotation;
-		}
+		}*/
 
 		leftEyeAnchor.localPosition = leftEye.position * 10.0f;
 		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 10.0f;

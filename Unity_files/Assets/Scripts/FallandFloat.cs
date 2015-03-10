@@ -74,7 +74,7 @@ public class FallandFloat : MonoBehaviour {
 			
 			    other.audio.PlayOneShot(sounds.planted);
 			   
-			    GameObject.Find ("TestPlanet2").GetComponent<PlantingSeed>().SendMessage("Check", droptosoil = true);
+			GameObject.Find ("AREnvironment").GetComponent<GlantingSeed>().SendMessage("CheckSeed", droptosoil = true);
 		  }
 
 

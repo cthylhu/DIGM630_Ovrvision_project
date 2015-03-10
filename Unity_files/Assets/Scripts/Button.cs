@@ -24,39 +24,36 @@ public class Button : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other){
 		
-				Debug.Log ("Object: " + this.name);
-		
-		
-		
-				if ((other.name == ("L_index_bone3")) || (other.name == ("R_index_bone3"))) {
+		//Debug.Log ("Button pressed: " + this.name);
 
+		if ((other.name == ("L_index_bone3")) || (other.name == ("R_index_bone3"))) {
 
-						// Poke Glow Seed Button
+			// Poke Glow Seed Button
 
-						if (GameObject.Find ("GlowSeedButton").GetComponent<Button> ().seednumber == 0 && 
-								GameObject.Find ("GhostSeedButton").GetComponent<Button> ().seednumber == 0 && 
-								GameObject.Find ("CandySeedButton").GetComponent<Button> ().seednumber == 0) {
+			if (GameObject.Find ("GlowSeedButton").GetComponent<Button> ().seednumber == 0 && 
+				GameObject.Find ("GhostSeedButton").GetComponent<Button> ().seednumber == 0 && 
+				GameObject.Find ("CandySeedButton").GetComponent<Button> ().seednumber == 0) {
 
-								audio.PlayOneShot (seed);
+				audio.PlayOneShot (seed);
 
-								seednumber ++;
-				                
-				                GenerateSeed();
+				seednumber ++;
+                
+                GenerateSeed();
 
-								
-								/*
+						
+				/*
 				// Glow Seed Button Being Poked
 
 				if(this.name == " GlowSeedButton"){
 
-				Instantiate (GameObject.Find ("GlowSeed"), transform.position = this.transform.localPosition, transform.rotation = this.transform.localRotation);
-				
-				GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Fall");
-				//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
+					Instantiate (GameObject.Find ("GlowSeed"), transform.position = this.transform.localPosition, transform.rotation = this.transform.localRotation);
+					
+					GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Fall");
+					//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
 
-				Debug.Log ("Glow Seed Generated!");
+					Debug.Log ("Glow Seed Generated!");
 				
-			}
+				}
 
 				// Ghost Seed Button Being Poked
 
@@ -87,14 +84,10 @@ public class Button : MonoBehaviour {
 					
 				}
 				*/
-						}
+			}
 
-
-
-
-		
-				}
 		}
+	}
 
 
 	void GenerateSeed(){

@@ -32,9 +32,11 @@ public class watchtapping : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		
-		if (other.name == ("L_index_bone3")) {
-	
+		/*if (other.name == ("L_index_bone3")) {
+		
 			audio.PlayOneShot (spaceswitch);
+
+
 
 			if (Gameworld == new Vector3 (0, 0, 0)) {
 				Debug.Log ("Switch triggered!");
@@ -42,7 +44,8 @@ public class watchtapping : MonoBehaviour {
 
 				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
 				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-				GameObject.Find ("Buttons").transform.localScale = new Vector3 (0, 0, 0);
+				//GameObject.Find ("Buttons").transform.localScale = new Vector3 (0, 0, 0);
+				//GameObject.Find ("BGM").audio.Play ();
 
 				cooldownTime -= Time.deltaTime;
 	
@@ -58,7 +61,8 @@ public class watchtapping : MonoBehaviour {
 	
 				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
 				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (1, 1, 1);
-				GameObject.Find ("Buttons").transform.localScale = new Vector3 (1, 1, 1);
+				//GameObject.Find ("Buttons").transform.localScale = new Vector3 (1, 1, 1);
+				//GameObject.Find ("BGM").audio.Stop ();
 
 				cooldownTime -= Time.deltaTime;
 				if (cooldownTime <= 0) {
@@ -66,7 +70,7 @@ public class watchtapping : MonoBehaviour {
 				}
 	
 			}
-		}
+		}*/
 	}
 			
 			
@@ -75,6 +79,46 @@ public class watchtapping : MonoBehaviour {
 	void Update () {
 		Gameworld = GameObject.Find ("VREnvironment").transform.localScale;
 
+		if (Input.GetKeyDown ("m")) {
+			
+			audio.PlayOneShot (spaceswitch);
+			
+			
+			
+			if (Gameworld == new Vector3 (0, 0, 0)) {
+				Debug.Log ("Switch triggered!");
+				setorigin = true;
+				
+				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
+				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (0, 0, 0);
+				GameObject.Find ("Buttons").transform.localScale = new Vector3 (0, 0, 0);
+				//GameObject.Find ("BGM").audio.Play ();
+				
+				cooldownTime -= Time.deltaTime;
+				
+				if (cooldownTime <= 0) {
+					cooldownTime = MaxcooldownTime;
+				}
+				
+			}
+			
+			
+			
+			if (Gameworld == new Vector3 (1, 1, 1)) {
+				
+				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
+				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (1, 1, 1);
+				GameObject.Find ("Buttons").transform.localScale = new Vector3 (1, 1, 1);
+				//GameObject.Find ("BGM").audio.Stop ();
+				
+				cooldownTime -= Time.deltaTime;
+				if (cooldownTime <= 0) {
+					cooldownTime = MaxcooldownTime;
+				}
+				
+			}
+		}
+		
 		//Frame startframe = Controller.Frame ();
 		//Hand rightmost = startframe.Hands.Rightmost;
 		//float wrist_x = rightmost.Arm.WristPosition.x;

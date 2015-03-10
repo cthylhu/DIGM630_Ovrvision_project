@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlantingSeed : MonoBehaviour {
+public class GlantingSeed : MonoBehaviour {
 
 	public Righthand Righthand;
 
 	GameObject basePlanet;
 	GameObject holeModel;
 	GameObject sproutModel;
-	GameObject budModel;
 	GameObject PortalObject;
 	GameObject[] AllPortals;
 
@@ -37,13 +36,12 @@ public class PlantingSeed : MonoBehaviour {
 		basePlanet = FindInChildren (GameObject.Find ("AREnvironment"), "TestPlanet");
 		holeModel = FindInChildren (GameObject.Find ("AREnvironment"), "Planet_with_hole");
 		sproutModel = FindInChildren (GameObject.Find ("AREnvironment"), "Planet_with_plant");
-		budModel = sproutModel.transform.Find ("bud").gameObject;
 
 		//Debug.Log ("HoleModel: " + holeModel.name);
 		//Debug.Log ("SproutModel: " + sproutModel.name);
 
 		PortalObject = FindInChildren (GameObject.Find ("AREnvironment"), "Portal1");
-		//TurnOffAllPortals ();
+		TurnOffAllPortals ();
 
 	}
 
@@ -81,14 +79,13 @@ public class PlantingSeed : MonoBehaviour {
 
 		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 50)){
 			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
-			Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
+			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
 			if (hit.collider.name == "CubeGameObject"){
 				basePlanet = hit.collider.transform.Find("TestPlanet").gameObject;										// Set specific baseplanet
 				holeModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_hole").gameObject;		// Set specific holeModel
 				sproutModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_plant").gameObject;	// Set specific sproutModel
-				//PortalObject = basePlanet.transform.parent.gameObject.transform.Find("Portals").gameObject.transform.Find ("Portal1").gameObject;
-				budModel = sproutModel.transform.Find ("bud").gameObject;
+				PortalObject = basePlanet.transform.parent.gameObject.transform.Find("PortalContainer").gameObject.transform.Find ("Portal1").gameObject;
 
 				//Debug.Log ("Parent: "+childOfCollider);
 				basePlanet.renderer.material.SetColor ("_OutlineColor", Color.green);
@@ -117,19 +114,23 @@ public class PlantingSeed : MonoBehaviour {
 				if (Input.GetKeyDown ("b")) {
 					basePlanet.GetComponent<PlanetInfo>().plantType = 5;
 				}
-				Debug.Log ("Plant type is: "+basePlanet.GetComponent<PlanetInfo>().plantType);
+				Debug.Log ("Plant type: "+basePlanet.GetComponent<PlanetInfo>().plantType);
+
+
 				// 3. Dig a hole in the ground
+
+
 				// Detect finger-poke collision with planet
-				//if (Righthand.dighole) {
-				if (Input.GetKeyDown ("a")) {
-					Debug.Log ("Pressed a");
+
+
+				if (Righthand.dighole) {
+				//if (Input.GetKeyDown ("a")) {
 					if (!(basePlanet.GetComponent<PlanetInfo>().dighole)) {
 						Debug.Log ("Diggy diggy hole!");
 						
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = true;
 						sproutModel.renderer.enabled = false;
-						budModel.renderer.enabled = false;
 						basePlanet.GetComponent<PlanetInfo>().dighole = true;
 						
 					}
@@ -139,12 +140,11 @@ public class PlantingSeed : MonoBehaviour {
 
 				//4. Plant the seed
 				if (basePlanet.GetComponent<PlanetInfo>().dighole) {
-					//if (seedinsoil) {
-					if (Input.GetKeyDown ("s")) {
+					if (basePlanet.GetComponent<PlanetInfo>().seedinsoil) {
+					//if (Input.GetKeyDown ("s")) {
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = false;
 						sproutModel.renderer.enabled = true;
-						budModel.renderer.enabled = true;
 						basePlanet.GetComponent<PlanetInfo>().planted = true;
 						basePlanet.GetComponent<PlanetInfo>().seedinsoil = false;
 
@@ -160,7 +160,7 @@ public class PlantingSeed : MonoBehaviour {
 				// 5. Check if player wants to open a portal preview
 				if (basePlanet.GetComponent<PlanetInfo>().planted) {
 
-					if (Input.GetKeyDown ("o")) {
+					if (portalcontrol.portalishere) {
 						OpenPortal();
 					}
 
@@ -182,10 +182,9 @@ public class PlantingSeed : MonoBehaviour {
 		}
 
 		// Player can close any portal at any time
-		if (Input.GetKeyDown ("p")) {
+		if (!portalcontrol.portalishere) {
 			ClosePortal();
 		}
-
 
 	}
 
@@ -194,7 +193,7 @@ public class PlantingSeed : MonoBehaviour {
 	public void OpenPortal (){
 		// Parent portal under the appropriate view object
 		Debug.Log ("Plant type: "+basePlanet.GetComponent<PlanetInfo> ().plantType);
-		/*
+
 		switch (basePlanet.GetComponent<PlanetInfo> ().plantType) {
 		
 		case 0:
@@ -216,16 +215,16 @@ public class PlantingSeed : MonoBehaviour {
 			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_lollipop").transform.Find ("PortalContainer2"), false);
 			break;
 		}
-		*/
 
-		//PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
-		//PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;
+
+		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
+		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;
 		
 	}
 	
 	public void ClosePortal (){
-		//PortalObject.transform.Find ("Active").gameObject.renderer.enabled = false;
-		//PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = false;
+		PortalObject.transform.Find ("Active").gameObject.renderer.enabled = false;
+		PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = false;
 		
 	}
 
