@@ -59,9 +59,13 @@ public class OVRCameraRig : MonoBehaviour
 	//Set ovrvision Right-eye Gap
 	public Vector3 ovrvisionRightEyeGap = new Vector3(0.5f, 0.0f, 0.0f);
 	
+	public bool AR_is_Active = true;
 	Matrix4x4 display = Matrix4x4.zero;
-	GameObject[] AllPortals;
-	
+	Camera[] cameras;
+	GameObject[] ARcollideTagList;
+	GameObject[] VRcollideTagList;
+	Collider[] colliderList;
+
 	#region Unity Messages
 	private void Awake()
 	{
@@ -81,7 +85,6 @@ public class OVRCameraRig : MonoBehaviour
 		if (!Application.isPlaying)
 			return;
 
-		AllPortals = GameObject.FindGameObjectsWithTag("PortalContainer");
 		UpdateCameras();
 		UpdateAnchors();
 
@@ -98,7 +101,58 @@ public class OVRCameraRig : MonoBehaviour
 		
 		if (!Application.isPlaying)
 			return;
-		
+
+		cameras = GetComponentsInChildren<Camera>(); 				// Get all child cameras of OVRCameraRig (LeftEyeAnchor and RightEyeAnchor)
+		ARcollideTagList = GameObject.FindGameObjectsWithTag("CollidablesAR");
+		VRcollideTagList = GameObject.FindGameObjectsWithTag("CollidablesVR");
+		if (AR_is_Active){									// If AR world is on, turn off VRLayer = 11
+			foreach (Camera c in cameras){
+				//Debug.Log ("Camera Parent: "+c.name);
+				if (c.name == "LeftEyeAnchor"){
+					c.cullingMask = ~(1<<9) & ~(1<<11);				
+				}
+				else {
+					c.cullingMask = ~(1<<8) & ~(1<<11);
+				}
+			}
+			foreach (GameObject ob in VRcollideTagList) {					// Find all VR objects with colliders and turn the colliders off
+				colliderList = ob.GetComponentsInChildren<Collider>();		// Note: user must add the tags by hand to objects with known colliders 
+				foreach (Collider coll in colliderList) {
+					coll.enabled = false;
+				}
+			}
+			foreach (GameObject ob in ARcollideTagList) {					// Find all AR objects with colliders and turn the colliders on
+				colliderList = ob.GetComponentsInChildren<Collider>();
+				foreach (Collider coll in colliderList) {
+					coll.enabled = true;
+				}
+			}
+		}
+		else {												// If AR world is off, turn off ARLayer = 10
+			foreach (Camera c in cameras){
+				//Debug.Log ("Camera Parent: "+c.name);
+				if (c.name == "LeftEyeAnchor"){
+					c.cullingMask = ~(1<<9) & ~(1<<10);				
+				}
+				else {
+					c.cullingMask = ~(1<<8) & ~(1<<10);
+				}
+				
+			}
+			foreach (GameObject ob in ARcollideTagList) {					// Find all AR objects with colliders and turn the colliders off
+				colliderList = ob.GetComponentsInChildren<Collider>();
+				foreach (Collider coll in colliderList) {
+					coll.enabled = false;
+				}
+			}
+			foreach (GameObject ob in VRcollideTagList) {					// Find all VR objects with colliders and turn the colliders on
+				colliderList = ob.GetComponentsInChildren<Collider>();
+				foreach (Collider coll in colliderList) {
+					coll.enabled = true;
+				}
+			}
+		}
+
 		UpdateCameras();
 		UpdateAnchors();
 	}
@@ -113,15 +167,6 @@ public class OVRCameraRig : MonoBehaviour
 		leftEyeAnchor.localRotation = leftEye.orientation;
 		centerEyeAnchor.localRotation = leftEye.orientation; // using left eye for now
 		rightEyeAnchor.localRotation = rightEye.orientation;
-
-		/*foreach(GameObject p in AllPortals)
-		{
-			if (p.name == "PortalContainer"){
-				p.transform.localRotation = leftEyeAnchor.localRotation;
-			}
-			else
-				p.transform.localRotation = leftEyeAnchor.localRotation;
-		}*/
 
 		leftEyeAnchor.localPosition = leftEye.position * 10.0f;
 		centerEyeAnchor.localPosition = 0.5f * (leftEye.position + rightEye.position) * 10.0f;
@@ -146,12 +191,7 @@ public class OVRCameraRig : MonoBehaviour
 		leftEyeAnchor.localPosition.y = leftEye.position.y * 6.5f;
 		leftEyeAnchor.localPosition.z = leftEye.position.z * 10.0f;
 		leftEye.position = new Vector3 (leftEyeAnchor.localPosition.x, leftEyeAnchor.localPosition.y, leftEyeAnchor.localPosition.z);
-
-
         */
-
-		//leftEyeAnchor.localPosition = new Vector3 (leftEye.position.x * 6.5f, leftEye.position.y * 6.5f, leftEye.position.z * 20.0f);
-		//rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x * 6.5f, rightEye.position.y * 6.5f, rightEye.position.z * 20.0f);
 
 		/*
 		rightEyeAnchor.localPosition.x = rightEye.position.x * 6.5f;
@@ -164,8 +204,7 @@ public class OVRCameraRig : MonoBehaviour
 	
 
 		//rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x*6.5f, rightEye.position.y*6.5f, rightEye.position.z*9.5f) *6.5f;
-		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f)*10.0f;
-		//rightEyeAnchor.localPosition = new Vector3(rightEye.position.x, rightEye.position.y, rightEye.position.z);
+		//rightEyeAnchor.localPosition = new Vector3 (rightEye.position.x+0.4f, rightEye.position.y, rightEye.position.z+0.1f)*10.0f;
 
 		/*Vector4 Lpos = new Vector4 (leftEyeAnchor.localPosition.x, leftEyeAnchor.localPosition.y, leftEyeAnchor.localPosition.z, 0);
 		Vector4 Cpos = new Vector4 (centerEyeAnchor.localPosition.x, centerEyeAnchor.localPosition.y, centerEyeAnchor.localPosition.z, 0);

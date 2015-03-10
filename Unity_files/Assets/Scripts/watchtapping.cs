@@ -17,6 +17,7 @@ public class watchtapping : MonoBehaviour {
 	public float MaxcooldownTime;
 	public static bool setorigin = false;
 	private Vector3 Gameworld;
+	bool switchHappened = false;
 
 	void Start () {
 
@@ -31,14 +32,12 @@ public class watchtapping : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		
-		/*if (other.name == ("L_index_bone3")) {
+		Debug.Log("Collided watch object: " + this.name);
+		if (other.name == ("L_index_bone3")) {
 		
 			audio.PlayOneShot (spaceswitch);
 
-
-
-			if (Gameworld == new Vector3 (0, 0, 0)) {
+			/*if (Gameworld == new Vector3 (0, 0, 0)) {
 				Debug.Log ("Switch triggered!");
 				setorigin = true;
 
@@ -54,9 +53,7 @@ public class watchtapping : MonoBehaviour {
 				}
 		
 			}
-	
 
-		
 			if (Gameworld == new Vector3 (1, 1, 1)) {
 	
 				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
@@ -69,8 +66,8 @@ public class watchtapping : MonoBehaviour {
 					cooldownTime = MaxcooldownTime;
 				}
 	
-			}
-		}*/
+			}*/
+		}
 	}
 			
 			
@@ -80,43 +77,17 @@ public class watchtapping : MonoBehaviour {
 		Gameworld = GameObject.Find ("VREnvironment").transform.localScale;
 
 		if (Input.GetKeyDown ("m")) {
-			
 			audio.PlayOneShot (spaceswitch);
-			
-			
-			
-			if (Gameworld == new Vector3 (0, 0, 0)) {
-				Debug.Log ("Switch triggered!");
-				setorigin = true;
-				
-				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
-				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-				GameObject.Find ("Buttons").transform.localScale = new Vector3 (0, 0, 0);
-				//GameObject.Find ("BGM").audio.Play ();
-				
-				cooldownTime -= Time.deltaTime;
-				
-				if (cooldownTime <= 0) {
-					cooldownTime = MaxcooldownTime;
-				}
-				
+			if (!switchHappened) {
+				GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = false;
+
+				switchHappened = true;
 			}
-			
-			
-			
-			if (Gameworld == new Vector3 (1, 1, 1)) {
-				
-				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (1, 1, 1);
-				GameObject.Find ("Buttons").transform.localScale = new Vector3 (1, 1, 1);
-				//GameObject.Find ("BGM").audio.Stop ();
-				
-				cooldownTime -= Time.deltaTime;
-				if (cooldownTime <= 0) {
-					cooldownTime = MaxcooldownTime;
-				}
-				
+			else {
+				GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = true;
+				switchHappened = false;
 			}
+
 		}
 		
 		//Frame startframe = Controller.Frame ();

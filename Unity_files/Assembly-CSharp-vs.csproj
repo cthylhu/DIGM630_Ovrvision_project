@@ -142,7 +142,6 @@
      <Compile Include="Assets\Scripts\Lefthand.cs" />
      <Compile Include="Assets\Scripts\PlanetInfo.cs" />
      <Compile Include="Assets\Scripts\PlantingSeed.cs" />
-     <Compile Include="Assets\Scripts\PlotPlant.cs" />
      <Compile Include="Assets\Scripts\PokePlants.cs" />
      <Compile Include="Assets\Scripts\Righthand.cs" />
      <Compile Include="Assets\Scripts\Righthand_info.cs" />
