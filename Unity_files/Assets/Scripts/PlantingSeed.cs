@@ -6,11 +6,14 @@ public class PlantingSeed : MonoBehaviour {
 	public Righthand Righthand;
 
 	GameObject basePlanet;
+	GameObject basePlanetParent;
 	GameObject holeModel;
 	GameObject sproutModel;
 	GameObject budModel;
-
+	
 	GameObject[] AllPortals;
+	Transform[] PlanetList;
+	public static int numberOfPlanets = 1;
 
 	int hitcount = 1;
 
@@ -34,14 +37,10 @@ public class PlantingSeed : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//basePlanet = FindInChildren (GameObject.Find ("AREnvironment"), "BasePlanet");
-		//holeModel = FindInChildren (GameObject.Find ("AREnvironment"), "Planet_with_hole");
-		//sproutModel = FindInChildren (GameObject.Find ("AREnvironment"), "Planet_with_plant");
-		//budModel = sproutModel.transform.Find ("bud").gameObject;
-
-		//Debug.Log ("HoleModel: " + holeModel.name);
-		//Debug.Log ("SproutModel: " + sproutModel.name);
-
+		PlanetList = GameObject.Find ("Planets").GetComponentsInChildren<Transform>();
+		foreach(Transform p in PlanetList){
+			Debug.Log (p.gameObject.name);
+		}
 		//TurnOffAllPortals ();
 
 	}
@@ -84,8 +83,10 @@ public class PlantingSeed : MonoBehaviour {
 
 			if (hit.collider.name == "ARPlanetObject"){
 				basePlanet = hit.collider.transform.Find("BasePlanet").gameObject;										// Set specific baseplanet
-				holeModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_hole").gameObject;		// Set specific holeModel
-				sproutModel = basePlanet.transform.parent.gameObject.transform.Find("Planet_with_plant").gameObject;	// Set specific sproutModel
+				basePlanetParent = basePlanet.transform.parent.gameObject;
+
+				holeModel = basePlanetParent.transform.Find("Planet_with_hole").gameObject;		// Set specific holeModel
+				sproutModel = basePlanetParent.transform.Find("Planet_with_plant").gameObject;	// Set specific sproutModel
 
 				budModel = sproutModel.transform.Find ("bud").gameObject;
 
@@ -102,36 +103,41 @@ public class PlantingSeed : MonoBehaviour {
 				// 2. Detect what type of plant you want to plant
 				// Detect finger-poke collision with button
 				if (Input.GetKeyDown ("z")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 1;
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 1;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
 				}
 				if (Input.GetKeyDown ("x")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 2;
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 2;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
 				}
 				if (Input.GetKeyDown ("c")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 3;
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 3;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
 				}
 				if (Input.GetKeyDown ("v")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 4;
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 4;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
 				}
 				if (Input.GetKeyDown ("b")) {
-					basePlanet.GetComponent<PlanetInfo>().plantType = 5;
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 5;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
 				}
-				Debug.Log ("Plant type is: "+basePlanet.GetComponent<PlanetInfo>().plantType);
+
 
 
 				// 3. Dig a hole in the ground
 				// Detect finger-poke collision with planet
 				//if (Righthand.dighole) {
 				if (Input.GetKeyDown ("a")) {
-					Debug.Log ("Pressed a");
-					if (!(basePlanet.GetComponent<PlanetInfo>().dighole)) {
+
+					if (!(basePlanetParent.GetComponent<PlanetInfo>().dighole)) {
 						Debug.Log ("Diggy diggy hole!");
 						
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = true;
 						sproutModel.renderer.enabled = false;
 						budModel.renderer.enabled = false;
-						basePlanet.GetComponent<PlanetInfo>().dighole = true;
+						basePlanetParent.GetComponent<PlanetInfo>().dighole = true;
 						
 					}
 					
@@ -139,16 +145,54 @@ public class PlantingSeed : MonoBehaviour {
 
 
 				//4. Plant the seed
-				if (basePlanet.GetComponent<PlanetInfo>().dighole) {
+				if (basePlanetParent.GetComponent<PlanetInfo>().dighole) {
 					//if (seedinsoil) {
 					if (Input.GetKeyDown ("s")) {
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = false;
 						sproutModel.renderer.enabled = true;
 						budModel.renderer.enabled = true;
-						basePlanet.GetComponent<PlanetInfo>().planted = true;
-						basePlanet.GetComponent<PlanetInfo>().seedinsoil = false;
-
+						basePlanetParent.GetComponent<PlanetInfo>().planted = true;
+						basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = false;
+						if (!(basePlanetParent.GetComponent<PlanetInfo>().planetSpawned)){
+							Debug.Log (numberOfPlanets);
+							Debug.Log ("Going to spawn next at: " + PlanetList [numberOfPlanets].name);
+							
+							switch (basePlanetParent.GetComponent<PlanetInfo> ().plantType) {
+							
+							case 0:
+								//	Display nothing
+								break;
+							case 1:
+								spawnVRtrees ("VRObjectHornbell");
+								break;
+							case 2:
+								spawnVRtrees ("VRObjectCandyfaces");
+								break;
+							case 3:
+								spawnVRtrees ("VRObjectGhost");
+								break;
+							case 4:
+								spawnVRtrees ("VRObjectLollipop");
+								break;
+							case 5:
+								spawnVRtrees ("VRObjectSkull");
+								break;
+							case 6:
+								spawnVRtrees ("VRObjectGhost");
+								break;
+							case 7:
+								spawnVRtrees ("VRObjectGhost");
+								break;
+							case 8:
+								spawnVRtrees ("VRObjectGhost");
+								break;
+							case 9:
+								spawnVRtrees ("VRObjectGhost");
+								break;
+							}
+							numberOfPlanets++;
+						}
 						/*
 						GameObject.Find ("GlowSeed").GetComponent<FallandFloat>().droptosoil = false;
 						GameObject.Find ("GhostSeed").GetComponent<FallandFloat>().droptosoil = false;
@@ -159,12 +203,11 @@ public class PlantingSeed : MonoBehaviour {
 				}
 
 				// 5. Check if player wants to open a portal preview
-				if (basePlanet.GetComponent<PlanetInfo>().planted) {
+				if (basePlanetParent.GetComponent<PlanetInfo>().planted) {
 
 					if (Input.GetKeyDown ("o")) {
 						OpenPortal();
 					}
-
 
 					if (Righthand.normalgrow ) {
 						NormalGrow();
@@ -189,37 +232,29 @@ public class PlantingSeed : MonoBehaviour {
 			ClosePortal();
 		}
 
-
 	}
 
+	public void spawnVRtrees (string prefabName) {
+		// spawn a planet inside gameobject at array index numberOfPlanets
+		GameObject newPlanet = Instantiate(Resources.Load(prefabName), PlanetList[numberOfPlanets].position, PlanetList[numberOfPlanets].rotation) as GameObject;
+		newPlanet.transform.parent = PlanetList[numberOfPlanets];
 
+		GameObject newPreviewPlanet = Instantiate(Resources.Load(prefabName), basePlanetParent.transform.position, basePlanetParent.transform.rotation) as GameObject;
+		newPreviewPlanet.transform.parent = basePlanetParent.transform;
+		newPreviewPlanet.transform.localScale = Vector3.one;
+
+		Transform[] childs;
+		childs = newPreviewPlanet.GetComponentsInChildren<Transform>();
+		foreach (Transform t in childs) {
+			t.gameObject.layer = LayerMask.NameToLayer("PlantLayer");
+		}
+		
+		basePlanetParent.GetComponent<PlanetInfo>().planetSpawned = true;
+	}
 
 	public void OpenPortal (){
 		// Parent portal under the appropriate view object
 		//Debug.Log ("Plant type: "+basePlanet.GetComponent<PlanetInfo> ().plantType);
-		/*
-		switch (basePlanet.GetComponent<PlanetInfo> ().plantType) {
-		
-		case 0:
-			GameObject.Find ("Portal2").transform.position = new Vector3(-1000.0f, -1000.0f, -1000.0f);
-			break;
-		case 1:
-			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_hornbell").transform.Find ("PortalContainer2"), false);
-			break;
-		case 2:
-			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_candyfaces").transform.Find ("PortalContainer2"), false);
-			break;
-		case 3:
-			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_skullshroom").transform.Find ("PortalContainer2"), false);
-			break;
-		case 4:
-			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_ghosttree").transform.Find ("PortalContainer2"), false);
-			break;
-		case 5:
-			GameObject.Find ("Portal2").transform.SetParent(GameObject.Find ("Portal_lollipop").transform.Find ("PortalContainer2"), false);
-			break;
-		}
-		*/
 
 		//PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
 		//PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;

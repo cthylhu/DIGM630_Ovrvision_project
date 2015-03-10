@@ -109,10 +109,10 @@ public class OVRCameraRig : MonoBehaviour
 			foreach (Camera c in cameras){
 				//Debug.Log ("Camera Parent: "+c.name);
 				if (c.name == "LeftEyeAnchor"){
-					c.cullingMask = ~(1<<9) & ~(1<<11);				
+					c.cullingMask = ~(1<<9) & ~(1<<11) & ~(1<<17);				
 				}
 				else {
-					c.cullingMask = ~(1<<8) & ~(1<<11);
+					c.cullingMask = ~(1<<8) & ~(1<<11) & ~(1<<17);
 				}
 			}
 			foreach (GameObject ob in VRcollideTagList) {					// Find all VR objects with colliders and turn the colliders off
@@ -132,10 +132,10 @@ public class OVRCameraRig : MonoBehaviour
 			foreach (Camera c in cameras){
 				//Debug.Log ("Camera Parent: "+c.name);
 				if (c.name == "LeftEyeAnchor"){
-					c.cullingMask = ~(1<<9) & ~(1<<10);				
+					c.cullingMask = ~(1<<9) & ~(1<<10) & ~(1<<17);				
 				}
 				else {
-					c.cullingMask = ~(1<<8) & ~(1<<10);
+					c.cullingMask = ~(1<<8) & ~(1<<10) & ~(1<<17);
 				}
 				
 			}
