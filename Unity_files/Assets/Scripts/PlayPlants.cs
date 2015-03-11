@@ -89,9 +89,9 @@ public class PlayPlants : MonoBehaviour {
 
 	public void RenderAllTreeOutlinesNone() {
 		if (currentPlanet != null) {
-			//Debug.Log ("Got here!");
 			Renderer[] renderers = GameObject.Find("Planets").GetComponentsInChildren<Renderer>();
 			//Renderer[] renderers = GameObject.Find("TreeObjectsTest").GetComponentsInChildren<Renderer>();
+
 			foreach (Renderer rend in renderers) {
 				//Debug.Log ("R: "+rend.name);
 				rend.renderer.material.SetColor ("_OutlineColor", new Color(r, g, b, 0));

@@ -37,36 +37,19 @@ public class watchtapping : MonoBehaviour {
 		
 			audio.PlayOneShot (spaceswitch);
 
-			/*if (Gameworld == new Vector3 (0, 0, 0)) {
-				Debug.Log ("Switch triggered!");
-				setorigin = true;
-
-				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (1, 1, 1);
-				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-				//GameObject.Find ("Buttons").transform.localScale = new Vector3 (0, 0, 0);
-				//GameObject.Find ("BGM").audio.Play ();
-
-				cooldownTime -= Time.deltaTime;
-	
-				if (cooldownTime <= 0) {
-					cooldownTime = MaxcooldownTime;
-				}
-		
+			// CHANGE CODE HERE ******
+			audio.PlayOneShot (spaceswitch);
+			
+			if (!switchHappened) {
+				GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = false;
+				
+				switchHappened = true;
+			}
+			else {
+				GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = true;
+				switchHappened = false;
 			}
 
-			if (Gameworld == new Vector3 (1, 1, 1)) {
-	
-				GameObject.Find ("VREnvironment").transform.localScale = new Vector3 (0, 0, 0);
-				GameObject.Find ("AREnvironment").transform.localScale = new Vector3 (1, 1, 1);
-				//GameObject.Find ("Buttons").transform.localScale = new Vector3 (1, 1, 1);
-				//GameObject.Find ("BGM").audio.Stop ();
-
-				cooldownTime -= Time.deltaTime;
-				if (cooldownTime <= 0) {
-					cooldownTime = MaxcooldownTime;
-				}
-	
-			}*/
 		}
 	}
 			
@@ -78,6 +61,7 @@ public class watchtapping : MonoBehaviour {
 
 		if (Input.GetKeyDown ("m")) {
 			audio.PlayOneShot (spaceswitch);
+
 			if (!switchHappened) {
 				GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = false;
 

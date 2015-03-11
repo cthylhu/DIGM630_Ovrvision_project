@@ -10,7 +10,7 @@ public class PlantingSeed : MonoBehaviour {
 	GameObject holeModel;
 	GameObject sproutModel;
 	GameObject budModel;
-	
+
 	GameObject[] AllPortals;
 	Transform[] PlanetList;
 	public static int numberOfPlanets = 1;
@@ -73,7 +73,7 @@ public class PlantingSeed : MonoBehaviour {
 
 	void Update () {
 
-		// 1. Detect if you're looking at a planet
+		// Detect if you're looking at a planet
 		Vector3 fwd = GameObject.Find("CenterEyeAnchor").transform.forward;
 		RaycastHit hit;
 
@@ -81,8 +81,9 @@ public class PlantingSeed : MonoBehaviour {
 			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
 			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
-			if (hit.collider.name == "ARPlanetObject"){
-				basePlanet = hit.collider.transform.Find("BasePlanet").gameObject;										// Set specific baseplanet
+
+			if (hit.collider.name == "ARPlanetObject"){									// If raycast hits AR object, highlight it
+				basePlanet = hit.collider.transform.Find("BasePlanet").gameObject;				// Set specific baseplanet
 				basePlanetParent = basePlanet.transform.parent.gameObject;
 
 				holeModel = basePlanetParent.transform.Find("Planet_with_hole").gameObject;		// Set specific holeModel
@@ -97,36 +98,12 @@ public class PlantingSeed : MonoBehaviour {
 
 				hitcount++;
 			
-				// 2. Detect what type of plant you want to plant
-				// Detect finger-poke collision with button
-				if (Input.GetKeyDown ("z")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 1;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-				}
-				if (Input.GetKeyDown ("x")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 2;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-				}
-				if (Input.GetKeyDown ("c")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 3;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-				}
-				if (Input.GetKeyDown ("v")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 4;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-				}
-				if (Input.GetKeyDown ("b")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 5;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-				}
 
-
-
-				// 3. Dig a hole in the ground
+				// 1. Dig a hole in the ground
 				// Detect finger-poke collision with planet
 				//if (Righthand.dighole) {
 				if (Input.GetKeyDown ("a")) {
-
+					
 					if (!(basePlanetParent.GetComponent<PlanetInfo>().dighole)) {
 						Debug.Log ("Diggy diggy hole!");
 						
@@ -141,7 +118,15 @@ public class PlantingSeed : MonoBehaviour {
 				}
 
 
-				//4. Plant the seed
+				// 2. Pick seed
+				// Pick seed family 
+				// Detect what COLOR of plant you want to plant
+
+				// Some seed color picking code here
+
+
+
+				// 3. Planting the seed
 				if (basePlanetParent.GetComponent<PlanetInfo>().dighole) {
 					//if (seedinsoil) {
 					if (Input.GetKeyDown ("s")) {
@@ -151,69 +136,90 @@ public class PlantingSeed : MonoBehaviour {
 						budModel.renderer.enabled = true;
 						basePlanetParent.GetComponent<PlanetInfo>().planted = true;
 						basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = false;
-						if (!(basePlanetParent.GetComponent<PlanetInfo>().planetSpawned)){
-							Debug.Log (numberOfPlanets);
-							Debug.Log ("Going to spawn next at: " + PlanetList [numberOfPlanets].name);
-							
-							switch (basePlanetParent.GetComponent<PlanetInfo> ().plantType) {
-							
-							case 0:
-								//	Display nothing
-								break;
-							case 1:
-								spawnVRtrees ("VRObjectHornbell");
-								break;
-							case 2:
-								spawnVRtrees ("VRObjectCandyfaces");
-								break;
-							case 3:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 4:
-								spawnVRtrees ("VRObjectLollipop");
-								break;
-							case 5:
-								spawnVRtrees ("VRObjectSkull");
-								break;
-							case 6:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 7:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 8:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 9:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							}
-							numberOfPlanets++;
-						}
+
 						/*
 						GameObject.Find ("GlowSeed").GetComponent<FallandFloat>().droptosoil = false;
 						GameObject.Find ("GhostSeed").GetComponent<FallandFloat>().droptosoil = false;
 						GameObject.Find ("CandySeed").GetComponent<FallandFloat>().droptosoil = false;
 		           */
+						
+					}
+				}
+
+				// 4. The Watering Can will determine seed type
+
+
+				//Cathy Code: Choosing seed type
+				if (Input.GetKeyDown ("z")) {
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 1;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+				}
+				if (Input.GetKeyDown ("x")) {
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 2;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+				}
+				if (Input.GetKeyDown ("c")) {
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 3;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+				}
+				if (Input.GetKeyDown ("v")) {
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 4;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+				}
+				if (Input.GetKeyDown ("b")) {
+					basePlanetParent.GetComponent<PlanetInfo>().plantType = 5;
+					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+				}
+
+				// Spawn a VR preview tree at object location
+				if (basePlanetParent.GetComponent<PlanetInfo>().watered){
+					if (!(basePlanetParent.GetComponent<PlanetInfo>().planetSpawned)){
+						Debug.Log (numberOfPlanets);
+						Debug.Log ("Going to spawn next at: " + PlanetList [numberOfPlanets].name);
+						
+						switch (basePlanetParent.GetComponent<PlanetInfo> ().plantType) {
 							
+						case 0:
+							//	Display nothing
+							break;
+						case 1:
+							spawnVRtrees ("VRObjectHornbell");
+							break;
+						case 2:
+							spawnVRtrees ("VRObjectCandyfaces");
+							break;
+						case 3:
+							spawnVRtrees ("VRObjectGhost");
+							break;
+						case 4:
+							spawnVRtrees ("VRObjectLollipop");
+							break;
+						case 5:
+							spawnVRtrees ("VRObjectSkull");
+							break;
+						case 6:
+							spawnVRtrees ("VRObjectGhost");
+							break;
+						case 7:
+							spawnVRtrees ("VRObjectGhost");
+							break;
+						case 8:
+							spawnVRtrees ("VRObjectGhost");
+							break;
+						case 9:
+							spawnVRtrees ("VRObjectGhost");
+							break;
+						}
+						numberOfPlanets++;
 					}
+					basePlanetParent.GetComponent<PlanetInfo>().watered = false;
 				}
-
-				// 5. Check if player wants to open a portal preview
-				if (basePlanetParent.GetComponent<PlanetInfo>().planted) {
-
-					if (Input.GetKeyDown ("o")) {
-						OpenPortal();
-					}
-
-					if (Righthand.normalgrow ) {
-						NormalGrow();
-					}
-					if (Righthand.reversegrow ){
-						ReverseGrow();
-					}
-					
-				}
+ 
 			}
 		}
 		else{
@@ -222,11 +228,6 @@ public class PlantingSeed : MonoBehaviour {
 				holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 				sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 			}
-		}
-
-		// Player can close any portal at any time
-		if (Input.GetKeyDown ("p")) {
-			ClosePortal();
 		}
 
 	}
@@ -248,22 +249,6 @@ public class PlantingSeed : MonoBehaviour {
 		
 		basePlanetParent.GetComponent<PlanetInfo>().planetSpawned = true;
 	}
-
-	public void OpenPortal (){
-		// Parent portal under the appropriate view object
-		//Debug.Log ("Plant type: "+basePlanet.GetComponent<PlanetInfo> ().plantType);
-
-		//PortalObject.transform.Find ("Active").gameObject.renderer.enabled = true;
-		//PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = true;
-		
-	}
-	
-	public void ClosePortal (){
-		//PortalObject.transform.Find ("Active").gameObject.renderer.enabled = false;
-		//PortalObject.transform.Find ("Inactive").gameObject.renderer.enabled = false;
-		
-	}
-
 
 
 
