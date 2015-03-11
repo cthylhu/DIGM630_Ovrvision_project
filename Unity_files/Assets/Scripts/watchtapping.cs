@@ -32,7 +32,7 @@ public class watchtapping : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Debug.Log("Collided watch object: " + this.name);
+		//Debug.Log("Collided watch object: " + this.name);
 		if (other.name == ("L_index_bone3")) {
 		
 			audio.PlayOneShot (spaceswitch);

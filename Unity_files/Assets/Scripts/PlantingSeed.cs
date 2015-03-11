@@ -79,7 +79,7 @@ public class PlantingSeed : MonoBehaviour {
 
 		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 50)){
 			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
-			Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
+			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
 			if (hit.collider.name == "ARPlanetObject"){
 				basePlanet = hit.collider.transform.Find("BasePlanet").gameObject;										// Set specific baseplanet
@@ -92,9 +92,6 @@ public class PlantingSeed : MonoBehaviour {
 
 				//Debug.Log ("Parent: "+childOfCollider);
 				basePlanet.renderer.material.SetColor ("_OutlineColor", Color.green);
-
-				//this.renderer.material.SetColor ("_OutlineColor", Color.green);
-
 				holeModel.renderer.material.SetColor ("_OutlineColor", Color.green);
 				sproutModel.renderer.material.SetColor ("_OutlineColor", Color.green);
 

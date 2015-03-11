@@ -142,7 +142,7 @@
      <Compile Include="Assets\Scripts\Lefthand.cs" />
      <Compile Include="Assets\Scripts\PlanetInfo.cs" />
      <Compile Include="Assets\Scripts\PlantingSeed.cs" />
-     <Compile Include="Assets\Scripts\PokePlants.cs" />
+     <Compile Include="Assets\Scripts\PlayPlants.cs" />
      <Compile Include="Assets\Scripts\Righthand.cs" />
      <Compile Include="Assets\Scripts\Righthand_info.cs" />
      <Compile Include="Assets\Scripts\portalcontrol.cs" />
@@ -161,6 +161,7 @@
      <None Include="Assets\LeapMotion\readme.txt" />
      <None Include="Assets\Portalizer\PortalizerResources\Shaders\Mask\MaskIllumBumSpec1.shader" />
      <None Include="Assets\Portalizer\PortalizerResources\Shaders\Mask\MaskIllumBumSpec2.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\ToonBumped.shader" />
      <None Include="Assets\LeapMotion\Shaders\RimShading.shader" />
      <None Include="Assets\Plugins\donotdelete.txt" />
      <None Include="Assets\OVR\Shaders\TextShader3D.shader" />
