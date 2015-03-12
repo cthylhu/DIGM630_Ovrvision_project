@@ -9,6 +9,7 @@ public class Righthand : MonoBehaviour {
 	public static bool openhand;
 	public static bool normalgrow;
 	public static bool reversegrow;
+	public static bool waterplant;
 	public static bool magicgrow;
 	public static bool fist;
 	public Vector3 palmposition;
@@ -74,7 +75,7 @@ public class Righthand : MonoBehaviour {
 			float transRadius = perviousframe6.Hands.Rightmost.SphereRadius - radius;
 			float transPitch = perviousframe10.Hands.Rightmost.Direction.Pitch - pitch;
 			float transYaw = perviousframe10.Hands.Rightmost.Direction.Yaw - yaw;
-			float transRoll = perviousframe10.Hands.Rightmost.PalmNormal.Roll * 180.0f / Mathf.PI - roll;
+			float transRoll = perviousframe6.Hands.Rightmost.PalmNormal.Roll * 180.0f / Mathf.PI - roll;
 			float transWave_y_10 = perviousframe10.Hands.Rightmost.PalmPosition.y - handmove_y;
 			float transWave_z_10 = perviousframe10.Hands.Rightmost.PalmPosition.z - handmove_z;
 			float transWave_x_10 = perviousframe10.Hands.Rightmost.PalmPosition.x - handmove_x;
@@ -88,13 +89,14 @@ public class Righthand : MonoBehaviour {
 			// Gesture booleans
 					
 		    plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
-			dighole = !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended && transWave_y_3>5 && roll<20 && roll>-20;
+			//dighole = !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended && transWave_y_3>5 && roll<20 && roll>-20;
+			dighole = transRoll >30 && !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
 			openhand = Grab<0.2;
 			fist = Grab >0.8;
 			//Debug.Log ("Open hand?: " +openhand);
 			reversegrow = transWave_y_3 >5;
 			normalgrow = transWave_y_3 <-5;
-
+			waterplant = transRoll>30;
 
 			transform.position = palmposition;
 		}

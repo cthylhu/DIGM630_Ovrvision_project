@@ -13,11 +13,18 @@ public class Button : MonoBehaviour {
 	public FallandFloat FallandFloat;
 	public Vector3  ButtonPosition;
 
+	//GameObject GlowSeedButtonprefab;
+	//GameObject GhostSeedButtonprefab;
+	//GameObject CandySeedButtonprefab;
+
 	// Use this for initialization
 	void Start () {
+		/*
+		GameObject GlowSeedButtonprefab = Instantiate (Resources.Load ("GlowSeedButton"),GameObject.Find ("GlowSeedButton").transform.position, GameObject.Find ("GlowSeedButton").transform.rotation) as GameObject; 
+		GameObject GhostSeedButtonprefab = Instantiate (Resources.Load ("GhostSeedButton"),GameObject.Find ("GhostSeedButton").transform.position, GameObject.Find ("GhostSeedButton").transform.rotation)as GameObject;
+		GameObject CandySeedButtonprefab = Instantiate (Resources.Load ("CandySeedButton"),GameObject.Find ("CandySeedButton").transform.position, GameObject.Find ("CandySeedButton").transform.rotation)as GameObject;
+		*/
 
-
-		
 	}
 	
 	// left index poke the ghost then switch from AR to VR
@@ -26,13 +33,19 @@ public class Button : MonoBehaviour {
 		
 		//Debug.Log ("Button pressed: " + this.name);
 
+
+
 		if ((other.name == ("L_index_bone3")) || (other.name == ("R_index_bone3"))) {
 
 			// Poke Glow Seed Button
+	
 
-			if (GameObject.Find ("GlowSeedButton").GetComponent<Button> ().seednumber == 0 && 
-				GameObject.Find ("GhostSeedButton").GetComponent<Button> ().seednumber == 0 && 
-				GameObject.Find ("CandySeedButton").GetComponent<Button> ().seednumber == 0) {
+			if (GameObject.Find ("GlowSeedButton").GetComponent<Button>().seednumber == 0 && 
+			   //GameObject.Find ("GhostSeedButton").GetComponent<Button>().seednumber == 0 &&
+
+			    GameObject.Find ("CandySeedButton").GetComponent<Button> ().seednumber == 0) {
+		
+
 
 				audio.PlayOneShot (seed);
 
@@ -84,6 +97,7 @@ public class Button : MonoBehaviour {
 					
 				}
 				*/
+
 			}
 
 		}
@@ -132,7 +146,7 @@ public class Button : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		ButtonPosition = this.transform.localPosition;
+		ButtonPosition = this.transform.position;
 
 	}
 }

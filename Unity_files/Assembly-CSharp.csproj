@@ -137,7 +137,6 @@
      <Compile Include="Assets\Scripts\Button.cs" />
      <Compile Include="Assets\Scripts\FallandFloat.cs" />
      <Compile Include="Assets\Scripts\Family.cs" />
-     <Compile Include="Assets\Scripts\GlantingSeed.cs" />
      <Compile Include="Assets\Scripts\Grab.cs" />
      <Compile Include="Assets\Scripts\Lefthand.cs" />
      <Compile Include="Assets\Scripts\PlanetInfo.cs" />
@@ -149,6 +148,7 @@
      <Compile Include="Assets\Scripts\raycasttest.cs" />
      <Compile Include="Assets\Scripts\sounds.cs" />
      <Compile Include="Assets\Scripts\watchtapping.cs" />
+     <Compile Include="Assets\Scripts\watercan.cs" />
      <None Include="Assets\LeapMotion\Resources\LeapIRUndistorted.shader" />
      <None Include="Assets\LeapMotion\Materials\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\LeapMotion\Resources\LeapIRDistorted.shader" />

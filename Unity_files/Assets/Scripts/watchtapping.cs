@@ -30,7 +30,7 @@ public class watchtapping : MonoBehaviour {
 			trans.gameObject.renderer.enabled = false;
 		}
 	}
-
+/*
 	void OnTriggerEnter(Collider other) {
 		//Debug.Log("Collided watch object: " + this.name);
 		if (other.name == ("L_index_bone3")) {
@@ -53,7 +53,7 @@ public class watchtapping : MonoBehaviour {
 		}
 	}
 			
-			
+	*/		
 	
 	// Update is called once per frame
 	void Update () {

@@ -2,12 +2,18 @@
 using System.Collections;
 
 public class FallandFloat : MonoBehaviour {
+	public float xSpeed;
+	public float ySpeed;
+	public float zSpeed;
+
 	public float minRotationSpeed;
 	public float maxRotationSpeed;
 	public float minMovementSpeed;
 	public float maxMovementSpeed;
-	private float rotationSpeed=4.0f; // Degrees per second
-	private float movementSpeed =5.0f; // Units per second;
+
+	private float rotationSpeed=1f;
+	private float movementSpeed=1f;// Degrees per second
+	//private float movementSpeed =2f; // Units per second;
 
 	public Vector3 target;
 
@@ -32,10 +38,15 @@ public class FallandFloat : MonoBehaviour {
 	}
 
 	void Fall(Vector3 ButtonPosition){
-		  
-		 target = ButtonPosition;
+
+		target = ButtonPosition;
+		
+		//Instantiate (Resources.Load ("CandySeed_prefab"), target, transform.rotation);
+
+			//this.GetComponentInChildren <MeshRenderer>().enabled = true;
+
 	   
-	     transform.localPosition -= new Vector3 (0, 1f, 0);
+		this.transform.localPosition -= new Vector3 (0, 3f, 0)*Time.deltaTime;
 	    
 			
 		Debug.Log (" falling!");
@@ -74,7 +85,7 @@ public class FallandFloat : MonoBehaviour {
 			
 			    other.audio.PlayOneShot(sounds.planted);
 			   
-			GameObject.Find ("AREnvironment").GetComponent<GlantingSeed>().SendMessage("CheckSeed", droptosoil = true);
+			GameObject.Find ("AREnvironment").GetComponent<PlantingSeed>().SendMessage("CheckSeed", droptosoil = true);
 		  }
 
 
@@ -126,8 +137,15 @@ public class FallandFloat : MonoBehaviour {
 								Vector3 v3 = target - transform.position;
 								float angle = Mathf.Atan2 (v3.z, v3.x) * Mathf.Rad2Deg;
 								qTo = Quaternion.AngleAxis (angle, Vector3.down);
+
+				transform.Rotate(
+					xSpeed * Time.deltaTime,
+					ySpeed * Time.deltaTime,
+					zSpeed * Time.deltaTime
+					);
+					
 								transform.rotation = Quaternion.RotateTowards (transform.rotation, qTo, rotationSpeed * Time.deltaTime);
-								transform.Translate (Vector3.forward * movementSpeed * Time.deltaTime);
+				transform.Translate (Vector3.forward * movementSpeed * Time.deltaTime);
 						}
 				}
 		/*

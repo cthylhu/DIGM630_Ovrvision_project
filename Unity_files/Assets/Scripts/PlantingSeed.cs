@@ -49,7 +49,7 @@ public class PlantingSeed : MonoBehaviour {
 
 	void CheckSeed(bool droptosoil){
 
-		basePlanet.GetComponent<PlanetInfo>().seedinsoil = droptosoil;
+		basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = droptosoil;
 
 		}
 
@@ -101,8 +101,8 @@ public class PlantingSeed : MonoBehaviour {
 
 				// 1. Dig a hole in the ground
 				// Detect finger-poke collision with planet
-				//if (Righthand.dighole) {
-				if (Input.GetKeyDown ("a")) {
+				if (Righthand.dighole) {
+				//if (Input.GetKeyDown ("a")) {
 					
 					if (!(basePlanetParent.GetComponent<PlanetInfo>().dighole)) {
 						Debug.Log ("Diggy diggy hole!");
@@ -119,7 +119,8 @@ public class PlantingSeed : MonoBehaviour {
 
 
 				// 2. Pick seed
-				// Pick seed family 
+			
+			
 				// Detect what COLOR of plant you want to plant
 
 				// Some seed color picking code here
@@ -127,16 +128,29 @@ public class PlantingSeed : MonoBehaviour {
 
 
 				// 3. Planting the seed
+
 				if (basePlanetParent.GetComponent<PlanetInfo>().dighole) {
-					//if (seedinsoil) {
-					if (Input.GetKeyDown ("s")) {
+
+					// Pick seed family, Buttons can be touched!
+					
+					GameObject.Find ("CandySeedButton").collider.enabled= true;
+					//GameObject.Find ("GhostSeedButton").collider.enabled= true;
+					GameObject.Find ("GlowSeedButton").collider.enabled= true;
+
+					if (basePlanetParent.GetComponent<PlanetInfo>().seedinsoil) {
+					//if (Input.GetKeyDown ("s")) {
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = false;
 						sproutModel.renderer.enabled = true;
 						budModel.renderer.enabled = true;
 						basePlanetParent.GetComponent<PlanetInfo>().planted = true;
-						basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = false;
+						GameObject.Find ("watercan").SendMessage ("WaterHere",basePlanet.GetComponent<OvrvisionTracker>().markerID );
 
+						basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = false;
+						basePlanetParent.GetComponent<PlanetInfo>().dighole = false;
+						GameObject.Find ("CandySeedButton").collider.enabled= false;
+						//GameObject.Find ("GhostSeedButton").collider.enabled= true;
+						GameObject.Find ("GlowSeedButton").collider.enabled= false;
 						/*
 						GameObject.Find ("GlowSeed").GetComponent<FallandFloat>().droptosoil = false;
 						GameObject.Find ("GhostSeed").GetComponent<FallandFloat>().droptosoil = false;
@@ -150,6 +164,11 @@ public class PlantingSeed : MonoBehaviour {
 
 
 				//Cathy Code: Choosing seed type
+
+				if(basePlanetParent.GetComponent<PlanetInfo>().planted && GameObject.Find ("watercan").GetComponent<watercan>().canbewatered){
+
+					//GameObject.Find ("watercan").SendMessage ( "WaterComes", basePlanetParent.GetComponent<PlanetInfo>().planted = true); 
+
 				if (Input.GetKeyDown ("z")) {
 					basePlanetParent.GetComponent<PlanetInfo>().plantType = 1;
 					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
@@ -174,6 +193,9 @@ public class PlantingSeed : MonoBehaviour {
 					basePlanetParent.GetComponent<PlanetInfo>().plantType = 5;
 					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
 					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+				}
+				
+				
 				}
 
 				// Spawn a VR preview tree at object location

@@ -35,7 +35,7 @@ public class Grab : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+	/*
 	void OnTriggerEnter(Collider other){
 		
 		Debug.Log ("Object: " + this.name);
@@ -72,7 +72,7 @@ public class Grab : MonoBehaviour {
 		}
 	}
 	
-	
+	*/
 	
 	
 	// Update is called once per frame
@@ -116,7 +116,7 @@ public class Grab : MonoBehaviour {
 		case GestureState.middle_R:
 
 			
-			this.transform.position = GameObject.Find ("Righthand").transform.position;;
+			this.transform.position = GameObject.Find ("rightpalm").transform.position;
 
 			if (Grab_R == 0) {
 				
@@ -134,9 +134,9 @@ public class Grab : MonoBehaviour {
 
 		case GestureState.middle_L:
 			
-                 this.transform.position = GameObject.Find ("Lefthand").transform.position;
-				
-				if (Grab_L == 0) {
+			this.transform.position = GameObject.Find ("leftpalm").transform.position;
+			
+			if (Grab_L == 0) {
 					
 
 
