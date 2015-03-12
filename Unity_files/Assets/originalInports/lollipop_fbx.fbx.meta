@@ -45,6 +45,7 @@ ModelImporter:
     400038: //RootNode
     4300000: CHAR_lollipoptree_v4_withUV:polySurface1
     7400000: Take 001
+    7400002: Take 0010
     9500000: //RootNode
     13700000: CHAR_lollipoptree_v4_withUV:polySurface1
   materials:
@@ -127,6 +128,72 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint12/joint13/joint14/joint15/joint16/joint17
         weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0010
+      takeName: Take 001
+      firstFrame: 12
+      lastFrame: 61
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: CHAR_lollipoptree_v4_withUV:polySurface1
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint11
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint18
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint5/joint18/joint19
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint5/joint18/joint19/joint20
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint5/joint18/joint19/joint20/joint21
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint5/joint18/joint19/joint20/joint21/joint22
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint5/joint18/joint19/joint20/joint21/joint22/joint23
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint12
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint12/joint13
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint12/joint13/joint14
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint12/joint13/joint14/joint15
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint12/joint13/joint14/joint15/joint16
+        weight: 0
+      - path: joint1/joint2/joint3/joint4/joint12/joint13/joint14/joint15/joint16/joint17
+        weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 1

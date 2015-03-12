@@ -131,7 +131,7 @@ public class Ovrvision : MonoBehaviour
 	public Vector2 chroma_hue = new Vector2(1.0f,0.0f);         //x=max y=min (0.0f-1.0f)
 	public Vector2 chroma_saturation = new Vector2(1.0f,0.0f);  //x=max y=min (0.0f-1.0f)
 	public Vector2 chroma_brightness = new Vector2(1.0f,0.0f);  //x=max y=min (0.0f-1.0f)
-	
+
 	//property
 	public OvrvisionProperty camProp = new OvrvisionProperty();
 	

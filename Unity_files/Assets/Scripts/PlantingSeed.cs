@@ -101,8 +101,8 @@ public class PlantingSeed : MonoBehaviour {
 
 				// 1. Dig a hole in the ground
 				// Detect finger-poke collision with planet
-				if (Righthand.dighole) {
-				//if (Input.GetKeyDown ("a")) {
+				//if (Righthand.dighole) {
+				if (Input.GetKeyDown ("a")) {
 					
 					if (!(basePlanetParent.GetComponent<PlanetInfo>().dighole)) {
 						Debug.Log ("Diggy diggy hole!");
@@ -137,14 +137,14 @@ public class PlantingSeed : MonoBehaviour {
 					//GameObject.Find ("GhostSeedButton").collider.enabled= true;
 					GameObject.Find ("GlowSeedButton").collider.enabled= true;
 
-					if (basePlanetParent.GetComponent<PlanetInfo>().seedinsoil) {
-					//if (Input.GetKeyDown ("s")) {
+					//if (basePlanetParent.GetComponent<PlanetInfo>().seedinsoil) {
+					if (Input.GetKeyDown ("s")) {
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = false;
 						sproutModel.renderer.enabled = true;
 						budModel.renderer.enabled = true;
 						basePlanetParent.GetComponent<PlanetInfo>().planted = true;
-						GameObject.Find ("watercan").SendMessage ("WaterHere",basePlanet.GetComponent<OvrvisionTracker>().markerID );
+						//GameObject.Find ("watercan").SendMessage ("WaterHere",basePlanet.GetComponent<OvrvisionTracker>().markerID );
 
 						basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = false;
 						basePlanetParent.GetComponent<PlanetInfo>().dighole = false;
@@ -165,38 +165,38 @@ public class PlantingSeed : MonoBehaviour {
 
 				//Cathy Code: Choosing seed type
 
-				if(basePlanetParent.GetComponent<PlanetInfo>().planted && GameObject.Find ("watercan").GetComponent<watercan>().canbewatered){
+				//if(basePlanetParent.GetComponent<PlanetInfo>().planted && GameObject.Find ("watercan").GetComponent<watercan>().canbewatered){
 
 					//GameObject.Find ("watercan").SendMessage ( "WaterComes", basePlanetParent.GetComponent<PlanetInfo>().planted = true); 
 
-				if (Input.GetKeyDown ("z")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 1;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
-				}
-				if (Input.GetKeyDown ("x")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 2;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
-				}
-				if (Input.GetKeyDown ("c")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 3;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
-				}
-				if (Input.GetKeyDown ("v")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 4;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
-				}
-				if (Input.GetKeyDown ("b")) {
-					basePlanetParent.GetComponent<PlanetInfo>().plantType = 5;
-					Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
-				}
+					if (Input.GetKeyDown ("z")) {
+						basePlanetParent.GetComponent<PlanetInfo>().plantType = 1;
+						Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+						basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+					}
+					if (Input.GetKeyDown ("x")) {
+						basePlanetParent.GetComponent<PlanetInfo>().plantType = 2;
+						Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+						basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+					}
+					if (Input.GetKeyDown ("c")) {
+						basePlanetParent.GetComponent<PlanetInfo>().plantType = 3;
+						Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+						basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+					}
+					if (Input.GetKeyDown ("v")) {
+						basePlanetParent.GetComponent<PlanetInfo>().plantType = 4;
+						Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+						basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+					}
+					if (Input.GetKeyDown ("b")) {
+						basePlanetParent.GetComponent<PlanetInfo>().plantType = 5;
+						Debug.Log ("Plant type is: "+basePlanetParent.GetComponent<PlanetInfo>().plantType);
+						basePlanetParent.GetComponent<PlanetInfo>().watered = true; 
+					}
 				
 				
-				}
+				//}
 
 				// Spawn a VR preview tree at object location
 				if (basePlanetParent.GetComponent<PlanetInfo>().watered){
@@ -259,8 +259,9 @@ public class PlantingSeed : MonoBehaviour {
 		GameObject newPlanet = Instantiate(Resources.Load(prefabName), PlanetList[numberOfPlanets].position, PlanetList[numberOfPlanets].rotation) as GameObject;
 		newPlanet.transform.parent = PlanetList[numberOfPlanets];
 
-		GameObject newPreviewPlanet = Instantiate(Resources.Load(prefabName), basePlanetParent.transform.position, basePlanetParent.transform.rotation) as GameObject;
-		newPreviewPlanet.transform.parent = basePlanetParent.transform;
+		GameObject newPreviewPlanet = Instantiate(Resources.Load(prefabName), basePlanetParent.transform.Find ("VRPreviewContainer").position, basePlanet.transform.rotation) as GameObject;
+		newPreviewPlanet.transform.parent = basePlanetParent.transform.Find ("VRPreviewContainer");
+		//newPreviewPlanet.tranform.position
 		newPreviewPlanet.transform.localScale = Vector3.one;
 
 		Transform[] childs;

@@ -89,6 +89,8 @@ ModelImporter:
     400082: Tail_root
     4300000: polySurface23
     7400000: Take 001
+    7400002: Take 0010
+    7400004: Take 0011
     9500000: //RootNode
     13700000: polySurface23
   materials:
@@ -111,13 +113,233 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 120
+      lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Candyface_root
+        weight: 1
+      - path: Candyface_root/joint2
+        weight: 1
+      - path: Candyface_root/joint2/joint3
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_Lower1
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_Lower1/L_face_mouth_Lower2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_upper1
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_upper1/L_face_mouth_upper2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root/joint16
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root/joint16/joint17
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root/joint16/joint17/joint22
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2/joint20
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2/joint20/joint21
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2/joint20/joint21/joint23
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8/Tail_bone_9
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8/Tail_bone_9/Tail_bone_10
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8/Tail_bone_9/Tail_bone_10/Tail_bone_11
+        weight: 1
+      - path: polySurface23
+        weight: 1
+      - path: R_face_head
+        weight: 1
+      - path: R_face_head/R_face_mouth_lower1
+        weight: 1
+      - path: R_face_head/R_face_mouth_lower1/R_face_mouth_lower2
+        weight: 1
+      - path: R_face_head/R_face_mouth_upper1
+        weight: 1
+      - path: R_face_head/R_face_mouth_upper1/R_face_mouth_upper2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0010
+      takeName: Take 001
+      firstFrame: 91
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Candyface_root
+        weight: 1
+      - path: Candyface_root/joint2
+        weight: 1
+      - path: Candyface_root/joint2/joint3
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_Lower1
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_Lower1/L_face_mouth_Lower2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_upper1
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/L_face_neck_root/joint7/joint8/joint9/L_face_head/L_face_mouth_upper1/L_face_mouth_upper2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root/joint16
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root/joint16/joint17
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Lneck_root/joint16/joint17/joint22
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2/joint20
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2/joint20/joint21
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/R_face_Rneck_root/R_face_Rneck_root2/joint20/joint21/joint23
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8/Tail_bone_9
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8/Tail_bone_9/Tail_bone_10
+        weight: 1
+      - path: Candyface_root/joint2/joint3/joint4/Mid_root/Tail_root/Tail_bone_1/Tail_bone_2/Tail_bone_3/Tail_bone_4/Tail_bone_5/Tail_bone_6/Tail_bone_7/Tail_bone_8/Tail_bone_9/Tail_bone_10/Tail_bone_11
+        weight: 1
+      - path: polySurface23
+        weight: 1
+      - path: R_face_head
+        weight: 1
+      - path: R_face_head/R_face_mouth_lower1
+        weight: 1
+      - path: R_face_head/R_face_mouth_lower1/R_face_mouth_lower2
+        weight: 1
+      - path: R_face_head/R_face_mouth_upper1
+        weight: 1
+      - path: R_face_head/R_face_mouth_upper1/R_face_mouth_upper2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0011
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 68
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

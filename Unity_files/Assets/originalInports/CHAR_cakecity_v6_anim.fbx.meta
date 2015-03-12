@@ -145,6 +145,7 @@ ModelImporter:
     4300034: CHAR_cakeCity_v4_withnewUVs_pSphere3
     4300036: CHAR_cakeCity_v4_withnewUVs_pSphere2
     7400000: Take 001
+    7400002: Take 0010
     9500000: //RootNode
     13700000: CHAR_cakeCity_v4_withnewUVs_Box0010
     13700002: CHAR_cakeCity_v4_withnewUVs_Box0011
@@ -190,6 +191,156 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_Box005
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_Box008
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_Box009
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_Box0010
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_Box0011
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_nurbsToPoly1
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_nurbsToPoly2
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_nurbsToPoly3
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_nurbsToPoly4
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pCone1
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pCone2
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pCone3
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pSphere1
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pSphere4
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pSphere5
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pSphere6
+        weight: 1
+      - path: group/CHAR_cakeCity_v4_withnewUVs_pSphere7
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/CHAR_cakeCity_v4_withnewUVs_pSphere2
+        weight: 1
+      - path: joint1/CHAR_cakeCity_v4_withnewUVs_pSphere3
+        weight: 1
+      - path: joint1/joint7
+        weight: 1
+      - path: joint1/joint7/joint8 3
+        weight: 1
+      - path: joint1/joint7/joint8 3/joint9 3
+        weight: 1
+      - path: joint1/joint7/joint8 3/joint9 3/joint10 3
+        weight: 1
+      - path: joint1/joint7/joint8 3/joint9 3/joint10 3/joint11 3
+        weight: 1
+      - path: joint1/joint7/joint8 3/joint9 3/joint10 3/joint11 3/joint12 3
+        weight: 1
+      - path: joint1/joint7/joint8 3/joint9 3/joint10 3/joint11 3/joint12 3/joint13
+          3
+        weight: 1
+      - path: joint1/joint7/joint8 3/joint9 3/joint10 3/joint11 3/joint12 3/joint13
+          3/joint14 3
+        weight: 1
+      - path: joint1/joint15
+        weight: 1
+      - path: joint1/joint15/joint8
+        weight: 1
+      - path: joint1/joint15/joint8/joint9
+        weight: 1
+      - path: joint1/joint15/joint8/joint9/joint10
+        weight: 1
+      - path: joint1/joint15/joint8/joint9/joint10/joint11
+        weight: 1
+      - path: joint1/joint15/joint8/joint9/joint10/joint11/joint12
+        weight: 1
+      - path: joint1/joint15/joint8/joint9/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: joint1/joint15/joint8/joint9/joint10/joint11/joint12/joint13/joint14
+        weight: 1
+      - path: joint1/joint16
+        weight: 1
+      - path: joint1/joint16/joint8 1
+        weight: 1
+      - path: joint1/joint16/joint8 1/joint9 1
+        weight: 1
+      - path: joint1/joint16/joint8 1/joint9 1/joint10 1
+        weight: 1
+      - path: joint1/joint16/joint8 1/joint9 1/joint10 1/joint11 1
+        weight: 1
+      - path: joint1/joint16/joint8 1/joint9 1/joint10 1/joint11 1/joint12 1
+        weight: 1
+      - path: joint1/joint16/joint8 1/joint9 1/joint10 1/joint11 1/joint12 1/joint13
+          1
+        weight: 1
+      - path: joint1/joint16/joint8 1/joint9 1/joint10 1/joint11 1/joint12 1/joint13
+          1/joint14 1
+        weight: 1
+      - path: joint1/joint17
+        weight: 1
+      - path: joint1/joint17/joint8 2
+        weight: 1
+      - path: joint1/joint17/joint8 2/joint9 2
+        weight: 1
+      - path: joint1/joint17/joint8 2/joint9 2/joint10 2
+        weight: 1
+      - path: joint1/joint17/joint8 2/joint9 2/joint10 2/joint11 2
+        weight: 1
+      - path: joint1/joint17/joint8 2/joint9 2/joint10 2/joint11 2/joint12 2
+        weight: 1
+      - path: joint1/joint17/joint8 2/joint9 2/joint10 2/joint11 2/joint12 2/joint13
+          2
+        weight: 1
+      - path: joint1/joint17/joint8 2/joint9 2/joint10 2/joint11 2/joint12 2/joint13
+          2/joint14 2
+        weight: 1
+      - path: joint2
+        weight: 1
+      - path: joint3
+        weight: 1
+      - path: joint4
+        weight: 1
+      - path: joint5
+        weight: 1
+      - path: joint6
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0010
+      takeName: Take 001
+      firstFrame: 65
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

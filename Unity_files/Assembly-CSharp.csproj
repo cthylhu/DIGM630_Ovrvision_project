@@ -149,6 +149,12 @@
      <Compile Include="Assets\Scripts\sounds.cs" />
      <Compile Include="Assets\Scripts\watchtapping.cs" />
      <Compile Include="Assets\Scripts\watercan.cs" />
+     <Compile Include="Assets\script\EyeBlink.cs" />
+     <Compile Include="Assets\temptest\Scripts\CandyFacesSoundClick.cs" />
+     <Compile Include="Assets\temptest\Scripts\GhostTreeSoundClick.cs" />
+     <Compile Include="Assets\temptest\Scripts\HornedBellSoundClick.cs" />
+     <Compile Include="Assets\temptest\Scripts\LollipopSoundClick.cs" />
+     <Compile Include="Assets\temptest\Scripts\SkullFacesSoundClick.cs" />
      <None Include="Assets\LeapMotion\Resources\LeapIRUndistorted.shader" />
      <None Include="Assets\LeapMotion\Materials\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\LeapMotion\Resources\LeapIRDistorted.shader" />

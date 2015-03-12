@@ -98,6 +98,7 @@ ModelImporter:
     4300000: polySurface1
     4300002: polySurface2
     7400000: Take 001
+    7400002: Take 0010
     9500000: //RootNode
     13700000: polySurface1
   materials:
@@ -127,6 +128,133 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group
+        weight: 1
+      - path: group/polySurface1
+        weight: 1
+      - path: group/polySurface1/polySurface2
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint15
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint15/joint14
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint17
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint17/joint21
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint13/joint17/joint21/joint14
+          1
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint19/joint20/joint22
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint25
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint25/joint24
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint26
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint26/joint24
+          1
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint27
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint27/joint24
+          2
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint28
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint28/joint24
+          3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint29
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint29/joint24
+          4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint30
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint30/joint24
+          5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint31
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint31/joint24
+          6
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint32
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint32/joint24
+          7
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint33
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint33/joint24
+          8
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint34
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint34/joint24
+          9
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint35
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6/joint16/joint18/joint35/joint24
+          10
+        weight: 1
+      - path: nurbsCircle1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Take 0010
+      takeName: Take 001
+      firstFrame: 34
+      lastFrame: 61
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
