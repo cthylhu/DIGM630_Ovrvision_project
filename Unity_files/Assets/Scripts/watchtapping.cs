@@ -64,7 +64,7 @@ public class watchtapping : MonoBehaviour {
 
 			if (!switchHappened) {
 				GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = false;
-
+				spawnVRTrees();
 				switchHappened = true;
 			}
 			else {
@@ -90,6 +90,16 @@ public class watchtapping : MonoBehaviour {
 			
 	}
 		
-		
+	public void spawnVRTrees(){
+		int count = 1;
+		foreach (string plant in PlantingSeed.CurrentVRPlantList){
+			if (plant != null){
+				Debug.Log (plant);
+				GameObject newPlant = Instantiate(Resources.Load(plant), PlantingSeed.PlanetList[count].position, PlantingSeed.PlanetList[count].rotation) as GameObject;
+				newPlant.transform.parent = PlantingSeed.PlanetList[count];
+				count++;
+			}
+		}
+	}
 
 }

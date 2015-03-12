@@ -6,12 +6,15 @@ public class Righthand : MonoBehaviour {
 	Controller Controller = new Controller();
 	public static bool plotplant;
 	public static bool dighole;
+	public static bool pinching;
 	public static bool openhand;
 	public static bool normalgrow;
 	public static bool reversegrow;
 	public static bool waterplant;
 	public static bool magicgrow;
+	public static bool palmdown;
 	public static bool fist;
+	public static bool sprinkle;
 	public Vector3 palmposition;
 
 
@@ -42,9 +45,13 @@ public class Righthand : MonoBehaviour {
 			Finger pinky = rightmost.Fingers [4];
 			
 			
-			float ringtipSpeed_x = ring.TipVelocity.x;
-			float ringtipSpeed_y = ring.TipVelocity.y;
-			float ringtipSpeed_z = ring.TipVelocity.y;
+			float thumbtipSpeed= thumb.TipVelocity.x;
+			float indextipSpeed= index.TipVelocity.x;
+			float middletipSpeed = middle.TipVelocity.x;
+			float ringtipSpeed= ring.TipVelocity.x;
+			float pinkytipSpeed = pinky.TipVelocity.x;
+
+		    
 			
 			//float trans_ringtipSpeed_z = perviousframe.Hands.Rightmost.Fingers [3].TipVelocity.z - ringtipSpeed_z;
 			
@@ -86,13 +93,31 @@ public class Righthand : MonoBehaviour {
 			float transWave_z_3 = perviousframe3.Hands.Rightmost.PalmPosition.z - handmove_z;
 			float transWave_x_3 = perviousframe3.Hands.Rightmost.PalmPosition.x - handmove_x;
 
+
+			float transPinch = perviousframe3.Hands.Rightmost.PinchStrength - Pinch;
+
+			//float tipmove = index.TipVelocity;
+
+			//float tipmovespeed = perviousframe3.Hands.Rightmost.Fingers[index].TipVelocity - tipmove;
+
 			// Gesture booleans
-					
+			palmdown = roll<20 && roll>-20;		
+
+
 		    plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
 			//dighole = !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended && transWave_y_3>5 && roll<20 && roll>-20;
 			dighole = transRoll >30 && !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
-			openhand = Grab<0.2;
+			if (Grab == 0){
+				openhand = true;
+			}
+			if(Pinch ==1){
+				pinching = true;
+			}
+
 			fist = Grab >0.8;
+
+			sprinkle = 	indextipSpeed>5;
+
 			//Debug.Log ("Open hand?: " +openhand);
 			reversegrow = transWave_y_3 >5;
 			normalgrow = transWave_y_3 <-5;

@@ -85,6 +85,8 @@ public class Grab : MonoBehaviour {
 		Hand leftmost = frame.Hands.Leftmost;
 		float Grab_L = leftmost.GrabStrength;
 		float Grab_R = rightmost.GrabStrength;
+		float Pinch_L = rightmost.PinchStrength;
+		float Pinch_R = leftmost.PinchStrength;
 
 
 		
@@ -96,13 +98,16 @@ public class Grab : MonoBehaviour {
 			// Poke Glow Seed Button
 			if(Button.seednumber==1) 
 			{
-				if (Grab_L > 0.8 ) {
+				//if (Grab_L > 0.8 ) {
+
+					if (Pinch_L > 0.8 ) {
 					
 					Grabbed = true;
 					GrabSeed = GestureState.middle_L;
 				} 
 				
-				if (Grab_R > 0.8 ) {
+				//if (Grab_R > 0.8 ) {
+					if (Pinch_R > 0.8 ) {
 					
 					Grabbed = true;
 					GrabSeed = GestureState.middle_R;
@@ -118,9 +123,10 @@ public class Grab : MonoBehaviour {
 			
 			this.transform.position = GameObject.Find ("rightpalm").transform.position;
 
-			if (Grab_R == 0) {
-				
-
+			//if (Grab_R == 0) {
+			 	
+				if (Pinch_R ==0 ) {
+					
 
 				GrabSeed = GestureState.end;
 
@@ -136,9 +142,9 @@ public class Grab : MonoBehaviour {
 			
 			this.transform.position = GameObject.Find ("leftpalm").transform.position;
 			
-			if (Grab_L == 0) {
+			//if (Grab_L == 0) {
 					
-
+				if (Pinch_R ==0 ) {
 
 				GrabSeed = GestureState.end;
 					

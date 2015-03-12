@@ -135,6 +135,7 @@
      <Compile Include="Assets\Ovrvision\Scripts\OvrvisionTracker.cs" />
      <Compile Include="Assets\Portalizer\PortalizerResources\Scripts\PortalView.cs" />
      <Compile Include="Assets\Scripts\Button.cs" />
+     <Compile Include="Assets\Scripts\Colorpicker.cs" />
      <Compile Include="Assets\Scripts\EyeBlink.cs" />
      <Compile Include="Assets\Scripts\FallandFloat.cs" />
      <Compile Include="Assets\Scripts\Family.cs" />
@@ -161,6 +162,7 @@
      <None Include="Assets\LeapMotion\Resources\LeapIRDistorted.shader" />
      <None Include="Assets\LeapMotion\Resources\LeapRGBDistorted.shader" />
      <None Include="Assets\Models\SkyBox\Materials\Vertex color unlit 5.shader" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\LeapMotion\InteractionUtils (alpha)\readme.txt" />
      <None Include="Assets\LeapMotion\Resources\LeapIRUndistorted_foreground.shader" />
      <None Include="Assets\Plugins\x86\donotdelete.txt" />
@@ -191,6 +193,10 @@
  <Reference Include="LeapCSharp.NET3.5">
  <HintPath>/Users/cyl33/Desktop/DIGM630_Ovrvision_project/Unity_files/Assets/Plugins/x86_64/LeapCSharp.NET3.5.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
+      <Project>{CA514DC0-BB9E-B6A9-39A0-EFD69BE21030}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

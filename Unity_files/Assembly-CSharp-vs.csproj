@@ -135,6 +135,7 @@
      <Compile Include="Assets\Ovrvision\Scripts\OvrvisionTracker.cs" />
      <Compile Include="Assets\Portalizer\PortalizerResources\Scripts\PortalView.cs" />
      <Compile Include="Assets\Scripts\Button.cs" />
+     <Compile Include="Assets\Scripts\Colorpicker.cs" />
      <Compile Include="Assets\Scripts\EyeBlink.cs" />
      <Compile Include="Assets\Scripts\FallandFloat.cs" />
      <Compile Include="Assets\Scripts\Family.cs" />
@@ -161,6 +162,7 @@
      <None Include="Assets\LeapMotion\Resources\LeapIRDistorted.shader" />
      <None Include="Assets\LeapMotion\Resources\LeapRGBDistorted.shader" />
      <None Include="Assets\Models\SkyBox\Materials\Vertex color unlit 5.shader" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\LeapMotion\InteractionUtils (alpha)\readme.txt" />
      <None Include="Assets\LeapMotion\Resources\LeapIRUndistorted_foreground.shader" />
      <None Include="Assets\Plugins\x86\donotdelete.txt" />
@@ -185,6 +187,9 @@
      <None Include="Assets\LeapMotion\Resources\LeapRGBUndistorted.shader" />
      <None Include="Assets\Portalizer\PortalizerResources\Shaders\PortalView.shader" />
      <None Include="Assets\Ovrvision\Resources\Shaders\ovTexture.shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>/Users/cyl33/Desktop/DIGM630_Ovrvision_project/Unity_files/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

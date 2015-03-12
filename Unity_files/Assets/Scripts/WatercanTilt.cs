@@ -21,12 +21,12 @@ public class WatercanTilt : MonoBehaviour {
 		if (currentEuler.z > 30f && currentEuler.z < 270f) {
 			//Debug.Log ("Started pouring!");
 			//this.transform.Find("watercan_Prefab").renderer.material.SetColor("_Color", Color.blue);
-			this.transform.Find ("Particle System").GetComponent<ParticleSystem>().enableEmission = true;
+			this.transform.Find ("WaterParticles").GetComponent<ParticleSystem>().enableEmission = true;
 			isPouring = true;
 		}
 		else {
 			this.transform.Find("watercan_Prefab").renderer.material.SetColor("_Color", Color.white);
-			this.transform.Find ("Particle System").GetComponent<ParticleSystem>().enableEmission = false;
+			this.transform.Find ("WaterParticles").GetComponent<ParticleSystem>().enableEmission = false;
 			isPouring = false;
 		}
 	}

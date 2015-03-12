@@ -17,13 +17,17 @@ public class PlantingSeed : MonoBehaviour {
 	public bool haveStartedTimer = false;
 	public float startTime = 0.0f;
 	public float endTime = 0.0f;
+	public static string[] CurrentVRPlantList = new string[10];
 
 
 	GameObject[] AllPortals;
-	Transform[] PlanetList;
+	public static Transform[] PlanetList;
 	public static int numberOfPlanets = 1;
 
 	int hitcount = 1;
+
+
+
 
 	public static GameObject FindInChildren(GameObject gameObject, string name)
 	{
@@ -45,9 +49,14 @@ public class PlantingSeed : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		Instantiate (Resources.Load ("Comet"));
+
 		PlanetList = GameObject.Find ("Planets").GetComponentsInChildren<Transform>();
 		foreach(Transform p in PlanetList){
 			Debug.Log (p.gameObject.name);
+
+
 		}
 		//TurnOffAllPortals ();
 
@@ -89,7 +98,6 @@ public class PlantingSeed : MonoBehaviour {
 			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
 			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
-
 			if (hit.collider.name == "ARPlanetObject"){									// If raycast hits AR object, highlight it
 				basePlanet = hit.collider.transform.Find("BasePlanet").gameObject;				// Set specific baseplanet
 				basePlanetParent = basePlanet.transform.parent.gameObject;
@@ -127,8 +135,7 @@ public class PlantingSeed : MonoBehaviour {
 
 
 				// 2. Pick seed
-			
-			
+
 				// Detect what COLOR of plant you want to plant
 
 				// Some seed color picking code here
@@ -136,11 +143,9 @@ public class PlantingSeed : MonoBehaviour {
 
 
 				// 3. Planting the seed
-
+				// Enable buttons
 				if (basePlanetParent.GetComponent<PlanetInfo>().dighole) {
 
-					// Pick seed family, Buttons can be touched!
-					
 					GameObject.Find ("CandySeedButton").collider.enabled= true;
 					//GameObject.Find ("GhostSeedButton").collider.enabled= true;
 					GameObject.Find ("GlowSeedButton").collider.enabled= true;
@@ -171,8 +176,6 @@ public class PlantingSeed : MonoBehaviour {
 				}
 
 				// 4. The Watering Can will determine seed type
-
-
 
 				//if(basePlanetParent.GetComponent<PlanetInfo>().planted && GameObject.Find ("watercan").GetComponent<watercan>().canbewatered){
 
@@ -208,7 +211,89 @@ public class PlantingSeed : MonoBehaviour {
 				
 				//}
 
-
+				// 4. The Watering Can will determine seed type
+				if (basePlanetParent != null){
+					if (GameObject.Find ("watercan").GetComponent<WatercanTilt>().isPouring) {
+						
+						if (canStartTimer) {
+							startTime = Time.time;
+							canStartTimer = false; 
+							haveStartedTimer = true;
+						}
+						
+					}
+					else {
+						canStartTimer = true;
+						if (haveStartedTimer){
+							endTime = Time.time;
+							basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed = 
+								basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed + (endTime - startTime);
+							haveStartedTimer = false;
+							
+							
+							basePlanetParent.GetComponent<PlanetInfo>().planetSpawned = false;
+							
+						}
+						// If the time elapsed since the timer was started is greater than __ seconds, plant type will be __
+						if (basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed > 5.0f && plantSubType != 2 && plantSubType != 3){
+							plantSubType = 1;
+							//Debug.Log ("Subtype: "+plantSubType);
+							basePlanetParent.GetComponent<PlanetInfo>().watered = true;
+						}
+						if (basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed > 10.0f && plantSubType != 3){
+							plantSubType = 2;
+							//Debug.Log ("Subtype: "+plantSubType);
+							basePlanetParent.GetComponent<PlanetInfo>().watered = true;
+						}
+						if (basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed > 15.0f){
+							plantSubType = 3;
+							//Debug.Log ("Subtype: "+plantSubType);
+							basePlanetParent.GetComponent<PlanetInfo>().watered = true;
+						}
+						
+					}
+					
+					// Spawn a VR preview tree at object location
+					if (basePlanetParent.GetComponent<PlanetInfo>().watered){
+						if (!(basePlanetParent.GetComponent<PlanetInfo>().planetSpawned)){
+							
+							
+							Debug.Log ("# of planets: "+numberOfPlanets);
+							//Debug.Log ("Going to spawn next at: " + PlanetList [numberOfPlanets].name);
+							
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 1 && plantSubType == 1){
+								spawnVRtrees ("VRObjectLollipop", 1);
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 1 && plantSubType == 2){
+								spawnVRtrees ("VRObjectHornbell", 2); //
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 1 && plantSubType == 3){
+								spawnVRtrees ("VRObjectHornbell", 3); //
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 2 && plantSubType == 1){
+								spawnVRtrees ("VRObjectSkull", 4);
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 2 && plantSubType == 2){
+								spawnVRtrees ("VRObjectGhost", 5);
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 2 && plantSubType == 3){
+								spawnVRtrees ("VRObjectCandyfaces", 6);
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 3 && plantSubType == 1){
+								spawnVRtrees ("VRObjectHornbell", 7);
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 3 && plantSubType == 2){
+								spawnVRtrees ("VRObjectHornbell", 8); //
+							}
+							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 3 && plantSubType == 3){
+								spawnVRtrees ("VRObjectHornbell", 9); //
+							}
+							
+							basePlanetParent.GetComponent<PlanetInfo>().watered = false;
+						}
+						
+					}
+				}
  
 			}
 		}
@@ -221,135 +306,38 @@ public class PlantingSeed : MonoBehaviour {
 		}
 
 
-		if (basePlanetParent != null){
-			if (GameObject.Find ("watercan").GetComponent<WatercanTilt>().isPouring) {
-
-				if (canStartTimer) {
-					startTime = Time.time;
-					canStartTimer = false; 
-					haveStartedTimer = true;
-				}
-
-			}
-			else {
-				canStartTimer = true;
-				if (haveStartedTimer){
-					endTime = Time.time;
-					basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed = 
-						basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed + (endTime - startTime);
-					haveStartedTimer = false;
-
-					DestroyAllClones();
-					numberOfPlanets--;
-					basePlanetParent.GetComponent<PlanetInfo>().planetSpawned = false;
-				
-				}
-				// If the time elapsed since the timer was started is greater than __ seconds, plant type will be __
-				if (basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed > 5.0f && plantSubType != 2 && plantSubType != 3){
-					plantSubType = 1;
-					Debug.Log ("Subtype: "+plantSubType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true;
-				}
-				if (basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed > 10.0f && plantSubType != 3){
-					plantSubType = 2;
-					Debug.Log ("Subtype: "+plantSubType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true;
-				}
-				if (basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed > 15.0f){
-					plantSubType = 3;
-					Debug.Log ("Subtype: "+plantSubType);
-					basePlanetParent.GetComponent<PlanetInfo>().watered = true;
-				}
-
-			}
-
-			// Spawn a VR preview tree at object location
-			if (basePlanetParent.GetComponent<PlanetInfo>().watered){
-				if (!(basePlanetParent.GetComponent<PlanetInfo>().planetSpawned)){
-					
-					numberOfPlanets++;
-					Debug.Log ("#planets: "+numberOfPlanets);
-					//Debug.Log ("Going to spawn next at: " + PlanetList [numberOfPlanets].name);
-					
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 1 && plantSubType == 1){
-						spawnVRtrees ("VRObjectLollipop", 1);
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 1 && plantSubType == 2){
-						spawnVRtrees ("VRObjectHornbell", 2); //
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 1 && plantSubType == 3){
-						spawnVRtrees ("VRObjectHornbell", 3); //
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 2 && plantSubType == 1){
-						spawnVRtrees ("VRObjectSkull", 4);
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 2 && plantSubType == 2){
-						spawnVRtrees ("VRObjectGhost", 5);
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 2 && plantSubType == 3){
-						spawnVRtrees ("VRObjectCandyfaces", 6);
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 3 && plantSubType == 1){
-						spawnVRtrees ("VRObjectHornbell", 7);
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 3 && plantSubType == 2){
-						spawnVRtrees ("VRObjectHornbell", 8); //
-					}
-					if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 3 && plantSubType == 3){
-						spawnVRtrees ("VRObjectHornbell", 9); //
-					}
-					
-					/*switch (basePlanetParent.GetComponent<PlanetInfo> ().plantType) {
-								
-							case 0:
-								//	Display nothing
-								break;
-							case 1:
-								spawnVRtrees ("VRObjectHornbell");
-								break;
-							case 2:
-								spawnVRtrees ("VRObjectCandyfaces");
-								break;
-							case 3:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 4:
-								spawnVRtrees ("VRObjectLollipop");
-								break;
-							case 5:
-								spawnVRtrees ("VRObjectSkull");
-								break;
-							case 6:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 7:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 8:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							case 9:
-								spawnVRtrees ("VRObjectGhost");
-								break;
-							}*/
-					
-					basePlanetParent.GetComponent<PlanetInfo>().watered = false;
-				}
-
-			}
-		}
 	}
+	
 
 	public void spawnVRtrees (string prefabName, int ptype) {
 		basePlanetParent.GetComponent<PlanetInfo>().plantType = ptype;
+		Transform[] destroylist = PlanetList[numberOfPlanets].GetComponentsInChildren<Transform>();
 
+		if (destroylist.Length > 1) {
+
+			/*foreach (Transform t in destroylist) {
+				if (t.name != PlanetList[numberOfPlanets].name){
+					//Debug.Log ("Destroying: "+t.name);
+					Destroy(t.gameObject);
+				}
+			}*/
+			destroylist = basePlanetParent.transform.Find ("VRPreviewContainer").GetComponentsInChildren<Transform> ();
+			foreach (Transform t in destroylist) {
+				if (t.name != "VRPreviewContainer"){
+					//Debug.Log ("Destroying: "+t.name);
+					Destroy(t.gameObject);
+				}
+			}
+			if (numberOfPlanets != 1){
+				numberOfPlanets--;
+			}
+		}
 		// spawn a planet inside gameobject at array index numberOfPlanets
-		GameObject newPlanet = Instantiate(Resources.Load(prefabName), PlanetList[numberOfPlanets+1].position, PlanetList[numberOfPlanets+1].rotation) as GameObject;
-		newPlanet.transform.parent = PlanetList[numberOfPlanets];
+		//GameObject newPlanet = Instantiate(Resources.Load(prefabName), PlanetList[numberOfPlanets].position, PlanetList[numberOfPlanets].rotation) as GameObject;
+		//newPlanet.transform.parent = PlanetList[numberOfPlanets];
 
 		GameObject newPreviewPlanet = Instantiate(Resources.Load(prefabName), basePlanetParent.transform.Find ("VRPreviewContainer").position, basePlanet.transform.rotation) as GameObject;
 		newPreviewPlanet.transform.parent = basePlanetParent.transform.Find ("VRPreviewContainer");
-		//newPreviewPlanet.tranform.position
 		newPreviewPlanet.transform.localScale = Vector3.one;
 
 		Transform[] childs;
@@ -358,15 +346,12 @@ public class PlantingSeed : MonoBehaviour {
 			t.gameObject.layer = LayerMask.NameToLayer("PlantLayer");
 		}
 
+		CurrentVRPlantList [numberOfPlanets - 1] = prefabName;
+		numberOfPlanets++;
 		basePlanetParent.GetComponent<PlanetInfo>().planetSpawned = true;
 	}
 
-	public void DestroyAllClones() {
-		GameObject[] ListOfClones = GameObject.FindGameObjectsWithTag ("Clone");
-		foreach (GameObject g in ListOfClones){
-			Destroy (g);
-		}
-	}
+
 
 
 

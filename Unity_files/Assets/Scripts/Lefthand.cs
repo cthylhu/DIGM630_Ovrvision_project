@@ -10,6 +10,8 @@ public class Lefthand : MonoBehaviour {
 	public static bool reversegrow;
 	public static bool magicgrow;
 	public static bool fist;
+	public static bool sprinkle;
+	public static bool palmdown;
 	public Vector3 palmposition;
 	
 	
@@ -38,11 +40,13 @@ public class Lefthand : MonoBehaviour {
 			Finger middle = leftmost.Fingers [2];
 			Finger ring = leftmost.Fingers [3];
 			Finger pinky = leftmost.Fingers [4];
-			
-			
-			float ringtipSpeed_x = ring.TipVelocity.x;
-			float ringtipSpeed_y = ring.TipVelocity.y;
-			float ringtipSpeed_z = ring.TipVelocity.y;
+
+			float thumbtipSpeed= thumb.TipVelocity.x;
+			float indextipSpeed= index.TipVelocity.x;
+			float middletipSpeed = middle.TipVelocity.x;
+			float ringtipSpeed= ring.TipVelocity.x;
+			float pinkytipSpeed = pinky.TipVelocity.x;
+
 			
 			//float trans_ringtipSpeed_z = perviousframe.Hands.Rightmost.Fingers [3].TipVelocity.z - ringtipSpeed_z;
 			
@@ -70,29 +74,35 @@ public class Lefthand : MonoBehaviour {
 			Vector3 wristposition= new Vector3 ( wrist_x ,wrist_y ,-wrist_z );
 			
 			
-			float transRadius = perviousframe6.Hands.Rightmost.SphereRadius - radius;
-			float transPitch = perviousframe10.Hands.Rightmost.Direction.Pitch - pitch;
-			float transYaw = perviousframe10.Hands.Rightmost.Direction.Yaw - yaw;
-			float transRoll = perviousframe10.Hands.Rightmost.PalmNormal.Roll * 180.0f / Mathf.PI - roll;
-			float transWave_y_10 = perviousframe10.Hands.Rightmost.PalmPosition.y - handmove_y;
-			float transWave_z_10 = perviousframe10.Hands.Rightmost.PalmPosition.z - handmove_z;
-			float transWave_x_10 = perviousframe10.Hands.Rightmost.PalmPosition.x - handmove_x;
-			float transWave_y_6 = perviousframe6.Hands.Rightmost.PalmPosition.y - handmove_y;
-			float transWave_z_6 = perviousframe6.Hands.Rightmost.PalmPosition.z - handmove_z;
-			float transWave_x_6 = perviousframe6.Hands.Rightmost.PalmPosition.x - handmove_x;
-			float transWave_y_3 = perviousframe3.Hands.Rightmost.PalmPosition.y - handmove_y;
-			float transWave_z_3 = perviousframe3.Hands.Rightmost.PalmPosition.z - handmove_z;
-			float transWave_x_3 = perviousframe3.Hands.Rightmost.PalmPosition.x - handmove_x;
+			float transRadius = perviousframe6.Hands.Leftmost.SphereRadius - radius;
+			float transPitch = perviousframe10.Hands.Leftmost.Direction.Pitch - pitch;
+			float transYaw = perviousframe10.Hands.Leftmost.Direction.Yaw - yaw;
+			float transRoll = perviousframe10.Hands.Leftmost.PalmNormal.Roll * 180.0f / Mathf.PI - roll;
+			float transWave_y_10 = perviousframe10.Hands.Leftmost.PalmPosition.y - handmove_y;
+			float transWave_z_10 = perviousframe10.Hands.Leftmost.PalmPosition.z - handmove_z;
+			float transWave_x_10 = perviousframe10.Hands.Leftmost.PalmPosition.x - handmove_x;
+			float transWave_y_6 = perviousframe6.Hands.Leftmost.PalmPosition.y - handmove_y;
+			float transWave_z_6 = perviousframe6.Hands.Leftmost.PalmPosition.z - handmove_z;
+			float transWave_x_6 = perviousframe6.Hands.Leftmost.PalmPosition.x - handmove_x;
+			float transWave_y_3 = perviousframe3.Hands.Leftmost.PalmPosition.y - handmove_y;
+			float transWave_z_3 = perviousframe3.Hands.Leftmost.PalmPosition.z - handmove_z;
+			float transWave_x_3 = perviousframe3.Hands.Leftmost.PalmPosition.x - handmove_x;
+
+
+			float transPinch = perviousframe3.Hands.Leftmost.PinchStrength - Pinch;
 			
 			// Gesture booleans
-			
+			palmdown = roll<20 && roll>-20;	
+
 			plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
 			openhand = Grab<0.2;
 			fist = Grab >0.8;
+
 			//Debug.Log ("Open hand?: " +openhand);
 			reversegrow = transWave_y_3 >5;
 			normalgrow = transWave_y_3 <-5;
 
+			sprinkle = 	indextipSpeed>5;
 
 			transform.position = palmposition;
 		}
