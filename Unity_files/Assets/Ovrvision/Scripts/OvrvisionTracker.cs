@@ -23,6 +23,10 @@ public class OvrvisionTracker : MonoBehaviour {
 	Quaternion R_marker = Quaternion.identity;		//Marker Rotation
 	Vector3 S_marker = Vector3.one;					//Marker Scale
 
+	Vector4 posVector;
+	Vector4 rotVector;
+	Vector4 scaleVector;
+
 	Matrix4x4 displayNewPosition = Matrix4x4.zero;
 	public bool Parented = false;
 
@@ -61,28 +65,28 @@ public class OvrvisionTracker : MonoBehaviour {
 			//Debug.Log ("Marker OLD Scale: " + S_marker);
 			//Debug.Log ("Marker matrix: " + T_marker);
 			
-			Matrix4x4 T_marker_world = T_camera * T_marker;				//Multiply matrices
+			Matrix4x4 T_marker_world = T_camera * T_marker;				// Multiply matrices
 			//Debug.Log ("Marker WORLD matrix: " + T_marker_world);
 			
 			Vector3 Marker_position_NEW = T_marker_world.GetColumn (3);					// Extract new position from matrix
 
-			Quaternion Marker_rotation_NEW = QuaternionFromMatrix (T_marker_world);		//Extract new rotation from matrix
+			Quaternion Marker_rotation_NEW = QuaternionFromMatrix (T_marker_world);		// Extract new rotation from matrix
 
-			Vector3 Marker_scale_NEW = new Vector3(										//Extract new scale from matrix
+			Vector3 Marker_scale_NEW = new Vector3(										// Extract new scale from matrix
 				T_marker_world.GetColumn(0).magnitude,
 				T_marker_world.GetColumn(1).magnitude,
 				T_marker_world.GetColumn(2).magnitude
 				);
 
-			// FOR DISPLAYING THE FLOAT VALUES BETTER, because Debug.Log for Vectors truncates float values
-			Vector4 posVector = new Vector4 (Marker_position_NEW.x, Marker_position_NEW.y, Marker_position_NEW.z, 0);
-			Vector4 rotVector = new Vector4 (Marker_rotation_NEW.w, Marker_rotation_NEW.x, Marker_rotation_NEW.y, Marker_rotation_NEW.z);
-			Vector4 scaleVector = new Vector4(Marker_scale_NEW.x, Marker_scale_NEW.y, Marker_scale_NEW.z, 0);
+			// FOR DISPLAYING THE FLOAT VALUES BETTER, because Debug.Log normally truncates float values
+			/*posVector = new Vector4 (Marker_position_NEW.x, Marker_position_NEW.y, Marker_position_NEW.z, 0);
+			rotVector = new Vector4 (Marker_rotation_NEW.w, Marker_rotation_NEW.x, Marker_rotation_NEW.y, Marker_rotation_NEW.z);
+			scaleVector = new Vector4 (Marker_scale_NEW.x, Marker_scale_NEW.y, Marker_scale_NEW.z, 0);
 			
 			displayNewPosition.SetRow (0, posVector);
 			displayNewPosition.SetRow (1, rotVector);
 			displayNewPosition.SetRow (2, scaleVector);
-			//Debug.Log ("NEW POS/ROT/SCALE: " + displayNewPosition);
+			Debug.Log ("NEW POS/ROT/SCALE: " + displayNewPosition);*/
 
 
 			// Apply new transformations
@@ -92,8 +96,6 @@ public class OvrvisionTracker : MonoBehaviour {
 			
 			//Debug.Log ("===============");
 		}
-
-
 
 	}
 

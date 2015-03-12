@@ -31,7 +31,7 @@ public class PlayPlants : MonoBehaviour {
 	// left index poke the ghost then switch from AR to VR
 	
 	void OnTriggerEnter(Collider other){
-		Debug.Log("Collided plant object: " + this.name);
+		//Debug.Log("Collided plant object: " + this.name);
 		if ((other.name == ("L_index_bone3"))||(other.name == ("R_index_bone3"))) {
 			
 			audio.PlayOneShot(pokeSound,1.0f);
@@ -55,13 +55,12 @@ public class PlayPlants : MonoBehaviour {
 			    || hit.collider.name == "CHAR_candyfaces_prefab" 
 			    || hit.collider.name == "CHAR_SkullShroom_prefab"){
 
-				Debug.Log ("Hit VR Plant #: "+hitcount+", Collider: "+hit.collider.name);
+				//Debug.Log ("Hit VR Plant #: "+hitcount+", Collider: "+hit.collider.name);
 				Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 				hitcount++;
 
 				currentPlanet = hit.collider.transform.parent.gameObject;
 
-				Debug.Log ("Current Planet: "+currentPlanet);
 
 				Renderer[] renderers = currentPlanet.GetComponentsInChildren<Renderer>();
 				foreach (Renderer rend in renderers) {
@@ -75,6 +74,7 @@ public class PlayPlants : MonoBehaviour {
 					this.GetComponent<Animator>().enabled = true;
 					
 					Invoke ("Retrigger",5);
+					Debug.Log ("Current Planet: "+currentPlanet);
 				}
 
 			}

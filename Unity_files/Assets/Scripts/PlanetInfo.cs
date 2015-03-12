@@ -6,10 +6,14 @@ public class PlanetInfo : MonoBehaviour {
 	public bool planted = false;
 	public bool dighole = false;
 	public bool seedinsoil = false;
-	public int plantType = 0;
+
 	public bool planetSpawned = false;
 	public bool watered = false;
+	public float totalTimeElapsed = 0.0f;
 	
+	public int familyType = 0;
+	public int plantType = 0;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -19,4 +23,6 @@ public class PlanetInfo : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
 }

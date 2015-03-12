@@ -12,6 +12,8 @@ public class Button : MonoBehaviour {
 	public Grab Grab;
 	public FallandFloat FallandFloat;
 	public Vector3  ButtonPosition;
+	public int buttonType = 0;
+
 
 	//GameObject GlowSeedButtonprefab;
 	//GameObject GhostSeedButtonprefab;
@@ -33,11 +35,9 @@ public class Button : MonoBehaviour {
 		
 		//Debug.Log ("Button pressed: " + this.name);
 
-
-
 		if ((other.name == ("L_index_bone3")) || (other.name == ("R_index_bone3"))) {
 
-			// Poke Glow Seed Button
+			PlantingSeed.buttonPressed = buttonType; 
 	
 
 			if (GameObject.Find ("GlowSeedButton").GetComponent<Button>().seednumber == 0 && 

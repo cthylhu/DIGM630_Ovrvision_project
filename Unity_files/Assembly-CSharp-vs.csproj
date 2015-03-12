@@ -135,6 +135,7 @@
      <Compile Include="Assets\Ovrvision\Scripts\OvrvisionTracker.cs" />
      <Compile Include="Assets\Portalizer\PortalizerResources\Scripts\PortalView.cs" />
      <Compile Include="Assets\Scripts\Button.cs" />
+     <Compile Include="Assets\Scripts\EyeBlink.cs" />
      <Compile Include="Assets\Scripts\FallandFloat.cs" />
      <Compile Include="Assets\Scripts\Family.cs" />
      <Compile Include="Assets\Scripts\Grab.cs" />
@@ -144,12 +145,12 @@
      <Compile Include="Assets\Scripts\PlayPlants.cs" />
      <Compile Include="Assets\Scripts\Righthand.cs" />
      <Compile Include="Assets\Scripts\Righthand_info.cs" />
+     <Compile Include="Assets\Scripts\WatercanTilt.cs" />
      <Compile Include="Assets\Scripts\portalcontrol.cs" />
      <Compile Include="Assets\Scripts\raycasttest.cs" />
      <Compile Include="Assets\Scripts\sounds.cs" />
      <Compile Include="Assets\Scripts\watchtapping.cs" />
      <Compile Include="Assets\Scripts\watercan.cs" />
-     <Compile Include="Assets\script\EyeBlink.cs" />
      <Compile Include="Assets\temptest\Scripts\CandyFacesSoundClick.cs" />
      <Compile Include="Assets\temptest\Scripts\GhostTreeSoundClick.cs" />
      <Compile Include="Assets\temptest\Scripts\HornedBellSoundClick.cs" />
@@ -184,19 +185,12 @@
      <None Include="Assets\LeapMotion\Resources\LeapRGBUndistorted.shader" />
      <None Include="Assets\Portalizer\PortalizerResources\Shaders\PortalView.shader" />
      <None Include="Assets\Ovrvision\Resources\Shaders\ovTexture.shader" />
- <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>/Users/cyl33/Desktop/DIGM630_Ovrvision_project/Unity_files/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="LeapCSharp.NET3.5">
  <HintPath>/Users/cyl33/Desktop/DIGM630_Ovrvision_project/Unity_files/Assets/Plugins/x86_64/LeapCSharp.NET3.5.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{DC339813-E1B7-06DA-CF8D-08FF1A1EED99}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
