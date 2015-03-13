@@ -8,24 +8,15 @@ public class Button : MonoBehaviour {
 	//scripts
 	public sounds sounds;
 	public AudioClip seed;
-	public int seednumber;
+	public static bool seedGenerated = false;
 	public Grab Grab;
 	public FallandFloat FallandFloat;
-	public Vector3  ButtonPosition;
+	public Vector3 ButtonPosition;
 	public int buttonType = 0;
-
-
-	//GameObject GlowSeedButtonprefab;
-	//GameObject GhostSeedButtonprefab;
-	//GameObject CandySeedButtonprefab;
 
 	// Use this for initialization
 	void Start () {
-		/*
-		GameObject GlowSeedButtonprefab = Instantiate (Resources.Load ("GlowSeedButton"),GameObject.Find ("GlowSeedButton").transform.position, GameObject.Find ("GlowSeedButton").transform.rotation) as GameObject; 
-		GameObject GhostSeedButtonprefab = Instantiate (Resources.Load ("GhostSeedButton"),GameObject.Find ("GhostSeedButton").transform.position, GameObject.Find ("GhostSeedButton").transform.rotation)as GameObject;
-		GameObject CandySeedButtonprefab = Instantiate (Resources.Load ("CandySeedButton"),GameObject.Find ("CandySeedButton").transform.position, GameObject.Find ("CandySeedButton").transform.rotation)as GameObject;
-		*/
+
 
 	}
 	
@@ -37,110 +28,71 @@ public class Button : MonoBehaviour {
 
 		if ((other.name == ("L_index_bone3")) || (other.name == ("R_index_bone3"))) {
 
-			PlantingSeed.buttonPressed = buttonType; 
-	
+			audio.PlayOneShot (seed);
+			Debug.Log ("Seed name: "+this.name);
 
-			if (GameObject.Find ("GlowSeedButton").GetComponent<Button>().seednumber == 0 && 
+			if (this.name == "GlowSeedButton") {
+				GenerateSeed("GlowSeed");
+				Debug.Log ("Glow Seed Generated!");
+			}
+			if (this.name == "GhostSeedButton") {
+				GenerateSeed("GhostSeed");
+				Debug.Log ("Ghost Seed Generated!");
+			}
+			if (this.name == "CandySeedButton") {
+				GenerateSeed("CandySeed");
+				Debug.Log ("Candy Seed Generated!");
+			}
+
+			/*if (GameObject.Find ("GlowSeedButton").GetComponent<Button>().seednumber == 0 && 
 			   //GameObject.Find ("GhostSeedButton").GetComponent<Button>().seednumber == 0 &&
 
 			    GameObject.Find ("CandySeedButton").GetComponent<Button> ().seednumber == 0) {
-		
 
-
-				audio.PlayOneShot (seed);
-
-				seednumber ++;
+				//seednumber ++;
                 
-                GenerateSeed();
-
-						
-				/*
-				// Glow Seed Button Being Poked
-
-				if(this.name == " GlowSeedButton"){
-
-					Instantiate (GameObject.Find ("GlowSeed"), transform.position = this.transform.localPosition, transform.rotation = this.transform.localRotation);
-					
-					GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Fall");
-					//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
-
-					Debug.Log ("Glow Seed Generated!");
-				
+				if (seednumber == 1) {
+					GenerateSeed();
 				}
+			}*/
 
-				// Ghost Seed Button Being Poked
-
-				if(this.name == " GhostSeedButton"){
-					
-					Instantiate (GameObject.Find ("GhostSeed"), transform.position = this.transform.localPosition, transform.rotation = this.transform.localRotation);
-					
-					GameObject.Find ("GhostSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Fall");
-					//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
-
-					
-					Debug.Log ("Ghost Seed Generated!");
-					
-				}
-
-
-				// Candy Seed Button Being Poked
-
-				if(this.name == " CandySeedButton"){
-					
-					Instantiate (GameObject.Find ("CandySeed"), transform.position = this.transform.localPosition, transform.rotation = this.transform.localRotation);
-					
-					GameObject.Find ("CandySeed(Clone)").GetComponent<FallandFloat>().SendMessage("Fall");
-					//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
-
-					
-					Debug.Log ("Candy Seed Generated!");
-					
-				}
-				*/
-
-			}
 
 		}
 	}
+	
+	void GenerateSeed(string seedName){
 
+		GameObject.Find (seedName).transform.position = new Vector3 (this.transform.position.x, this.transform.position.y - 2f, this.transform.position.z); 
+		//GameObject.Find (seedName).transform.rotation = this.transform.rotation;
+		
+		EnableSeedRenders(seedName);
 
-	void GenerateSeed(){
+		GameObject.Find (seedName).GetComponent<FallandFloat> ().SendMessage ("Fall", ButtonPosition);
+	}
 
-		if (seednumber == 1) {
-			
-			if (this.name == " GlowSeedButton") {
-				
-				GameObject.Find ("GlowSeed").transform.position = this.transform.localPosition; 
-				GameObject.Find ("GlowSeed").transform.rotation = this.transform.localRotation;
-				
-				GameObject.Find ("GlowSeed").GetComponent<FallandFloat> ().SendMessage ("Fall",ButtonPosition);
-				//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
-				
-				Debug.Log ("Glow Seed Generated!");
-			}
-			
-			if (this.name == " GhostSeedButton") {
-				
-				GameObject.Find ("GhostSeed").transform.position = this.transform.localPosition; 
-				GameObject.Find ("GhostSeed").transform.rotation = this.transform.localRotation;
-				
-				GameObject.Find ("GhostSeed").GetComponent<FallandFloat> ().SendMessage ("Fall",ButtonPosition);
-				//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
-				
-				Debug.Log ("Ghost Seed Generated!");
-			}
-			
-			if (this.name == " CandySeedButton") {
-				
-				GameObject.Find ("CandySeed").transform.position = this.transform.localPosition; 
-				GameObject.Find ("CandySeed").transform.rotation = this.transform.localRotation;
-				
-				GameObject.Find ("CandySeed").GetComponent<FallandFloat> ().SendMessage ("Fall", ButtonPosition);
-				//GameObject.Find ("GlowSeed(Clone)").GetComponent<FallandFloat>().SendMessage("Target",this.name);
-				
-				Debug.Log ("Candy Seed Generated!");
-			}
+	public void EnableSeedRenders(string seedname){
+		// Disable existing seeds
+		Renderer[] ghostList = GameObject.Find ("GhostSeed").GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in ghostList){
+			r.enabled = false;
 		}
+		Renderer[] glowList = GameObject.Find ("GlowSeed").GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in glowList){
+			r.enabled = false;
+		}
+		Renderer[] candyList = GameObject.Find ("CandySeed").GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in candyList){
+			r.enabled = false;
+		}
+
+		// Enable new seed
+		Renderer[] list = GameObject.Find (seedname).GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in list) {
+			Debug.Log ("Renderer: "+r.name);
+			r.enabled = true;
+		}
+		seedGenerated = true;
+		PlantingSeed.buttonPressed = buttonType; 
 	}
 
 	// Update is called once per frame

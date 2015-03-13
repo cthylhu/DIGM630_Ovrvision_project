@@ -6,6 +6,7 @@ public class Lefthand : MonoBehaviour {
 	Controller Controller = new Controller();
 	public static bool plotplant;
 	public static bool openhand;
+	public static bool pinching;
 	public static bool normalgrow;
 	public static bool reversegrow;
 	public static bool magicgrow;
@@ -97,12 +98,14 @@ public class Lefthand : MonoBehaviour {
 			plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
 			openhand = Grab<0.2;
 			fist = Grab >0.8;
-
+			if(Pinch ==1){
+				pinching = true;
+			}
 			//Debug.Log ("Open hand?: " +openhand);
 			reversegrow = transWave_y_3 >5;
 			normalgrow = transWave_y_3 <-5;
 
-			sprinkle = 	indextipSpeed>5;
+			sprinkle = 	indextipSpeed>20;
 
 			transform.position = palmposition;
 		}

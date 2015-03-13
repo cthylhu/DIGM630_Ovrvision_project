@@ -6,6 +6,7 @@ public class PlanetInfo : MonoBehaviour {
 	public bool planted = false;
 	public bool dighole = false;
 	public bool seedinsoil = false;
+	public string assigncolor;
 
 	public bool planetSpawned = false;
 	public bool watered = false;

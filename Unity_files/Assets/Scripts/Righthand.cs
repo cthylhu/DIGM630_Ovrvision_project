@@ -107,16 +107,14 @@ public class Righthand : MonoBehaviour {
 		    plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
 			//dighole = !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended && transWave_y_3>5 && roll<20 && roll>-20;
 			dighole = transRoll >30 && !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
-			if (Grab == 0){
-				openhand = true;
-			}
+			openhand = thumb.IsExtended && index.IsExtended && middle.IsExtended && ring.IsExtended && pinky.IsExtended;
 			if(Pinch ==1){
 				pinching = true;
 			}
 
 			fist = Grab >0.8;
 
-			sprinkle = 	indextipSpeed>5;
+			sprinkle = 	indextipSpeed>20;
 
 			//Debug.Log ("Open hand?: " +openhand);
 			reversegrow = transWave_y_3 >5;

@@ -15,26 +15,22 @@ public class Grab : MonoBehaviour {
 	public Righthand Righthand;
 	public Lefthand Lefthand;
 	public sounds sounds;
-
-	
 	
 	public enum GestureState
 	{
-
 		start,
 		middle_L,
 		middle_R,
 		end
 	}
+
 	public GestureState GrabSeed = GestureState.start;
-	
-	
-	
-	
+
 	// Use this for initialization
 	void Start () {
 		
 	}
+
 	/*
 	void OnTriggerEnter(Collider other){
 		
@@ -79,7 +75,6 @@ public class Grab : MonoBehaviour {
 	
 	void Update () {
 		
-		
 		Frame frame = Controller.Frame ();
 		Hand rightmost = frame.Hands.Rightmost;
 		Hand leftmost = frame.Hands.Leftmost;
@@ -87,64 +82,63 @@ public class Grab : MonoBehaviour {
 		float Grab_R = rightmost.GrabStrength;
 		float Pinch_L = rightmost.PinchStrength;
 		float Pinch_R = leftmost.PinchStrength;
+		int handnum = frame.Hands.Count;
 
-
-		
 		switch (GrabSeed) {
-		
 		
 		case GestureState.start:
 
 			// Poke Glow Seed Button
-			if(Button.seednumber==1) 
+			if(Button.seedGenerated) 
 			{
 				//if (Grab_L > 0.8 ) {
 
-					if (Pinch_L > 0.8 ) {
-					
+				if (Pinch_L == 1 ) {
 					Grabbed = true;
 					GrabSeed = GestureState.middle_L;
 				} 
 				
 				//if (Grab_R > 0.8 ) {
-					if (Pinch_R > 0.8 ) {
+				if (Pinch_R ==1 ) {
 					
 					Grabbed = true;
 					GrabSeed = GestureState.middle_R;
 				} 
 			}
 
-
-		
 			break;
 			
 		case GestureState.middle_R:
 
-			
-			this.transform.position = GameObject.Find ("rightpalm").transform.position;
+			if(rightmost != null && handnum != 0 ){
+				this.transform.parent = GameObject.Find ("seedContainer").transform;
+				this.transform.localPosition = Vector3.zero;
+				//this.transform.position = GameObject.Find ("rightpalm").transform.position;
 
-			//if (Grab_R == 0) {
-			 	
-				if (Pinch_R ==0 ) {
+				if (Grab_R == 0) {
+				 	GrabSeed = GestureState.end;
+					gameObject.AddComponent <Rigidbody>().useGravity = true;
 					
+				}
 
-				GrabSeed = GestureState.end;
 
-				gameObject.AddComponent <Rigidbody>().useGravity = true;
-				
+
+				if(rightmost == null){
+					GrabSeed = GestureState.start;
+				}
+
 			}
-
-
-
 			break;
 
 		case GestureState.middle_L:
-			
-			this.transform.position = GameObject.Find ("leftpalm").transform.position;
-			
-			//if (Grab_L == 0) {
-					
-				if (Pinch_R ==0 ) {
+
+			if(leftmost != null && handnum != 0 ){
+			 
+				this.transform.parent = GameObject.Find ("seedContainer").transform;
+				this.transform.localPosition = Vector3.zero;
+
+				if (Grab_L == 0) {
+				
 
 				GrabSeed = GestureState.end;
 					
@@ -152,15 +146,17 @@ public class Grab : MonoBehaviour {
 					
 				}
 
-			
+					if(rightmost == null){
+						GrabSeed = GestureState.start;
+				}
+
+				}
 			
 			break;
 			
 		case GestureState.end:
 
-
-
-			if( Button.seednumber == 0){
+			if(!(Button.seedGenerated)){
 			
 			     GrabSeed = GestureState.start;	 
 			
@@ -169,6 +165,6 @@ public class Grab : MonoBehaviour {
 			break;
 			
 		}
-		
+
 	}
 }

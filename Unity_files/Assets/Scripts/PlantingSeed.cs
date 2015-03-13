@@ -52,6 +52,7 @@ public class PlantingSeed : MonoBehaviour {
 
 		Instantiate (Resources.Load ("Comet"));
 
+		
 		PlanetList = GameObject.Find ("Planets").GetComponentsInChildren<Transform>();
 		foreach(Transform p in PlanetList){
 			Debug.Log (p.gameObject.name);
@@ -67,6 +68,13 @@ public class PlantingSeed : MonoBehaviour {
 	void CheckSeed(bool droptosoil){
 
 		//basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = droptosoil;
+
+		}
+	// Tell the colorscheme type you have picked for the planet
+
+	void ColorPicked(string colorname){
+
+		basePlanetParent.GetComponent<PlanetInfo>().assigncolor = colorname;
 
 		}
 
@@ -119,6 +127,12 @@ public class PlantingSeed : MonoBehaviour {
 				// Detect finger-poke collision with planet
 				//if (Righthand.dighole) {
 				if (Input.GetKeyDown ("a")) {
+
+					
+					GameObject.Find ("purple").collider.enabled = true;
+					GameObject.Find ("green").collider.enabled = true;
+					GameObject.Find ("blue").collider.enabled = true;
+
 					
 					if (!(basePlanetParent.GetComponent<PlanetInfo>().dighole)) {
 						Debug.Log ("Diggy diggy hole!");
@@ -136,6 +150,7 @@ public class PlantingSeed : MonoBehaviour {
 
 				// 2. Pick seed
 
+				// Button.cs: Pick a plant family, spawn a seed
 				// Detect what COLOR of plant you want to plant
 
 				// Some seed color picking code here
@@ -303,6 +318,8 @@ public class PlantingSeed : MonoBehaviour {
 				holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 				sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 			}
+			basePlanetParent = null;
+
 		}
 
 

@@ -15,7 +15,7 @@ public class FallandFloat : MonoBehaviour {
 	private float movementSpeed=1f;// Degrees per second
 	//private float movementSpeed =2f; // Units per second;
 
-	public Vector3 target;
+	public Vector3 ButtonPosition;
 
 	//private Transform target2;
 	//private Transform target3;
@@ -24,11 +24,17 @@ public class FallandFloat : MonoBehaviour {
 	public Grab Grab;
 	public sounds sounds;
 	public bool droptosoil;
+	public string SeedName;
 
-
+	public void DisableSeedRenders(string seedname){
+		Renderer[] list = GameObject.Find (seedname).GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in list) {
+			r.enabled = false;
+		}
+	}
 	// Use this for initialization
 	void Start () {
-
+		droptosoil = false;
 		//target = GameObject.Find ("GlowSeedButton").transform;  	
 		//target2 = GameObject.Find ("GhostSeedButton").transform; 
 		//target3 = GameObject.Find ("CandySeedButton").transform;  
@@ -37,59 +43,81 @@ public class FallandFloat : MonoBehaviour {
 	
 	}
 
-	void Fall(Vector3 ButtonPosition){
-
-		target = ButtonPosition;
-		
-		//Instantiate (Resources.Load ("CandySeed_prefab"), target, transform.rotation);
-
-			//this.GetComponentInChildren <MeshRenderer>().enabled = true;
-
-	   
-		this.transform.localPosition -= new Vector3 (0, 3f, 0)*Time.deltaTime;
-	    
-			
-		Debug.Log (" falling!");
+	void Fall (Vector3 position){
+		ButtonPosition = position;
+		Debug.Log ("Set target button position!");
 		
 	}
 
+	// Update is called once per frame
+	void Update () {
+		         
+		if (Button.seedGenerated) {
 
+			if (!Grab.Grabbed) {
+				if (PlantingSeed.buttonPressed == 1){
+					SeedName = "CandySeed";
+				}
+				if (PlantingSeed.buttonPressed == 2){
+					SeedName = "GhostSeed";
+				}
+				if (PlantingSeed.buttonPressed == 3){
+					SeedName = "GlowSeed";
+				}
+				//Debug.Log (SeedName);
+
+				//Vector3 v3 = ButtonPosition - GameObject.Find (SeedName).transform.position;
+				//float angle = Mathf.Atan2 (v3.z, v3.x) * Mathf.Rad2Deg;
+				//qTo = Quaternion.AngleAxis (angle, Vector3.down);
+
+				transform.Rotate(0f, ySpeed * Time.deltaTime, 0f);
+				
+				//transform.rotation = Quaternion.RotateTowards (transform.rotation, qTo, rotationSpeed * Time.deltaTime);
+				//transform.Translate (Vector3.forward * movementSpeed * Time.deltaTime);
+
+				//transform.Rotate (Vector3.right * Time.deltaTime);
+			}
+		}
+	}
 
 	void OnTriggerExit(Collider other){
 		
-		//Debug.Log("Object: " + this.name);
+		//Debug.Log("Fall into Object: " + other.name);
 		
-		
-		
-		if (other.name == "Marker"){
-
-
-
-
-
-
-
-		   // if(this.name =="GlowSeed(Clone") {
-
+		if (other.name == "FallCollider") {
+			
+			// if(this.name =="GlowSeed(Clone") {
+			
 			//GameObject.Find ("GlowSeed").GetComponent<Grab>().Grabbed = false;
 			
-			Destroy(this.rigidbody);
-
-			//Destroy(this);
-
-				Debug.Log ("Seed Planted");
-				
-				Button.seednumber = 0;
-			    
-			    Grab.Grabbed = false;
+			Destroy (this.rigidbody);
 			
-			    other.audio.PlayOneShot(sounds.planted);
-			   
-			GameObject.Find ("AREnvironment").GetComponent<PlantingSeed>().SendMessage("CheckSeed", droptosoil = true);
-		  }
-
-
-			/*if(this.name =="GhostSeed(Clone") {
+			//Destroy(this);
+			
+			Debug.Log ("Seed Planted");
+			
+			Button.seedGenerated = false;
+			
+			Grab.Grabbed = false;
+			
+			other.audio.PlayOneShot (sounds.planted);
+			
+			if (this.name == "CandySeed") {
+				DisableSeedRenders ("CandySeed");
+			}
+			if (this.name == "GhostSeed") {
+				DisableSeedRenders ("GhostSeed");
+			}
+			if (this.name == "GlowSeed") {
+				DisableSeedRenders ("GlowSeed");
+			}
+			
+			GameObject.Find ("AREnvironment").GetComponent<PlantingSeed> ().SendMessage ("CheckSeed", droptosoil = true);
+			
+		}
+		
+		
+		/*if(this.name =="GhostSeed(Clone") {
 				
 				//GameObject.Find ("GhostSeed").GetComponent<Grab>().Grabbed = false;
 				
@@ -126,52 +154,4 @@ public class FallandFloat : MonoBehaviour {
 
 		}*/
 	}
-
-
-	// Update is called once per frame
-	void Update () {
-		         
-				if (Button.seednumber==1) {
-
-				if (!Grab.Grabbed) {
-								Vector3 v3 = target - transform.position;
-								float angle = Mathf.Atan2 (v3.z, v3.x) * Mathf.Rad2Deg;
-								qTo = Quaternion.AngleAxis (angle, Vector3.down);
-
-				transform.Rotate(
-					xSpeed * Time.deltaTime,
-					ySpeed * Time.deltaTime,
-					zSpeed * Time.deltaTime
-					);
-					
-								transform.rotation = Quaternion.RotateTowards (transform.rotation, qTo, rotationSpeed * Time.deltaTime);
-				transform.Translate (Vector3.forward * movementSpeed * Time.deltaTime);
-						}
-				}
-		/*
-
-		if (GameObject.Find ("GhostSeedButton").GetComponent<Button>().seednumber==1) {
-			
-		if (!this.GetComponent<Grab>().Grabbed) {
-				Vector3 v3 = target2.position - transform.position;
-				float angle = Mathf.Atan2 (v3.z, v3.x) * Mathf.Rad2Deg;
-				qTo = Quaternion.AngleAxis (angle, Vector3.down);
-				transform.rotation = Quaternion.RotateTowards (transform.rotation, qTo, rotationSpeed * Time.deltaTime);
-				transform.Translate (Vector3.forward * movementSpeed * Time.deltaTime);
-			}
-		}
-
-
-		if (GameObject.Find ("CandySeedButton").GetComponent<Button>().seednumber==1) {
-			
-		if (!this.GetComponent<Grab>().Grabbed) {
-				Vector3 v3 = target3.position - transform.position;
-				float angle = Mathf.Atan2 (v3.z, v3.x) * Mathf.Rad2Deg;
-				qTo = Quaternion.AngleAxis (angle, Vector3.down);
-				transform.rotation = Quaternion.RotateTowards (transform.rotation, qTo, rotationSpeed * Time.deltaTime);
-				transform.Translate (Vector3.forward * movementSpeed * Time.deltaTime);
-			}
-		}
-		*/
-		}
 }
