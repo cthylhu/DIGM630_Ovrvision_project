@@ -12,7 +12,9 @@ public class Button : MonoBehaviour {
 	public Grab Grab;
 	public FallandFloat FallandFloat;
 	public Vector3 ButtonPosition;
-	public int buttonType = 0;
+	public int buttonType;
+	public static string CurrentSeed;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,21 +31,28 @@ public class Button : MonoBehaviour {
 		if ((other.name == ("L_index_bone3")) || (other.name == ("R_index_bone3"))) {
 
 			audio.PlayOneShot (seed);
-			Debug.Log ("Seed name: "+this.name);
+			Debug.Log ("Button pressed: "+this.name);
+
+			//other.SendMessage("LastSeed",buttonType);
 
 			if (this.name == "GlowSeedButton") {
-				GenerateSeed("GlowSeed");
+				CurrentSeed = "GlowSeed";
+				GenerateSeed(CurrentSeed);
 				Debug.Log ("Glow Seed Generated!");
 			}
 			if (this.name == "GhostSeedButton") {
-				GenerateSeed("GhostSeed");
+				CurrentSeed = "GhostSeed";
+				GenerateSeed(CurrentSeed);
 				Debug.Log ("Ghost Seed Generated!");
 			}
 			if (this.name == "CandySeedButton") {
-				GenerateSeed("CandySeed");
+				CurrentSeed = "CandySeed";
+				GenerateSeed(CurrentSeed);
 				Debug.Log ("Candy Seed Generated!");
 			}
 
+			seedGenerated = true;
+			PlantingSeed.buttonPressed = buttonType; 
 			/*if (GameObject.Find ("GlowSeedButton").GetComponent<Button>().seednumber == 0 && 
 			   //GameObject.Find ("GhostSeedButton").GetComponent<Button>().seednumber == 0 &&
 
@@ -59,18 +68,19 @@ public class Button : MonoBehaviour {
 
 		}
 	}
-	
+
 	void GenerateSeed(string seedName){
 
 		GameObject.Find (seedName).transform.position = new Vector3 (this.transform.position.x, this.transform.position.y - 2f, this.transform.position.z); 
 		//GameObject.Find (seedName).transform.rotation = this.transform.rotation;
-		
+		//DisableSeedRenders ();
 		EnableSeedRenders(seedName);
 
 		GameObject.Find (seedName).GetComponent<FallandFloat> ().SendMessage ("Fall", ButtonPosition);
 	}
 
-	public void EnableSeedRenders(string seedname){
+
+	void DisableSeedRenders (){
 		// Disable existing seeds
 		Renderer[] ghostList = GameObject.Find ("GhostSeed").GetComponentsInChildren<Renderer>();
 		foreach (Renderer r in ghostList){
@@ -84,21 +94,24 @@ public class Button : MonoBehaviour {
 		foreach (Renderer r in candyList){
 			r.enabled = false;
 		}
+	}
 
+	void EnableSeedRenders(string seedname){
 		// Enable new seed
 		Renderer[] list = GameObject.Find (seedname).GetComponentsInChildren<Renderer>();
 		foreach (Renderer r in list) {
-			Debug.Log ("Renderer: "+r.name);
+			Debug.Log ("Enable Renderer: "+r.name);
 			r.enabled = true;
 		}
-		seedGenerated = true;
-		PlantingSeed.buttonPressed = buttonType; 
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		ButtonPosition = this.transform.position;
 
+		//ButtonPosition = this.transform.position;
+//		if (Grab.Grabbed) {
+//			DisableSeedRenders();
+//		}
 	}
 }

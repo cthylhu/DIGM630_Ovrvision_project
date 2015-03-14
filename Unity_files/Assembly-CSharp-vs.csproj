@@ -146,6 +146,7 @@
      <Compile Include="Assets\Scripts\PlayPlants.cs" />
      <Compile Include="Assets\Scripts\Righthand.cs" />
      <Compile Include="Assets\Scripts\Righthand_info.cs" />
+     <Compile Include="Assets\Scripts\SeedContainer.cs" />
      <Compile Include="Assets\Scripts\WatercanTilt.cs" />
      <Compile Include="Assets\Scripts\flyin.cs" />
      <Compile Include="Assets\Scripts\portalcontrol.cs" />

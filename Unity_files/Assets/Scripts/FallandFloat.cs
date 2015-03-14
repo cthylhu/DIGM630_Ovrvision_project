@@ -115,43 +115,6 @@ public class FallandFloat : MonoBehaviour {
 			GameObject.Find ("AREnvironment").GetComponent<PlantingSeed> ().SendMessage ("CheckSeed", droptosoil = true);
 			
 		}
-		
-		
-		/*if(this.name =="GhostSeed(Clone") {
-				
-				//GameObject.Find ("GhostSeed").GetComponent<Grab>().Grabbed = false;
-				
-				Destroy(this.rigidbody);
-				
-				//Destroy(this);
 
-				Debug.Log ("Seed Planted");
-				
-				Button.seednumber = 0;
-				
-				other.audio.PlayOneShot(sounds.planted);
-				
-				
-			}
-
-
-			if(this.name =="CandySeed(Clone") {
-				
-				GameObject.Find ("CandySeed").GetComponent<Grab>().Grabbed = false;
-				
-				Destroy(GameObject.Find ("CandySeed").rigidbody);
-				
-				Destroy(this);
-
-				Debug.Log ("Seed Planted");
-				
-				Button.seednumber = 0;
-				
-				other.audio.PlayOneShot(sounds.planted);
-				
-				
-			}
-
-		}*/
 	}
 }

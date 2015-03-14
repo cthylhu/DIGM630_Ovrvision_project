@@ -9,7 +9,7 @@ using Leap;
 public class Grab : MonoBehaviour {
 	
 	Controller Controller = new Controller ();
-	public bool Grabbed;
+	public  bool Grabbed;
 	public Button Button;
 	public FallandFloat FallandFloat;
 	public Righthand Righthand;
@@ -92,9 +92,11 @@ public class Grab : MonoBehaviour {
 			if(Button.seedGenerated) 
 			{
 				//if (Grab_L > 0.8 ) {
-
+				//Debug.Log("Got here! 1");
 				if (Pinch_L == 1 ) {
+					//Debug.Log("Got here! 2");
 					Grabbed = true;
+					//GameObject.Find ("Button").SendMessage ("DisableSeedRenders");
 					GrabSeed = GestureState.middle_L;
 				} 
 				
@@ -102,6 +104,7 @@ public class Grab : MonoBehaviour {
 				if (Pinch_R ==1 ) {
 					
 					Grabbed = true;
+					//GameObject.Find ("Button").SendMessage ("DisableSeedRenders");
 					GrabSeed = GestureState.middle_R;
 				} 
 			}
@@ -110,53 +113,160 @@ public class Grab : MonoBehaviour {
 			
 		case GestureState.middle_R:
 
-			if(rightmost != null && handnum != 0 ){
-				this.transform.parent = GameObject.Find ("seedContainer").transform;
-				this.transform.localPosition = Vector3.zero;
-				//this.transform.position = GameObject.Find ("rightpalm").transform.position;
+			if(rightmost.IsValid){
+				Debug.Log ("Got here! 3");
+				//this.transform.parent = GameObject.Find ("seedContainer").transform;
+				//this.transform.localPosition = Vector3.zero;
+//				this.transform.position = GameObject.Find ("rightpalm").transform.position;
+//				this.transform.localScale  = GameObject.Find ("rightpalm").transform.localScale * 0.5f;
+
+				
+				if (Button.CurrentSeed == "CandySeed"){
+					//EnableHandSeedRenders("CandySeed");
+					Renderer[] rightnewSeed = GameObject.Find ("R_CandySeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightnewSeed) {
+						Debug.Log ("Hand seed render: "+r.name);
+						r.enabled = true;
+					}
+					Renderer[] rightseedList1 = GameObject.Find ("R_GhostSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightseedList1){
+						r.enabled = false;
+					}
+					Renderer[] rightseedList2 = GameObject.Find ("R_GlowSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightseedList2){
+						r.enabled = false;
+					}
+				}
+				if (Button.CurrentSeed == "GhostSeed"){
+					//EnableHandSeedRenders("GhostSeed");
+					
+					Renderer[] rightnewSeed = GameObject.Find ("R_GhostSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightnewSeed) {
+						Debug.Log ("Hand seed render: "+r.name);
+						r.enabled = true;
+					}
+					Renderer[] rightseedList1 = GameObject.Find ("R_CandySeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightseedList1){
+						r.enabled = false;
+					}
+					Renderer[] rightseedList2 = GameObject.Find ("R_GlowSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightseedList2){
+						r.enabled = false;
+					}
+				}
+				if (Button.CurrentSeed == "GlowSeed"){
+					//EnableHandSeedRenders("GlowSeed");
+					
+					Renderer[] rightnewSeed = GameObject.Find ("R_GlowSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightnewSeed) {
+						Debug.Log ("Hand seed render: "+r.name);
+						r.enabled = true;
+					}
+					Renderer[] rightseedList1 = GameObject.Find ("R_GhostSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightseedList1){
+						r.enabled = false;
+					}
+					Renderer[] rightseedList2 = GameObject.Find ("R_CandySeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in rightseedList2){
+						r.enabled = false;
+					}
+				}
 
 				if (Grab_R == 0) {
 				 	GrabSeed = GestureState.end;
+
 					gameObject.AddComponent <Rigidbody>().useGravity = true;
 					
 				}
 
 
 
-				if(rightmost == null){
-					GrabSeed = GestureState.start;
-				}
+			}
 
+			if(!rightmost.IsValid){
+				GrabSeed = GestureState.start;
+				
 			}
 			break;
 
 		case GestureState.middle_L:
 
-			if(leftmost != null && handnum != 0 ){
-			 
-				this.transform.parent = GameObject.Find ("seedContainer").transform;
-				this.transform.localPosition = Vector3.zero;
+			if(leftmost.IsValid ){ ///
+				Debug.Log ("Got here! 3");
+				//this.transform.parent = GameObject.Find ("seedContainer").transform;
+				//this.transform.localPosition = Vector3.zero;
+	
+
+				if (Button.CurrentSeed == "CandySeed"){
+					//EnableHandSeedRenders("CandySeed");
+					Renderer[] leftnewSeed = GameObject.Find ("L_CandySeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftnewSeed) {
+						Debug.Log ("Hand seed render: "+r.name);
+						r.enabled = true;
+					}
+					Renderer[] leftseedList1 = GameObject.Find ("L_GhostSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftseedList1){
+						r.enabled = false;
+					}
+					Renderer[] leftseedList2 = GameObject.Find ("L_GlowSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftseedList2){
+						r.enabled = false;
+					}
+				}
+				if (Button.CurrentSeed == "GhostSeed"){
+					//EnableHandSeedRenders("GhostSeed");
+
+					Renderer[] leftnewSeed = GameObject.Find ("L_GhostSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftnewSeed) {
+						Debug.Log ("Hand seed render: "+r.name);
+						r.enabled = true;
+					}
+					Renderer[] leftseedList1 = GameObject.Find ("L_CandySeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftseedList1){
+						r.enabled = false;
+					}
+					Renderer[] leftseedList2 = GameObject.Find ("L_GlowSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftseedList2){
+						r.enabled = false;
+					}
+				}
+				if (Button.CurrentSeed == "GlowSeed"){
+					//EnableHandSeedRenders("GlowSeed");
+
+					Renderer[] leftnewSeed = GameObject.Find ("L_GlowSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftnewSeed) {
+						Debug.Log ("Hand seed render: "+r.name);
+						r.enabled = true;
+					}
+					Renderer[] leftseedList1 = GameObject.Find ("L_GhostSeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftseedList1){
+						r.enabled = false;
+					}
+					Renderer[] leftseedList2 = GameObject.Find ("L_CandySeed_prefab").GetComponentsInChildren<Renderer>();
+					foreach (Renderer r in leftseedList2){
+						r.enabled = false;
+					}
+				}
 
 				if (Grab_L == 0) {
+
+					GrabSeed = GestureState.end;
+						
+					gameObject.AddComponent <Rigidbody>().useGravity = true;		
+				}
+
+			}
+
+			if(!leftmost.IsValid){
+				GrabSeed = GestureState.start;
 				
-
-				GrabSeed = GestureState.end;
-					
-				gameObject.AddComponent <Rigidbody>().useGravity = true;
-					
-				}
-
-					if(rightmost == null){
-						GrabSeed = GestureState.start;
-				}
-
-				}
+			}
 			
 			break;
 			
 		case GestureState.end:
 
-			if(!(Button.seedGenerated)){
+			if(!Button.seedGenerated){
 			
 			     GrabSeed = GestureState.start;	 
 			
@@ -167,4 +277,33 @@ public class Grab : MonoBehaviour {
 		}
 
 	}
+	/*
+	void EnableHandSeedRenders(string seedname){
+
+		Debug.Log ("Got here! 4");
+		// Disable existing seeds
+		Renderer[] leftseedList = GameObject.Find ("LeftseedContainer").GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in leftseedList){
+			r.enabled = false;
+		}
+		Renderer[] rightseedList = GameObject.Find ("RightseedContainer").GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in rightseedList){
+			r.enabled = false;
+		}
+		// Enable new seed
+		Renderer[] leftnewSeed = GameObject.Find ("LeftseedContainer").Find (seedname).GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in leftnewSeed) {
+			Debug.Log ("Hand seed render: "+r.name);
+			r.enabled = true;
+		}
+		Renderer[] rightnewSeed = GameObject.Find ("RightseedContainer").Find (seedname).GetComponentsInChildren<Renderer>();
+		foreach (Renderer r in rightnewSeed) {
+			Debug.Log ("Hand seed render: "+r.name);
+			r.enabled = true;
+		}
+		//seedGenerated = true;
+		//PlantingSeed.buttonPressed = buttonType; 
+	}
+*/
+
 }
