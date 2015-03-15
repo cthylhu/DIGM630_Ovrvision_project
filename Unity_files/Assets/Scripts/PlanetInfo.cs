@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlanetInfo : MonoBehaviour {
 	
-	public bool planted = false;
-	public bool dighole = false;
+	public bool isPlanted = false;
+	public bool hasHole = false;
 	public bool seedinsoil = false;
 	public string assigncolor;
 

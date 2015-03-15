@@ -32,6 +32,8 @@ public class watchtapping : MonoBehaviour {
 	}
 /*
 	void OnTriggerEnter(Collider other) {
+
+
 		//Debug.Log("Collided watch object: " + this.name);
 		if (other.name == ("L_index_bone3")) {
 		
@@ -52,8 +54,8 @@ public class watchtapping : MonoBehaviour {
 
 		}
 	}
-			
 	*/		
+		
 	
 	// Update is called once per frame
 	void Update () {
@@ -89,6 +91,7 @@ public class watchtapping : MonoBehaviour {
 			
 			
 	}
+
 		
 	public void spawnVRTrees(){
 		int count = 1;

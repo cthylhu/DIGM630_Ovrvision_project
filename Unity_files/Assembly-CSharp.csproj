@@ -136,6 +136,7 @@
      <Compile Include="Assets\Portalizer\PortalizerResources\Scripts\PortalView.cs" />
      <Compile Include="Assets\Scripts\Button.cs" />
      <Compile Include="Assets\Scripts\Colorpicker.cs" />
+     <Compile Include="Assets\Scripts\DropSeed.cs" />
      <Compile Include="Assets\Scripts\EyeBlink.cs" />
      <Compile Include="Assets\Scripts\FallandFloat.cs" />
      <Compile Include="Assets\Scripts\Family.cs" />
@@ -149,6 +150,7 @@
      <Compile Include="Assets\Scripts\SeedContainer.cs" />
      <Compile Include="Assets\Scripts\WatercanTilt.cs" />
      <Compile Include="Assets\Scripts\flyin.cs" />
+     <Compile Include="Assets\Scripts\narration.cs" />
      <Compile Include="Assets\Scripts\portalcontrol.cs" />
      <Compile Include="Assets\Scripts\raycasttest.cs" />
      <Compile Include="Assets\Scripts\sounds.cs" />

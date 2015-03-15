@@ -16,8 +16,8 @@ public class Righthand : MonoBehaviour {
 	public static bool fist;
 	public static bool sprinkle;
 	public Vector3 palmposition;
-
-
+	public enum gesturestate {none,begin,end};
+	public gesturestate digging = gesturestate.none;
 	
 	// Use this for initialization
 	void Start () {
@@ -101,12 +101,29 @@ public class Righthand : MonoBehaviour {
 			//float tipmovespeed = perviousframe3.Hands.Rightmost.Fingers[index].TipVelocity - tipmove;
 
 			// Gesture booleans
-			palmdown = roll<20 && roll>-20;		
+			palmdown = roll<=-140 && roll>=140;		
 
 
 		    plotplant = !thumb.IsExtended && index.IsExtended && middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
-			//dighole = !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended && transWave_y_3>5 && roll<20 && roll>-20;
-			dighole = transRoll >30 && !thumb.IsExtended && index.IsExtended && !middle.IsExtended && !ring.IsExtended && !pinky.IsExtended;
+
+			switch(digging){
+			case gesturestate.none:
+				if(palmdown){
+					digging = gesturestate.begin;
+				}
+				break;
+			case gesturestate.begin:
+				if(transPitch>10){
+					dighole=true;
+					digging = gesturestate.none;
+				}
+				break;
+			}
+
+
+			//dighole = transPitch>10;
+
+			dighole = index.IsExtended && Grab>0.4;
 			openhand = thumb.IsExtended && index.IsExtended && middle.IsExtended && ring.IsExtended && pinky.IsExtended;
 			if(Pinch ==1){
 				pinching = true;

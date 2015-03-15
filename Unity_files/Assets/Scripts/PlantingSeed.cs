@@ -1,12 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using Leap;
 public class PlantingSeed : MonoBehaviour {
+	Controller Controller = new Controller ();
+
+	public enum gesturestate {none,begin,end};
+	public gesturestate digging = gesturestate.none;
+	public bool isDiggingHole = false;
+	public static bool attemptedToPlant = false;
 
 	public Righthand Righthand;
 
-	GameObject basePlanet;
-	GameObject basePlanetParent;
+//	audio narration check numbers
+	public int raycastcount;
+	public int digholecount;
+	public int waterplantcount;
+	public int plantatreecount;
+	public int plantgrow;
+	public narration narration;
+
+
+	public GameObject basePlanet;
+	public GameObject basePlanetParent;
+	public static GameObject lastSeensARObject;
 	GameObject holeModel;
 	GameObject sproutModel;
 	GameObject budModel;
@@ -19,15 +35,29 @@ public class PlantingSeed : MonoBehaviour {
 	public float endTime = 0.0f;
 	public static string[] CurrentVRPlantList = new string[10];
 
-
+	//Gesture Variables
+	static Frame frame;
+	static Frame perviousframe3;
+	static Frame perviousframe10;
+	static Frame perviousframe6;
+	static Hand rightmost;
+	static Hand leftmost;
+	static float pitch;
+	static float transPitch;
+	static float Grab_L;
+	static float Grab_R;
+	static float Pinch_L;
+	static float Pinch_R;
+	static float roll_l;
+	static float roll_r;
+	static bool palmdown_r;
+	
+	
 	GameObject[] AllPortals;
 	public static Transform[] PlanetList;
 	public static int numberOfPlanets = 1;
 
 	int hitcount = 1;
-
-
-
 
 	public static GameObject FindInChildren(GameObject gameObject, string name)
 	{
@@ -50,6 +80,7 @@ public class PlantingSeed : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
 		Instantiate (Resources.Load ("Comet"));
 
 		
@@ -67,7 +98,7 @@ public class PlantingSeed : MonoBehaviour {
 
 	void CheckSeed(bool droptosoil){
 
-		//basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = droptosoil;
+		basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = droptosoil;
 
 		}
 	// Tell the colorscheme type you have picked for the planet
@@ -98,86 +129,150 @@ public class PlantingSeed : MonoBehaviour {
 
 	void Update () {
 
+		frame = Controller.Frame ();
+		perviousframe3 = Controller.Frame (3);
+		perviousframe10 = Controller.Frame (10);
+		perviousframe6 = Controller.Frame (6);
+		rightmost = frame.Hands.Rightmost;
+		leftmost = frame.Hands.Leftmost;
+		pitch = rightmost.Direction.Pitch * 180.0f / Mathf.PI;
+		transPitch = perviousframe3.Hands.Rightmost.Direction.Pitch - pitch;
+		Grab_L = leftmost.GrabStrength;
+		Grab_R = rightmost.GrabStrength;
+		Pinch_L = rightmost.PinchStrength;
+		Pinch_R = leftmost.PinchStrength;
+		roll_l = leftmost.PalmNormal.Roll * 180.0f / Mathf.PI;
+		roll_r = rightmost.PalmNormal.Roll * 180.0f / Mathf.PI;
+		palmdown_r = roll_r <= -140 || roll_r >= 140;
+
+		if (rightmost.IsValid) {
+
+			switch (digging) {
+				case gesturestate.none:
+					isDiggingHole = false;
+					if (pitch>=90) {
+						digging = gesturestate.begin;
+					}
+					break;
+				case gesturestate.begin:
+					if (Righthand.dighole
+   //transPitch<=-30
+					) {
+						isDiggingHole = true;
+						audio.Play ();
+						digging = gesturestate.none;
+					}
+
+					break;
+			}
+		}
+		
 		// Detect if you're looking at a planet
 		Vector3 fwd = GameObject.Find("CenterEyeAnchor").transform.forward;
 		RaycastHit hit;
-
-		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 50)){
+		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 20)){
 			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
-			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
+			Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 
-			if (hit.collider.name == "ARPlanetObject"){									// If raycast hits AR object, highlight it
+			if (hit.collider.name == "ARPlanetObject"){	
+
+				// raycast detect for the first time , give narration!
+				if(raycastcount==0){
+					audio.PlayOneShot(narration.Intro5);
+				raycastcount=1;
+			}
+
+				// If raycast hits AR object, highlight it
+				//Debug.Log("Tracker #: "+hit.collider.transform.GetComponent<OvrvisionTracker>().markerID);
 				basePlanet = hit.collider.transform.Find("BasePlanet").gameObject;				// Set specific baseplanet
 				basePlanetParent = basePlanet.transform.parent.gameObject;
+				lastSeensARObject = basePlanetParent;
 
 				holeModel = basePlanetParent.transform.Find("Planet_with_hole").gameObject;		// Set specific holeModel
 				sproutModel = basePlanetParent.transform.Find("Planet_with_plant").gameObject;	// Set specific sproutModel
-
 				budModel = sproutModel.transform.Find ("bud").gameObject;
 
-				//Debug.Log ("Parent: "+childOfCollider);
 				basePlanet.renderer.material.SetColor ("_OutlineColor", Color.green);
 				holeModel.renderer.material.SetColor ("_OutlineColor", Color.green);
 				sproutModel.renderer.material.SetColor ("_OutlineColor", Color.green);
 
 				hitcount++;
-			
+
+
 
 				// 1. Dig a hole in the ground
 				// Detect finger-poke collision with planet
-				//if (Righthand.dighole) {
-				if (Input.GetKeyDown ("a")) {
-
-					
-					GameObject.Find ("purple").collider.enabled = true;
-					GameObject.Find ("green").collider.enabled = true;
-					GameObject.Find ("blue").collider.enabled = true;
-
-					
-					if (!(basePlanetParent.GetComponent<PlanetInfo>().dighole)) {
+				if (isDiggingHole) {
+					if (!(basePlanetParent.GetComponent<PlanetInfo>().hasHole)) {
 						Debug.Log ("Diggy diggy hole!");
-						
+						audio.Play ();
+
+					//dig hole for the first time, give narration!
+					    if(digholecount == 0){
+							audio.PlayOneShot(narration.Intro6);
+						digholecount=1;
+					}
+
+
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = true;
 						sproutModel.renderer.enabled = false;
 						budModel.renderer.enabled = false;
-						basePlanetParent.GetComponent<PlanetInfo>().dighole = true;
-						
+						basePlanetParent.GetComponent<PlanetInfo>().hasHole = true;
+
+
+						GameObject.Find ("purple").collider.enabled = true;
+						GameObject.Find ("green").collider.enabled = true;
+						GameObject.Find ("blue").collider.enabled = true;
+
 					}
 					
 				}
 
 
-				// 2. Pick seed
 
-				// Button.cs: Pick a plant family, spawn a seed
-				// Detect what COLOR of plant you want to plant
+				// 2. Planting the seed
+				if (attemptedToPlant) {
+					if (basePlanetParent.GetComponent<PlanetInfo>().hasHole && basePlanetParent != null) {
 
-				// Some seed color picking code here
+						//GameObject.Find ("CandySeedButton").collider.enabled= true;
+						//GameObject.Find ("GhostSeedButton").collider.enabled= true;
+						//GameObject.Find ("GlowSeedButton").collider.enabled= true;
 
+						basePlanetParent.GetComponent<PlanetInfo>().familyType = buttonPressed;
 
-
-				// 3. Planting the seed
-				// Enable buttons
-				if (basePlanetParent.GetComponent<PlanetInfo>().dighole) {
-
-					GameObject.Find ("CandySeedButton").collider.enabled= true;
-					//GameObject.Find ("GhostSeedButton").collider.enabled= true;
-					GameObject.Find ("GlowSeedButton").collider.enabled= true;
-
-					basePlanetParent.GetComponent<PlanetInfo>().familyType = buttonPressed;
-
-					//if (basePlanetParent.GetComponent<PlanetInfo>().seedinsoil) {
-					if (Input.GetKeyDown ("s")) {
+						//if (Input.GetKeyDown ("s")) {
 						basePlanet.renderer.enabled = false;
 						holeModel.renderer.enabled = false;
 						sproutModel.renderer.enabled = true;
+
+						if(basePlanetParent.GetComponent<PlanetInfo>().isPlanted && plantgrow == 0){
+							audio.PlayOneShot(narration.Intro9);
+							plantgrow = 1;
+						}
+
 						budModel.renderer.enabled = true;
-						basePlanetParent.GetComponent<PlanetInfo>().planted = true;
+						basePlanetParent.GetComponent<PlanetInfo>().isPlanted = true;
+
+						//plant the first three trees, give narrations!
+					
+					plantatreecount ++;
+
+					if(plantatreecount == 1){
+							audio.PlayOneShot(narration.Intro11);
+					}
+					if(plantatreecount==2){
+							audio.PlayOneShot(narration.Intro12);
+					}
+					if(plantatreecount==3){
+							audio.PlayOneShot(narration.Intro13);
+					}
+
+
 						//GameObject.Find ("watercan").SendMessage ("WaterHere",basePlanet.GetComponent<OvrvisionTracker>().markerID );
 
 						basePlanetParent.GetComponent<PlanetInfo>().seedinsoil = false;
-						basePlanetParent.GetComponent<PlanetInfo>().dighole = false;
+						basePlanetParent.GetComponent<PlanetInfo>().hasHole = false;
 						//GameObject.Find ("CandySeedButton").collider.enabled= false;
 						//GameObject.Find ("GhostSeedButton").collider.enabled= true;
 						//GameObject.Find ("GlowSeedButton").collider.enabled= false;
@@ -189,7 +284,7 @@ public class PlantingSeed : MonoBehaviour {
 						
 					}
 				}
-
+		
 				// 4. The Watering Can will determine seed type
 
 				//if(basePlanetParent.GetComponent<PlanetInfo>().planted && GameObject.Find ("watercan").GetComponent<watercan>().canbewatered){
@@ -228,7 +323,7 @@ public class PlantingSeed : MonoBehaviour {
 
 				// 4. The Watering Can will determine seed type
 				if (basePlanetParent != null){
-					if (GameObject.Find ("watercan").GetComponent<WatercanTilt>().isPouring) {
+					if (WatercanTilt.isPouring) {
 						
 						if (canStartTimer) {
 							startTime = Time.time;
@@ -254,6 +349,14 @@ public class PlantingSeed : MonoBehaviour {
 							plantSubType = 1;
 							//Debug.Log ("Subtype: "+plantSubType);
 							basePlanetParent.GetComponent<PlanetInfo>().watered = true;
+						
+						// water plant for the first time, give narration!
+						if(waterplantcount == 0){
+								audio.PlayOneShot(narration.Intro10);
+							waterplantcount=1;
+
+						}
+
 						}
 						if (basePlanetParent.GetComponent<PlanetInfo>().totalTimeElapsed > 10.0f && plantSubType != 3){
 							plantSubType = 2;
@@ -273,7 +376,7 @@ public class PlantingSeed : MonoBehaviour {
 						if (!(basePlanetParent.GetComponent<PlanetInfo>().planetSpawned)){
 							
 							
-							Debug.Log ("# of planets: "+numberOfPlanets);
+							//Debug.Log ("# of planets: "+numberOfPlanets);
 							//Debug.Log ("Going to spawn next at: " + PlanetList [numberOfPlanets].name);
 							
 							if (basePlanetParent.GetComponent<PlanetInfo>().familyType == 1 && plantSubType == 1){
@@ -317,7 +420,12 @@ public class PlantingSeed : MonoBehaviour {
 				basePlanet.renderer.material.SetColor ("_OutlineColor", Color.clear);
 				holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 				sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
+				budModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 			}
+			basePlanet = null;
+			holeModel = null;
+			sproutModel = null;
+			budModel = null;
 			basePlanetParent = null;
 
 		}

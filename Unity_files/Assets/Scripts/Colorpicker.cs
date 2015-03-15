@@ -9,6 +9,8 @@ public class Colorpicker : MonoBehaviour {
 	public bool  hitcomet;
 	public bool picked;
 	public bool colorchanged;
+	public int colorplantcount;
+	public narration narration;
 
 	public enum GestureState
 	{
@@ -81,7 +83,12 @@ public class Colorpicker : MonoBehaviour {
 
 			
 		case GestureState.end:
-		
+			//color plant for the first time, give narration!
+			
+//			if(colorplantcount == 0){
+//				GameObject.Find ("narration").SendMessage ("Intro9Play");
+//				colorplantcount=1;
+//			}
 			 hitcomet = false;
              PickColor = GestureState.start;	 
 
