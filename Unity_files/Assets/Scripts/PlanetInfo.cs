@@ -5,7 +5,7 @@ public class PlanetInfo : MonoBehaviour {
 	
 	public bool isPlanted = false;
 	public bool hasHole = false;
-	public bool seedinsoil = false;
+	//public bool seedinsoil = false;
 	public string assigncolor;
 
 	public bool planetSpawned = false;

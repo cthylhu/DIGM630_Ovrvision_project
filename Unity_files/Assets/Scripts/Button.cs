@@ -29,7 +29,7 @@ public class Button : MonoBehaviour {
 		foreach (Renderer r in list) {
 			r.enabled = true;
 			string buttonname = name+"Button";
-			Debug.Log ("Button name: "+buttonname);
+			//Debug.Log ("Button name: "+buttonname);
 			GameObject.Find (name).transform.position = new Vector3 (GameObject.Find (buttonname).transform.position.x, 
 			                                                         GameObject.Find (buttonname).transform.position.y - 2f, 
 			                                                         GameObject.Find (buttonname).transform.position.z); 
@@ -56,7 +56,7 @@ public class Button : MonoBehaviour {
 
 		if ((other.name == ("L_index_bone3")) || (other.name == ("R_index_bone3"))) {
 			audio.PlayOneShot (seed);
-			Debug.Log ("Button pressed: "+this.name);
+			//Debug.Log ("Button pressed: "+this.name);
 
 			//other.SendMessage("LastSeed",buttonType);
 
@@ -81,7 +81,6 @@ public class Button : MonoBehaviour {
 				CurrentSeed = "CandySeed";
 				Debug.Log ("Candy Seed Generated!");
 			}
-
 			seedGenerated = true;
 			PlantingSeed.buttonPressed = buttonType; 
 
@@ -92,7 +91,7 @@ public class Button : MonoBehaviour {
 		
 		if (seedGenerated) {
 			if (!Grab.Grabbed) {
-				Debug.Log("Enabling button seed");
+				//Debug.Log("Enabling button seed");
 				EnableSeedRender(CurrentSeed);
 				GameObject.Find (CurrentSeed).transform.Rotate(0f, 200f * Time.deltaTime, 0f);
 			}

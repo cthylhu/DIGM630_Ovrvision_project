@@ -15,6 +15,7 @@ public class Righthand : MonoBehaviour {
 	public static bool palmdown;
 	public static bool fist;
 	public static bool sprinkle;
+	public static bool drawback;
 	public Vector3 palmposition;
 	public enum gesturestate {none,begin,end};
 	public gesturestate digging = gesturestate.none;
@@ -123,13 +124,15 @@ public class Righthand : MonoBehaviour {
 
 			//dighole = transPitch>10;
 
-			dighole = index.IsExtended && Grab>0.4;
+			dighole = index.IsExtended;
 			openhand = thumb.IsExtended && index.IsExtended && middle.IsExtended && ring.IsExtended && pinky.IsExtended;
 			if(Pinch ==1){
 				pinching = true;
 			}
 
 			fist = Grab >0.8;
+			drawback = transPitch <-30;
+				//transWave_y_6 >10;
 
 			sprinkle = 	indextipSpeed>20;
 

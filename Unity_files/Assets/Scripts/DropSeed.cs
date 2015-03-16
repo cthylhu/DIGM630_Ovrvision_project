@@ -22,6 +22,9 @@ public class DropSeed : MonoBehaviour {
 			GameObject.Find ("sounds").audio.Play ();
 			Debug.Log ("Seed Planted!");
 			Grab.Grabbed = false;
+			if (PlantingSeed.isLooking){
+				PlantingSeed.isDropping = true;
+			}
 			Destroy (this.gameObject);
 
 			/*	

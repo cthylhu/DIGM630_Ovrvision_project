@@ -61,14 +61,14 @@ public class Grab : MonoBehaviour {
 		palmdown_r = roll_r <= -140 || roll_r >= 140;
 		handnum = frame.Hands.Count;
 
-		//if (rightmost.IsRight || leftmost.IsLeft) {
+		if (rightmost.IsRight || leftmost.IsLeft) {
 
 			switch (GrabSeed) {
 
 				case GestureState.start:
 
 					if (Button.seedGenerated && handnum > 0) {			// If a button was poked
-						Debug.Log ("At start gesture state!");
+						//Debug.Log ("At start gesture state!");
 						if (Pinch_L > 0.8) {
 							Grabbed = true;
 							Button.seedGenerated = false;
@@ -91,8 +91,8 @@ public class Grab : MonoBehaviour {
 
 				
 				if (handnum > 0) {
-					Debug.Log ("Got to middle R gesture state!");
-					Debug.Log("Hand #: "+handnum);
+					//Debug.Log ("Got to middle R gesture state!");
+					//Debug.Log("Hand #: "+handnum);
 					if (Button.CurrentSeed == "CandySeed") {
 						RenderThis = "R_CandySeed_prefab";
 						EnableHandSeedRender(RenderThis);
@@ -164,12 +164,12 @@ public class Grab : MonoBehaviour {
 						}*/
 					}
 
-					if (/*Grab_R < 0.2 && */palmdown_r) {
+					if (Grab_R < 0.4 && palmdown_r) {
 						GrabSeed = GestureState.end;
 					}
 				}
 				else {
-					Debug.Log ("Hand num: "+handnum);
+					//Debug.Log ("Hand num: "+handnum);
 					GrabSeed = GestureState.start;
 					DisableHandSeedRender();
 				}
@@ -242,7 +242,7 @@ public class Grab : MonoBehaviour {
 						}*/
 					}
 
-					if (Grab_L < 0.2 && palmdown_l) {
+					if (Grab_L < 0.4 && palmdown_l) {
 						GrabSeed = GestureState.end; 
 						
 					}
@@ -253,20 +253,20 @@ public class Grab : MonoBehaviour {
 				break;
 
 				case GestureState.end:
-				Debug.Log ("********Reached End state!*******");
+				//Debug.Log ("********Reached End state!*******");
 
 				if (handnum > 0 && Grabbed) {
-					Debug.Log ("Falling Seed VVVV");
+					//Debug.Log ("Falling Seed VVVV");
 					DisableHandSeedRender();
 					if (!fallingSeedSpawned){
-						//GameObject fallingSeed = Instantiate(Resources.Load("TestSphere"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
+						GameObject fallingSeed = Instantiate(Resources.Load("TestSphere"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
 						fallingSeedSpawned = true;
 					}
 				}
 				else {
-					Debug.Log ("RESTARTING");
+					//Debug.Log ("RESTARTING");
 					DisableHandSeedRender();
-				    PlantingSeed.attemptedToPlant=true;
+				    
 					fallingSeedSpawned = false;
 				    GrabSeed = GestureState.start;
 				}
@@ -275,7 +275,7 @@ public class Grab : MonoBehaviour {
 
 			}
 
-		//}
+		}
 //		else
 //						return;
 
