@@ -322,9 +322,9 @@ public class Ovrvision : MonoBehaviour
 		OvrvisionTracker[] otobjs = GameObject.FindObjectsOfType(typeof(OvrvisionTracker)) as OvrvisionTracker[];
 		foreach (OvrvisionTracker otobj in otobjs)
 		{
-			if (otobj.name == "Portals"){
+			/*if (otobj.name == "Portals"){
 				otobj.UpdateTransformNone();
-			}
+			}*/
 
 			for (int i = 0; i < ri; i++)
 			{

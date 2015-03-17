@@ -92,8 +92,8 @@ public class Button : MonoBehaviour {
 		if (seedGenerated) {
 			if (!Grab.Grabbed) {
 				//Debug.Log("Enabling button seed");
-				EnableSeedRender(CurrentSeed);
-				GameObject.Find (CurrentSeed).transform.Rotate(0f, 200f * Time.deltaTime, 0f);
+				//EnableSeedRender(CurrentSeed);
+				//GameObject.Find (CurrentSeed).transform.Rotate(0f, 200f * Time.deltaTime, 0f);
 			}
 			else{
 				DisableSeedRenders ();
