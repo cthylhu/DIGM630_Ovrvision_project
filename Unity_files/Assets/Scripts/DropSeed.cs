@@ -11,7 +11,7 @@ public class DropSeed : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//transform.position = GameObject.Find ("leftpalm")
-		transform.Translate(Vector3.down * Time.deltaTime * 2f);
+		transform.Translate(Vector3.down * Time.deltaTime * 6f);
 
 	}
 

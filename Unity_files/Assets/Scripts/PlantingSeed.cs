@@ -142,13 +142,13 @@ public class PlantingSeed : MonoBehaviour {
 					}
 					break;
 				case gesturestate.begin:
-		           	if (Grab_R>0.4){
-			            if(Righthand.drawback) {
+		           	if (pitch>=100){
+			            
 							isDiggingHole = true;
 							audio.Play ();
 							digging = gesturestate.none;
 						}
-					}
+					
 					break;
 			}
 		}
@@ -167,6 +167,29 @@ public class PlantingSeed : MonoBehaviour {
 
 			if (hit.collider.name == "ARPlanetObject") {	
 				isLooking = true;
+
+				// Temporarily disable all the colliders in the handmodels, so the colliders will not block the raycast from the planets any more, you can now do the digging
+				//not far from the planets.
+
+				if(GameObject.Find ("CleanRobotFullRightHand(Clone)") !=null){
+
+				Collider[] righthandmodelcolliders = GameObject.Find ("CleanRobotFullRightHand(Clone)").GetComponentsInChildren<Collider> ();
+				foreach (Collider c in righthandmodelcolliders) {
+					c.enabled = false;
+						Debug.Log ("No colliders in right hand model now!");
+				}
+				}
+
+				if(GameObject.Find ("CleanRobotFullLeftHand(Clone)") !=null){
+					
+					Collider[] lefthandmodelcolliders = GameObject.Find ("CleanRobotFullLeftHand(Clone)").GetComponentsInChildren<Collider> ();
+					foreach (Collider c in lefthandmodelcolliders) {
+						c.enabled = false;
+						Debug.Log ("No colliders in left hand model now!");
+					}
+				}
+			
+
 
 				// raycast detect for the first time , give narration!
 				if (raycastcount == 0) {
