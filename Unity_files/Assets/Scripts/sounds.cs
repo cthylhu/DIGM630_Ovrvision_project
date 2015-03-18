@@ -9,6 +9,8 @@ public class sounds : MonoBehaviour {
 	public AudioClip ColorPickerButton;
 	public AudioClip GhostSeedButton;
 	public AudioClip planted;
+	public AudioClip digging;
+	public AudioClip hole;
 
 
 	void Awake() {

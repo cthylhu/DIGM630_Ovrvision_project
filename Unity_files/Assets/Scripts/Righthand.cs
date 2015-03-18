@@ -3,7 +3,11 @@ using System.Collections;
 using Leap;
 
 public class Righthand : MonoBehaviour {
+
 	Controller Controller = new Controller();
+	//public Finger.FingerType fingerType;
+	//public Bone.BoneType BoneType ;
+
 	public static bool plotplant;
 	public static bool dighole;
 	public static bool pinching;
@@ -19,6 +23,7 @@ public class Righthand : MonoBehaviour {
 	public Vector3 palmposition;
 	public enum gesturestate {none,begin,end};
 	public gesturestate digging = gesturestate.none;
+	public static Vector3 palmfwd ;
 	
 	// Use this for initialization
 	void Start () {
@@ -44,10 +49,24 @@ public class Righthand : MonoBehaviour {
 			Finger middle = rightmost.Fingers [2];
 			Finger ring = rightmost.Fingers [3];
 			Finger pinky = rightmost.Fingers [4];
-			
+
+			//Finger finger_ = rightmost.Fingers [(int)fingerType];
+			//Bone bone = finger_.Bone (BoneType);
+//
+//			FingerList fingers = rightmost.Fingers;
+//			foreach(Finger finger in fingers){
+//
+//				Bone bone;
+//				foreach (Bone.BoneType boneType in (Bone.BoneType[]) Enum.GetValues(typeof(Bone.BoneType)))
+//				{
+//					bone = finger.Bone(boneType);
+//					// ... Use bone
+//				}
+//			}
+//			
 			
 			float thumbtipSpeed= thumb.TipVelocity.x;
-			float indextipSpeed= index.TipVelocity.x;
+			float indextipSpeed= index.TipPosition.y - perviousframe3.Fingers[1].TipPosition.y ;
 			float middletipSpeed = middle.TipVelocity.x;
 			float ringtipSpeed= ring.TipVelocity.x;
 			float pinkytipSpeed = pinky.TipVelocity.x;
@@ -65,6 +84,11 @@ public class Righthand : MonoBehaviour {
 			float handmove_x = rightmost.PalmPosition.x;
 			float handmove_y = rightmost.PalmPosition.y;
 			float handmove_z = rightmost.PalmPosition.z;
+
+			float palmfwd_x = rightmost.PalmNormal.x;
+			float palmfwd_y = rightmost.PalmNormal.y;
+			float palmfwd_z = rightmost.PalmNormal.z;
+			 palmfwd = new Vector3(palmfwd_x, palmfwd_y,palmfwd_z);
 			
 			float wrist_x = rightmost.Arm.WristPosition.x;
 			float wrist_y = rightmost.Arm.WristPosition.y;
@@ -124,7 +148,8 @@ public class Righthand : MonoBehaviour {
 
 			//dighole = transPitch>10;
 
-			dighole = index.IsExtended;
+			dighole = indextipSpeed > 5;
+
 			openhand = thumb.IsExtended && index.IsExtended && middle.IsExtended && ring.IsExtended && pinky.IsExtended;
 			if(Pinch ==1){
 				pinching = true;
