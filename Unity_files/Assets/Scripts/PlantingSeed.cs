@@ -24,6 +24,7 @@ public class PlantingSeed : MonoBehaviour {
 	public narration narration;
 	public sounds sounds;
 
+
 	// GameObjects to hold to currently viewed AR object
 	public GameObject basePlanet;
 	public GameObject basePlanetParent;
@@ -268,6 +269,11 @@ public class PlantingSeed : MonoBehaviour {
 				// raycast detect for the first time , give narration!
 				if (raycastcount == 0) {
 					audio.PlayOneShot (narration.Intro5);
+					narration.audio.Stop ();
+////					GameObject.Find ("CandySeedButton").audio.Stop ();
+////					GameObject.Find ("GlowSeedButton").audio.Stop ();
+////					GameObject.Find ("GhostSeedButton").audio.Stop ();
+//					GameObject.Find ("Portal1").audio.Stop ();
 					raycastcount = 1;
 				}
 				
@@ -375,7 +381,12 @@ public class PlantingSeed : MonoBehaviour {
 						
 						//dig hole for the first time, give narration!
 						if (digholecount == 0) {
+							audio.clip = narration.Intro6;
 							audio.PlayOneShot (narration.Intro6);
+//							GameObject.Find ("CandySeedButton").audio.Stop ();
+//							GameObject.Find ("GlowSeedButton").audio.Stop ();
+//							GameObject.Find ("GhostSeedButton").audio.Stop ();
+//							GameObject.Find ("Portal1").audio.Stop ();
 							digholecount = 1;
 						}
 						
@@ -410,7 +421,12 @@ public class PlantingSeed : MonoBehaviour {
 						budModel.renderer.enabled = true;
 						
 						if (basePlanetParent.GetComponent<PlanetInfo> ().isPlanted && plantgrow == 0) {
+							audio.clip = narration.Intro9;
 							audio.PlayOneShot (narration.Intro9);
+//							GameObject.Find ("CandySeedButton").audio.Stop ();
+//							GameObject.Find ("GlowSeedButton").audio.Stop ();
+//							GameObject.Find ("GhostSeedButton").audio.Stop ();
+//							GameObject.Find ("Portal1").audio.Stop ();
 							plantgrow = 1;
 						}
 						
@@ -428,13 +444,28 @@ public class PlantingSeed : MonoBehaviour {
 						plantatreecount ++;
 						
 						if (plantatreecount == 1) {
+							audio.clip = narration.Intro11;
 							audio.PlayOneShot (narration.Intro11);
+//							GameObject.Find ("CandySeedButton").audio.Stop ();
+//							GameObject.Find ("GlowSeedButton").audio.Stop ();
+//							GameObject.Find ("GhostSeedButton").audio.Stop ();
+//							GameObject.Find ("Portal1").audio.Stop ();
 						}
 						if (plantatreecount == 2) {
+							audio.clip = narration.Intro12;
 							audio.PlayOneShot (narration.Intro12);
+//							GameObject.Find ("CandySeedButton").audio.Stop ();
+//							GameObject.Find ("GlowSeedButton").audio.Stop ();
+//							GameObject.Find ("GhostSeedButton").audio.Stop ();
+//							GameObject.Find ("Portal1").audio.Stop ();
 						}
 						if (plantatreecount == 3) {
+							audio.clip = narration.Intro13;
 							audio.PlayOneShot (narration.Intro13);
+//							GameObject.Find ("CandySeedButton").audio.Stop ();
+//							GameObject.Find ("GlowSeedButton").audio.Stop ();
+//							GameObject.Find ("GhostSeedButton").audio.Stop ();
+//							GameObject.Find ("Portal1").audio.Stop ();
 						}
 						doneDropping = false;
 
@@ -521,7 +552,12 @@ public class PlantingSeed : MonoBehaviour {
 							//Debug.Log ("Subtype: "+plantSubType);
 							basePlanetParent.GetComponent<PlanetInfo> ().watered = true;
 							if (waterplantcount == 0) {
+								audio.clip = narration.Intro10;
 								audio.PlayOneShot (narration.Intro10);
+//								GameObject.Find ("CandySeedButton").audio.Stop ();
+//								GameObject.Find ("GlowSeedButton").audio.Stop ();
+//								GameObject.Find ("GhostSeedButton").audio.Stop ();
+//								GameObject.Find ("Portal1").audio.Stop ();
 								
 							}
 							//basePlanetParent.GetComponent<PlanetInfo> ().totalWateredTime = 0.0f;
@@ -650,7 +686,7 @@ public class PlantingSeed : MonoBehaviour {
 		foreach (Transform t in childs) {
 			t.gameObject.layer = LayerMask.NameToLayer("VRLayer");
 		}
-		
+		basePlanetParent.transform.Find ("planet_plain").renderer.enabled = false;
 		CurrentVRPlantList [numberOfPlanets] = prefabName;
 		numberOfPlanets++;
 		basePlanetParent.GetComponent<PlanetInfo>().VRplanetSpawned = true;

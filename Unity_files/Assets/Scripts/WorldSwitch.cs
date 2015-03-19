@@ -9,7 +9,9 @@ public class WorldSwitch : MonoBehaviour {
 	// Use this for initialization
 	
 	public AudioClip spaceswitch;
-
+	public narration narration;
+	private AudioSource spaceswitching;
+	//public sounds sounds;
 	//GameObject OVRObject = GameObject.Find ("OvrvisionViewObject");
 
 	
@@ -17,9 +19,14 @@ public class WorldSwitch : MonoBehaviour {
 	public float MaxcooldownTime;
 	public static bool setorigin = false;
 	private Vector3 Gameworld;
-	bool switchHappened = false;
+	public bool switchHappened = false;
 
 	void Start () {
+
+spaceswitching = gameObject.AddComponent <AudioSource> ();
+spaceswitching.clip = spaceswitch;
+spaceswitching.minDistance = 10;
+spaceswitching.playOnAwake = false;
 
 	}
 
@@ -89,13 +96,37 @@ public class WorldSwitch : MonoBehaviour {
 				if (hit.collider.name == "Portal1") {
 					if (hit.distance < 0.2f) {
 						Debug.Log ("VR world active");
-						audio.PlayOneShot (spaceswitch);
+//						spaceswitching.Play ();
+						audio.clip = narration.Intro14;
+						audio.PlayOneShot (narration.Intro14);
+						spaceswitching.PlayOneShot (spaceswitch);
+//						GameObject.Find ("CandySeedButton").audio.Stop ();
+//						GameObject.Find ("GlowSeedButton").audio.Stop ();
+//						GameObject.Find ("GhostSeedButton").audio.Stop ();
+						GameObject.Find ("AREnvironment").audio.Stop();
+
 
 						GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = false;
 						this.collider.enabled = false;
 						switchHappened = true;
 
+
 					}
+
+
+					if (hit.distance < 2f) {
+
+						Debug.Log ("looking close to VR world ");
+						GameObject.Find ("BGM").audio.Play ();
+
+
+					}
+
+					if (hit.distance > 2f) {
+						Debug.Log ("getting far away to VR world ");
+						GameObject.Find ("BGM").audio.Stop ();
+					}
+
 					/*else {
 						Debug.Log ("AR world active");
 						GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = true;
@@ -104,7 +135,39 @@ public class WorldSwitch : MonoBehaviour {
 				}
 			}
 		}
+
+		if(switchHappened){
+			
+			Invoke ("backgroundfadeout1",5);
+			Debug.Log ("bgm fadingout 1 ");
+			Invoke ("backgroundfadeout2",10);
+			Debug.Log ("bgm fadingout 2");
+			Invoke ("backgroundfadeout3",15);
+			Debug.Log ("bgm fadingout 3 ");
+			Invoke ("backgroundfadeout4",20);
+			Debug.Log ("bgm fadingout 4 ");
+			
+		}
+
+
 	}
+	void backgroundfadeout1(){
+		
+		GameObject.Find ("BGM").audio.minDistance = 10;
+	}
+	void backgroundfadeout2(){
+		
+		GameObject.Find ("BGM").audio.minDistance = 5;
+	}
+	void backgroundfadeout3(){
+		
+		GameObject.Find ("BGM").audio.minDistance = 2;
+	}
+	void backgroundfadeout4(){
+		
+		GameObject.Find ("BGM").audio.minDistance = 0;
+	}
+
 
 		
 	/*public void spawnVRTrees(){
@@ -118,5 +181,6 @@ public class WorldSwitch : MonoBehaviour {
 			}
 		}
 	}*/
+
 
 }

@@ -8,6 +8,8 @@ public class Grab : MonoBehaviour {
 	public static bool Grabbed = false;
 	public static bool fallingSeedSpawned = false;
 	string RenderThis;
+	//bool fromlefthand;
+	//bool fromrighthand;
 
 	public Righthand Righthand;
 	public Lefthand Lefthand;
@@ -66,6 +68,8 @@ public class Grab : MonoBehaviour {
 				switch (GrabSeed) {
 
 				case GestureState.start:
+			//fromlefthand = false;
+			//fromrighthand = false;
 
 					if (Button.seedGenerated && handnum > 0) {			// If a button was poked
 						//Debug.Log ("At start gesture state!");
@@ -114,7 +118,10 @@ public class Grab : MonoBehaviour {
 						}
 
 						if (Pinch_R ==0 ) {
+				            //fromrighthand = true;
+				            Debug.Log ("righthand planting!");
 							GrabSeed = GestureState.end;
+
 						}
 					//}
 				//}
@@ -186,7 +193,10 @@ public class Grab : MonoBehaviour {
 					}
 
 					if (Pinch_L ==0 ) {
-						GrabSeed = GestureState.end; 
+					//fromlefthand = true;
+					Debug.Log ("lefthand planting!");
+					GrabSeed = GestureState.end; 
+					    
 						
 					}
 				}
@@ -206,30 +216,48 @@ public class Grab : MonoBehaviour {
 
 						// SEED FALL TO GOUND!
 						DisableHandSeedRender();
+
 						if (Button.CurrentSeed == "GlowSeed") {
 							//EnableHandSeedRender("R_Glowfall_prefab");
-
+						    //if(fromrighthand){
 							RenderThis = "R_GlowSeed_prefab";
 							GameObject fallingSeed = Instantiate(Resources.Load("R_Glowfall_prefab"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
+						//}
+
+//						if(fromlefthand){
+//							RenderThis = "L_GlowSeed_prefab";
+//							GameObject fallingSeed = Instantiate(Resources.Load("R_Glowfall_prefab"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
+//						}
 							Debug.Log("Glow Seed Ready to fall");
 						}
+
+
 						
 						if (Button.CurrentSeed == "CandySeed") {
 							//EnableHandSeedRender("R_Candyfall_prefab");
+						//if(fromrighthand){
 							RenderThis = "R_CandySeed_prefab";
-							Debug.Log("Candy Seed Ready to fall");
-
 							GameObject fallingSeed = Instantiate(Resources.Load("R_Candyfall_prefab"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
+//						 }
+//						if(fromlefthand){
+//							RenderThis = "L_CandySeed_prefab";
+//							GameObject fallingSeed = Instantiate(Resources.Load("R_Candyfall_prefab"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
+//						}
+
 							Debug.Log("Candy Seed Ready to fall");
 
 						}
 						
 						if (Button.CurrentSeed == "GhostSeed") {
 							//EnableHandSeedRender("R_Ghostfall_prefab");
+						//if(fromrighthand){
 							RenderThis = "R_GhostSeed_prefab";
-
-
 							GameObject fallingSeed = Instantiate(Resources.Load("R_Ghostfall_prefab"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
+//						}
+//						if(fromlefthand){
+//							RenderThis = "L_GhostSeed_prefab";
+//							GameObject fallingSeed = Instantiate(Resources.Load("R_Ghostfall_prefab"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
+//						}
 							Debug.Log("Ghost Seed Ready to fall");
 						}
 

@@ -17,6 +17,7 @@ public class Button : MonoBehaviour {
 	public static bool Candypressed;
 	public static bool Ghostpressed;
 	public static bool Glowpressed;
+	//public GameObject AREnvironment;
 
 	//public bool droptosoil;
 
@@ -67,6 +68,9 @@ public class Button : MonoBehaviour {
 			//pick seed for the first time, give narration!
 
 			if(pickseedcount == 0){
+				narration.audio.clip = narration.Intro7;
+				GameObject.Find ("AREnvironment").audio.Stop();
+				GameObject.Find ("Portal1").audio.Stop ();
 				narration.audio.PlayOneShot(narration.Intro7);
 				pickseedcount=1;
 			}

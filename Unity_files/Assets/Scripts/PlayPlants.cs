@@ -10,6 +10,9 @@ public class PlayPlants : MonoBehaviour {
 	public AudioClip pokeSound;
 	GameObject currentPlanet;
 	int hitcount = 0;
+	public bool turnon;
+
+	//public Animator anim;
 
 	// Color for toon outline
 	float r = 0f/255f;
@@ -34,10 +37,18 @@ public class PlayPlants : MonoBehaviour {
 		//Debug.Log("Collided plant object: " + this.name);
 		if ((other.name == ("L_index_bone3"))||(other.name == ("R_index_bone3"))) {
 			
-			audio.PlayOneShot(pokeSound,1.0f);
-			this.GetComponent<Animator>().enabled = true;
 
+			//this.GetComponent<Animator>().enabled = true;
+			gameObject.GetComponent<Animator>().SetTrigger("poke");
 			Invoke ("Retrigger",5);
+
+			if(turnon){
+				audio.Stop();
+			}
+			if(!turnon){
+				audio.PlayOneShot(pokeSound,3.0f);
+			}
+
 		}
 		
 	}
@@ -46,6 +57,9 @@ public class PlayPlants : MonoBehaviour {
 	void Update () {
 		Vector3 fwd = GameObject.Find("CenterEyeAnchor").transform.forward;
 		RaycastHit hit;
+
+		Vector3 indexfwd = fingerbone.fingerfwd;
+		RaycastHit fingerhit;
 
 		// Detect if player is looking at a plant collider
 		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 50)) {
@@ -71,8 +85,8 @@ public class PlayPlants : MonoBehaviour {
 				// If player makes a plant tapping gesture while looking at plant, plant will play its sound and animation
 				if (Input.GetKeyDown(KeyCode.Space)){
 					audio.PlayOneShot(hit.collider.transform.gameObject.GetComponent<PlayPlants>().pokeSound, 1.0f);
-					this.GetComponent<Animator>().enabled = true;
-					
+					//this.GetComponent<Animator>().enabled = true;
+					gameObject.GetComponent<Animator>().SetTrigger("poke");
 					Invoke ("Retrigger",5);
 					Debug.Log ("Current Planet: "+currentPlanet);
 				}

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class narration : MonoBehaviour {
-	public AudioClip hint1;
+	public AudioClip Ending;
 	public AudioClip Intro1;
 	public AudioClip Intro2;
 	public AudioClip Intro3;
@@ -17,7 +17,7 @@ public class narration : MonoBehaviour {
 	public AudioClip Intro12;
 	public AudioClip Intro13;
 	public AudioClip Intro14;
-	public AudioClip Intro15;
+
 
 	public float audiolength;
 	public bool Nar_Check;
@@ -26,12 +26,12 @@ public class narration : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		/*
+
 		audio.PlayOneShot (Intro1);
-		Invoke ("Intro2Play", 18);
-		Invoke ("Intro3Play", 35);
-		Invoke ("Intro4Play", 43);
-		*/
+		//Invoke ("Intro2Play", 18);
+		//Invoke ("Intro3Play", 35);
+		//Invoke ("Intro4Play", 43);
+
 		/*
 		Invoke ("Intro5Play", 5);
 		Invoke ("Intro6Play", 5);
