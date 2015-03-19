@@ -148,7 +148,7 @@ public class Righthand : MonoBehaviour {
 
 			//dighole = transPitch>10;
 
-			dighole = indextipSpeed > 5;
+			dighole = index.IsExtended ;
 
 			openhand = thumb.IsExtended && index.IsExtended && middle.IsExtended && ring.IsExtended && pinky.IsExtended;
 			if(Pinch ==1){
@@ -156,7 +156,7 @@ public class Righthand : MonoBehaviour {
 			}
 
 			fist = Grab >0.8;
-			drawback = transPitch <-30;
+			drawback = transWave_z_3 <-10;
 				//transWave_y_6 >10;
 
 			sprinkle = 	indextipSpeed>20;

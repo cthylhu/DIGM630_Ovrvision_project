@@ -88,8 +88,8 @@ public class Grab : MonoBehaviour {
 
 				case GestureState.middle_R:
 
-				if(GameObject.Find ("CleanRobotFullRightHand(Clone)") !=null){
-					if (rightmost.IsRight || leftmost.IsLeft) {
+				//if(GameObject.Find ("CleanRobotFullRightHand(Clone)") !=null){
+					//if (rightmost.IsValid || leftmost.IsValid) {
 
 						//Debug.Log ("Got to middle R gesture state!");
 						//Debug.Log("Hand #: "+handnum);
@@ -116,13 +116,56 @@ public class Grab : MonoBehaviour {
 						if (Pinch_R ==0 ) {
 							GrabSeed = GestureState.end;
 						}
+					//}
+				//}
+			/*
+                if(GameObject.Find ("CleanRobotFullRightHand(Clone)") ==null){
+                
+                   //if (!rightmost.IsValid || !leftmost.IsValid) {
+
+
+				if (Button.CurrentSeed == "CandySeed") {
+					//Instantiate(Resources.Load("R_CandySeed_prefab")) ;
+					if(GameObject.Find ("CleanRobotFullRightHand(Clone)") !=null){
+						RenderThis = "R_CandySeed_prefab";
+						EnableHandSeedRender(RenderThis);
+						//this.transform.position = GameObject.Find ("rightpalm").transform.position;
+					Debug.Log ("CandySeed grabbed");
+					
+					}
+					if (Button.CurrentSeed == "GhostSeed") {
+						//Instantiate(Resources.Load("R_CandySeed_prefab")) ;
+						if(GameObject.Find ("CleanRobotFullRightHand(Clone)") !=null){
+							RenderThis = "R_GhostSeed_prefab";
+							EnableHandSeedRender(RenderThis);
+							//this.transform.position = GameObject.Find ("rightpalm").transform.position;
+							Debug.Log ("GhostSeed grabbed");
+							
+						}
+					}
+						if (Button.CurrentSeed == "GlowSeed") {
+							//Instantiate(Resources.Load("R_CandySeed_prefab")) ;
+							if(GameObject.Find ("CleanRobotFullRightHand(Clone)") !=null){
+								RenderThis = "R_GlowSeed_prefab";
+								EnableHandSeedRender(RenderThis);
+								//this.transform.position = GameObject.Find ("rightpalm").transform.position;
+								Debug.Log ("GlowSeed grabbed");
+								
+							}
+						}
+		
+
+					if (Pinch_R ==0 ) {
+						GrabSeed = GestureState.end;
 					}
 				}
-				else {
-					//Debug.Log ("Hand num: "+handnum);
-					GrabSeed = GestureState.start;
-					DisableHandSeedRender();
-				}
+			}
+           */
+//			else {
+//					//Debug.Log ("Hand num: "+handnum);
+//					GrabSeed = GestureState.start;
+//					DisableHandSeedRender();
+//				}
 				break;
 
 				case GestureState.middle_L:
