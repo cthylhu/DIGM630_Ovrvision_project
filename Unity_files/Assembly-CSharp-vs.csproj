@@ -140,7 +140,6 @@
      <Compile Include="Assets\Scripts\DropSeed.cs" />
      <Compile Include="Assets\Scripts\EyeBlink.cs" />
      <Compile Include="Assets\Scripts\FallandFloat.cs" />
-     <Compile Include="Assets\Scripts\Family.cs" />
      <Compile Include="Assets\Scripts\Grab.cs" />
      <Compile Include="Assets\Scripts\Lefthand.cs" />
      <Compile Include="Assets\Scripts\PlanetInfo.cs" />
@@ -150,13 +149,13 @@
      <Compile Include="Assets\Scripts\Righthand_info.cs" />
      <Compile Include="Assets\Scripts\SeedContainer.cs" />
      <Compile Include="Assets\Scripts\WatercanTilt.cs" />
+     <Compile Include="Assets\Scripts\WorldSwitch.cs" />
      <Compile Include="Assets\Scripts\fingerbone.cs" />
      <Compile Include="Assets\Scripts\flyin.cs" />
      <Compile Include="Assets\Scripts\narration.cs" />
      <Compile Include="Assets\Scripts\portalcontrol.cs" />
      <Compile Include="Assets\Scripts\raycasttest.cs" />
      <Compile Include="Assets\Scripts\sounds.cs" />
-     <Compile Include="Assets\Scripts\watchtapping.cs" />
      <Compile Include="Assets\temptest\Scripts\CandyFacesSoundClick.cs" />
      <Compile Include="Assets\temptest\Scripts\GhostTreeSoundClick.cs" />
      <Compile Include="Assets\temptest\Scripts\HornedBellSoundClick.cs" />

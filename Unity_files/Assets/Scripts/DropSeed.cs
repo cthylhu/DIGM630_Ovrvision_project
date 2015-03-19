@@ -11,8 +11,12 @@ public class DropSeed : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//transform.position = GameObject.Find ("leftpalm")
-		transform.Translate(Vector3.down * Time.deltaTime * 6f);
-
+		transform.Translate(Vector3.down * Time.deltaTime * 3f);
+		GameObject.Find ("Marker").transform.position = new Vector3 (PlantingSeed.lastSeenARObject.transform.position.x, 
+		                                                             PlantingSeed.lastSeenARObject.transform.position.y+0.9f, 
+		                                                             PlantingSeed.lastSeenARObject.transform.position.z);
+		PlantingSeed.isDropping = true;
+		
 	}
 
 	void OnTriggerEnter(Collider other){
@@ -23,7 +27,8 @@ public class DropSeed : MonoBehaviour {
 			Debug.Log ("Seed Planted!");
 			Grab.Grabbed = false;
 			if (PlantingSeed.isLooking){
-				PlantingSeed.isDropping = true;
+				PlantingSeed.isDropping = false;
+				PlantingSeed.doneDropping = true;
 			}
 			Destroy (this.gameObject);
 

@@ -3,7 +3,7 @@ using System.Collections;
 using Leap;
 [RequireComponent(typeof(AudioSource))]
 
-public class watchtapping : MonoBehaviour {
+public class WorldSwitch : MonoBehaviour {
 
 	
 	// Use this for initialization
@@ -66,7 +66,7 @@ public class watchtapping : MonoBehaviour {
 
 			if (!switchHappened) {
 				GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = false;
-				spawnVRTrees();
+				//spawnVRTrees();
 				switchHappened = true;
 			}
 			else {
@@ -75,25 +75,39 @@ public class watchtapping : MonoBehaviour {
 			}
 
 		}
-		
-		//Frame startframe = Controller.Frame ();
-		//Hand rightmost = startframe.Hands.Rightmost;
-		//float wrist_x = rightmost.Arm.WristPosition.x;
-		//float wrist_y = rightmost.Arm.WristPosition.y;
-		//float wrist_z = rightmost.Arm.WristPosition.z;
-		//wristcenter = new Vector3 ( wrist_x, wrist_y, -wrist_z);
-		
-		//if ((rightmost.IsRight) && (startframe.Hands.Count > 0)) {
-			
-			
-			//transform.position = GameObject.Find("R_wristjoint").transform.position * 3.0f;
 
-			
-			
+		Vector3 fwd = GameObject.Find("CenterEyeAnchor").transform.forward;
+		// Vector3 fwd = GameObject.Find ("R_index_bone3").transform.forward;
+		RaycastHit hit;
+
+		if (!switchHappened){
+			if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 100f)){
+
+				//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
+				Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point, Color.red);
+
+				if (hit.collider.name == "Portal1") {
+					if (hit.distance < 0.2f) {
+						Debug.Log ("VR world active");
+						audio.PlayOneShot (spaceswitch);
+
+						GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = false;
+						this.collider.enabled = false;
+						switchHappened = true;
+
+					}
+					/*else {
+						Debug.Log ("AR world active");
+						GameObject.Find ("OVRCameraRig").GetComponent<OVRCameraRig>().AR_is_Active = true;
+						switchHappened = false;
+					}*/
+				}
+			}
+		}
 	}
 
 		
-	public void spawnVRTrees(){
+	/*public void spawnVRTrees(){
 		int count = 1;
 		foreach (string plant in PlantingSeed.CurrentVRPlantList){
 			if (plant != null){
@@ -103,6 +117,6 @@ public class watchtapping : MonoBehaviour {
 				count++;
 			}
 		}
-	}
+	}*/
 
 }

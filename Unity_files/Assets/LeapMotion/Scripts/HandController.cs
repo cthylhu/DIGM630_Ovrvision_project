@@ -119,6 +119,12 @@ public class HandController : MonoBehaviour {
 		layernum = 9;
 		SetLayerRecursively(hand_model.gameObject, 19);
 	}
+	/*if(Button.CurrentSeed == "CandySeed" && Grab.Pinch_R > 0.8 ){
+		GameObject.Find("CandySeed").transform.position = hand_model.transform.Find ("rightpalm").position;
+		GameObject.Find("CandySeed").transform.parent = hand_model.transform.Find ("rightpalm");
+		Debug.Log ("parent of seed: "+ GameObject.Find("CandySeed").transform.parent);
+		Grab.EnableHandSeedRender("CandySeed_prefab");
+	}*/
 	//SetLayerRecursively(hand_model.gameObject, layernum);												//SETTING HAND LAYER
     return hand_model;
   }

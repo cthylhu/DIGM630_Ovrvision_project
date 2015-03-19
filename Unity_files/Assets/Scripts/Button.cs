@@ -14,6 +14,9 @@ public class Button : MonoBehaviour {
 	public int buttonType;
 	public static string CurrentSeed;
 	public int pickseedcount;
+	public static bool Candypressed;
+	public static bool Ghostpressed;
+	public static bool Glowpressed;
 
 	//public bool droptosoil;
 
@@ -45,7 +48,7 @@ public class Button : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//droptosoil = false;
-		DisableSeedRenders ();
+		//DisableSeedRenders ();
 	}
 	
 	// left index poke the ghost then switch from AR to VR
@@ -71,16 +74,23 @@ public class Button : MonoBehaviour {
 
 			if (this.name == "GlowSeedButton") {
 				CurrentSeed = "GlowSeed";
+				Glowpressed = true;
+
+				
 				Debug.Log ("Glow Seed Generated!");
 			}
 			if (this.name == "GhostSeedButton") {
 				CurrentSeed = "GhostSeed";
+				Ghostpressed = true;
 				Debug.Log ("Ghost Seed Generated!");
 			}
+
 			if (this.name == "CandySeedButton") {
 				CurrentSeed = "CandySeed";
+				Candypressed = true;
 				Debug.Log ("Candy Seed Generated!");
 			}
+
 			seedGenerated = true;
 			PlantingSeed.buttonPressed = buttonType; 
 
