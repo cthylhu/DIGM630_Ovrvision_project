@@ -23,14 +23,16 @@ public class PlantingSeed : MonoBehaviour {
 	public int plantgrow;
 	public narration narration;
 	public sounds sounds;
-	
+
+	// GameObjects to hold to currently viewed AR object
 	public GameObject basePlanet;
 	public GameObject basePlanetParent;
 	public static GameObject lastSeenARObject;
 	GameObject holeModel;
 	GameObject sproutModel;
 	GameObject budModel;
-	
+
+	// For keeping track of stuff
 	public static int buttonPressed = 0;
 	public int plantSubType = 0;
 	public bool canStartTimer = true;
@@ -39,9 +41,13 @@ public class PlantingSeed : MonoBehaviour {
 	public float endTime = 0.0f;
 	public static string[] CurrentVRPlantList = new string[10];
 	public static bool isDropping = false;
+	GameObject[] AllPortals;
+	public static Transform[] PlanetList;
+	public static int numberOfPlanets = 1;	
 	Color toonOutlineColor = Color.green;
-	
-	//Gesture Variables
+	public int handlayermask;
+
+	// Leap Hand position variables
 	static Frame frame;
 	static Frame perviousframe3;
 	static Frame perviousframe10;
@@ -58,12 +64,7 @@ public class PlantingSeed : MonoBehaviour {
 	static float roll_r;
 	static bool palmdown_r;
 	
-	GameObject[] AllPortals;
-	public static Transform[] PlanetList;
-	public static int numberOfPlanets = 1;
-	
-	int hitcount = 1;
-	
+		
 	public static GameObject FindInChildren(GameObject gameObject, string name)
 	{
 		foreach(Transform t in gameObject.GetComponentsInChildren<Transform>())
@@ -91,6 +92,8 @@ public class PlantingSeed : MonoBehaviour {
 		foreach(Transform p in PlanetList){
 			Debug.Log (p.gameObject.name);
 		}
+
+		handlayermask = ~(1 << 18) & ~(1 << 19);
 	}
 	
 	// Tell the colorscheme type you have picked for the planet
@@ -203,10 +206,8 @@ public class PlantingSeed : MonoBehaviour {
 								digging = gesturestate.none;
 							}
 						}
-					}
-					//                
+					}            
 					break;
-					
 				}
 				
 			}
@@ -218,21 +219,21 @@ public class PlantingSeed : MonoBehaviour {
 		// Vector3 fwd = GameObject.Find ("R_index_bone3").transform.forward;
 		RaycastHit hit;
 		
-		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 20f)){
+		if (Physics.Raycast(GameObject.Find("CenterEyeAnchor").transform.position, fwd, out hit, 20f, handlayermask)){
 			//if (Physics.Raycast (GameObject.Find ("R_index_bone3").transform.position, fwd, out hit, 20f)) {
 			//Debug.Log ("Hit #: "+hitcount+", Collider: "+hit.collider.name);
-			//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
+			Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
 			
 			// --- Detect if you're looking at a planet ---
 			
-			if (hit.collider.name == "ARPlanetObject") {	
+			if (hit.collider.name == "ARPlanetObject") {
 				isLooking = true;
-				
+				//Debug.DrawLine(GameObject.Find("CenterEyeAnchor").transform.position, hit.point);
+
 				// Temporarily disable all the colliders in the handmodels, so the colliders will not block the raycast from the planets any more, you can now do the digging
 				//not far from the planets.
 				
 				if(GameObject.Find ("CleanRobotFullRightHand(Clone)") !=null){
-					
 					Collider[] righthandmodelcolliders = GameObject.Find ("CleanRobotFullRightHand(Clone)").GetComponentsInChildren<Collider> ();
 					foreach (Collider c in righthandmodelcolliders) {
 						c.enabled = false;
@@ -241,7 +242,6 @@ public class PlantingSeed : MonoBehaviour {
 				}
 				
 				if(GameObject.Find ("CleanRobotFullLeftHand(Clone)") !=null){
-					
 					Collider[] lefthandmodelcolliders = GameObject.Find ("CleanRobotFullLeftHand(Clone)").GetComponentsInChildren<Collider> ();
 					foreach (Collider c in lefthandmodelcolliders) {
 						c.enabled = false;
@@ -249,8 +249,7 @@ public class PlantingSeed : MonoBehaviour {
 					}
 				}
 				
-				
-				
+
 				// raycast detect for the first time , give narration!
 				if (raycastcount == 0) {
 					audio.PlayOneShot (narration.Intro5);
@@ -268,20 +267,17 @@ public class PlantingSeed : MonoBehaviour {
 				sproutModel = basePlanetParent.transform.Find ("Planet_with_plant").gameObject;		// Set specific sproutModel
 				budModel = sproutModel.transform.Find ("bud").gameObject;
 				
-				
-				if (basePlanetParent.GetComponent<PlanetInfo> ().hasHole){
-					basePlanet.renderer.material.SetColor ("_OutlineColor", Color.magenta);
-					holeModel.renderer.material.SetColor ("_OutlineColor", Color.magenta);
-					sproutModel.renderer.material.SetColor ("_OutlineColor", Color.magenta);
-				}
-				else {
+				if (!(basePlanetParent.GetComponent<PlanetInfo> ().hasHole)) {
 					basePlanet.renderer.material.SetColor ("_OutlineColor", toonOutlineColor);
 					holeModel.renderer.material.SetColor ("_OutlineColor", toonOutlineColor);
 					sproutModel.renderer.material.SetColor ("_OutlineColor", toonOutlineColor);
 					budModel.renderer.material.SetColor ("_OutlineColor", toonOutlineColor);
 				}
-				
-				hitcount++;
+				else {
+					basePlanet.renderer.material.SetColor ("_OutlineColor", Color.magenta); 		// Highlight planets with holes in a different color
+					holeModel.renderer.material.SetColor ("_OutlineColor", Color.magenta);
+					sproutModel.renderer.material.SetColor ("_OutlineColor", Color.magenta);
+				}
 				
 				
 				// ***** THIS IS FOR DEBUG *****
@@ -508,19 +504,37 @@ public class PlantingSeed : MonoBehaviour {
 				
 			} else {
 				isLooking = false;
+				Debug.Log ("Not looking!");
 				if (basePlanet != null) {
 					basePlanet.renderer.material.SetColor ("_OutlineColor", Color.clear);
 					holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 					sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
 					budModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
+				
+					basePlanet = null;
+					holeModel = null;
+					sproutModel = null;
+					budModel = null;
+					basePlanetParent = null;
 				}
+				
+			}
+		}else {
+			isLooking = false;
+			Debug.Log ("Not looking!");
+			if (basePlanet != null) {
+				basePlanet.renderer.material.SetColor ("_OutlineColor", Color.clear);
+				holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
+				sproutModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
+				budModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
+				
 				basePlanet = null;
 				holeModel = null;
 				sproutModel = null;
 				budModel = null;
 				basePlanetParent = null;
-				
 			}
+			
 		}
 	}
 	

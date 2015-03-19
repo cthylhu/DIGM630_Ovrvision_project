@@ -110,13 +110,16 @@ public class HandController : MonoBehaviour {
     hand_model.gameObject.SetActive(true);
     Leap.Utils.IgnoreCollisions(hand_model.gameObject, gameObject);
 
-	if (this.gameObject.name == "HandControllerL") {
-		layernum = 8;		
+	if (this.gameObject.name == "HandControllerL") {								// LeftSideHands = 18, RightSideHands = 19
+		layernum = 8;
+		SetLayerRecursively(hand_model.gameObject, 18);
+			//this.transform.GetComponentInChildren<HandMask>().layermask = 18;
 	}
 	if (this.gameObject.name == "HandControllerR") {
 		layernum = 9;
+		SetLayerRecursively(hand_model.gameObject, 19);
 	}
-	SetLayerRecursively(hand_model.gameObject, layernum);												//SETTING HAND LAYER
+	//SetLayerRecursively(hand_model.gameObject, layernum);												//SETTING HAND LAYER
     return hand_model;
   }
 
