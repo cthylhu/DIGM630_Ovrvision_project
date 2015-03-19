@@ -83,13 +83,11 @@ public class Grab : MonoBehaviour {
 							GrabSeed = GestureState.middle_R;
 						} 
 					}
-					
-
 					break;
+
 
 				case GestureState.middle_R:
 
-				
 				if (handnum > 0) {
 					//Debug.Log ("Got to middle R gesture state!");
 					//Debug.Log("Hand #: "+handnum);
@@ -171,7 +169,7 @@ public class Grab : MonoBehaviour {
 				else {
 					//Debug.Log ("Hand num: "+handnum);
 					GrabSeed = GestureState.start;
-					DisableHandSeedRender();
+					//DisableHandSeedRender();
 				}
 				break;
 
@@ -257,12 +255,12 @@ public class Grab : MonoBehaviour {
 
 				if (handnum > 0 && Grabbed) {
 					//Debug.Log ("Falling Seed VVVV");
-					DisableHandSeedRender();
+
 					if (!fallingSeedSpawned){
 						//GameObject fallingSeed = Instantiate(Resources.Load("TestSphere"), GameObject.Find (RenderThis).transform.position, new Quaternion(0,0,0,0)) as GameObject;
 
 						// SEED FALL TO GOUND!
-
+						DisableHandSeedRender();
 						if (Button.CurrentSeed == "GlowSeed") {
 							//EnableHandSeedRender("R_Glowfall_prefab");
 
@@ -290,15 +288,12 @@ public class Grab : MonoBehaviour {
 							Debug.Log("Ghost Seed Ready to fall");
 						}
 
-
-
-						
 						fallingSeedSpawned = true;
 					}
 				}
 				else {
 					//Debug.Log ("RESTARTING");
-					DisableHandSeedRender();
+					//DisableHandSeedRender();
 				    
 					fallingSeedSpawned = false;
 				    GrabSeed = GestureState.start;
@@ -316,6 +311,7 @@ public class Grab : MonoBehaviour {
 
 
 	void DisableHandSeedRender(){
+		Debug.Log ("Hand Seed disabled!");
 		GameObject[] existingSeeds = GameObject.FindGameObjectsWithTag ("HandSeed");
 		foreach (GameObject s in existingSeeds) {
 			Renderer[] elist = s.GetComponentsInChildren<Renderer> ();

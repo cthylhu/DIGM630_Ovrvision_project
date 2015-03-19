@@ -237,7 +237,7 @@ public class PlantingSeed : MonoBehaviour {
 					Collider[] righthandmodelcolliders = GameObject.Find ("CleanRobotFullRightHand(Clone)").GetComponentsInChildren<Collider> ();
 					foreach (Collider c in righthandmodelcolliders) {
 						c.enabled = false;
-						Debug.Log ("No colliders in right hand model now!");
+						//Debug.Log ("No colliders in right hand model now!");
 					}
 				}
 				
@@ -245,7 +245,7 @@ public class PlantingSeed : MonoBehaviour {
 					Collider[] lefthandmodelcolliders = GameObject.Find ("CleanRobotFullLeftHand(Clone)").GetComponentsInChildren<Collider> ();
 					foreach (Collider c in lefthandmodelcolliders) {
 						c.enabled = false;
-						Debug.Log ("No colliders in left hand model now!");
+						//Debug.Log ("No colliders in left hand model now!");
 					}
 				}
 				
@@ -284,6 +284,20 @@ public class PlantingSeed : MonoBehaviour {
 				if (Input.GetKeyDown ("a")) {
 					isDiggingHole = true;
 				}
+				if (Input.GetKeyDown ("s")) {
+					isDropping = true;
+				}
+
+				if (Input.GetKeyDown ("q")) {
+					basePlanetParent.GetComponent<PlanetInfo> ().familyType = 1;
+				}
+				if (Input.GetKeyDown ("w")) {
+					basePlanetParent.GetComponent<PlanetInfo> ().familyType = 2;
+				}
+				if (Input.GetKeyDown ("e")) {
+					basePlanetParent.GetComponent<PlanetInfo> ().familyType = 3;
+				}
+
 				//Choosing seed type with keys
 				if (Input.GetKeyDown ("z")) {
 					basePlanetParent.GetComponent<PlanetInfo>().plantType = 1;
@@ -437,7 +451,7 @@ public class PlantingSeed : MonoBehaviour {
 						}
 						
 						// If the time elapsed since the timer was started is greater than __ seconds, plant type will be __
-						if (basePlanetParent.GetComponent<PlanetInfo> ().totalTimeElapsed > 5.0f && plantSubType != 2 && plantSubType != 3) {
+						if (basePlanetParent.GetComponent<PlanetInfo> ().totalTimeElapsed > 3.0f && plantSubType != 2 && plantSubType != 3) {
 							plantSubType = 1;
 							//Debug.Log ("Subtype: "+plantSubType);
 							basePlanetParent.GetComponent<PlanetInfo> ().watered = true;
@@ -448,12 +462,12 @@ public class PlantingSeed : MonoBehaviour {
 								waterplantcount = 1;
 							}
 						}
-						if (basePlanetParent.GetComponent<PlanetInfo> ().totalTimeElapsed > 10.0f && plantSubType != 3) {
+						if (basePlanetParent.GetComponent<PlanetInfo> ().totalTimeElapsed > 6.0f && plantSubType != 3) {
 							plantSubType = 2;
 							//Debug.Log ("Subtype: "+plantSubType);
 							basePlanetParent.GetComponent<PlanetInfo> ().watered = true;
 						}
-						if (basePlanetParent.GetComponent<PlanetInfo> ().totalTimeElapsed > 15.0f) {
+						if (basePlanetParent.GetComponent<PlanetInfo> ().totalTimeElapsed > 9.0f) {
 							plantSubType = 3;
 							//Debug.Log ("Subtype: "+plantSubType);
 							basePlanetParent.GetComponent<PlanetInfo> ().watered = true;
@@ -495,7 +509,7 @@ public class PlantingSeed : MonoBehaviour {
 							if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 3 && plantSubType == 3) {
 								spawnVRtrees ("VRObjectHornbell", 9); //
 							}
-							
+							basePlanetParent.transform.Find ("planet_plain").renderer.enabled = false;
 							basePlanetParent.GetComponent<PlanetInfo> ().watered = false;
 						}
 						
@@ -504,7 +518,7 @@ public class PlantingSeed : MonoBehaviour {
 				
 			} else {
 				isLooking = false;
-				Debug.Log ("Not looking!");
+				//Debug.Log ("Not looking!");
 				if (basePlanet != null) {
 					basePlanet.renderer.material.SetColor ("_OutlineColor", Color.clear);
 					holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);
@@ -521,7 +535,7 @@ public class PlantingSeed : MonoBehaviour {
 			}
 		}else {
 			isLooking = false;
-			Debug.Log ("Not looking!");
+			//Debug.Log ("Not looking!");
 			if (basePlanet != null) {
 				basePlanet.renderer.material.SetColor ("_OutlineColor", Color.clear);
 				holeModel.renderer.material.SetColor ("_OutlineColor", Color.clear);

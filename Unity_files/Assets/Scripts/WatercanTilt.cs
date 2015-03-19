@@ -14,10 +14,6 @@ public class WatercanTilt : MonoBehaviour {
 	void Update () {
 		currentEuler = this.transform.localRotation.eulerAngles;
 
-		if (Input.GetKeyDown("q")) {
-			this.transform.Find ("Particle System").GetComponent<ParticleSystem>().enableEmission = false;
-		}
-
 		if (currentEuler.x > 300f || currentEuler.x < 30f) {
 			//Debug.Log ("Started pouring!");
 			//this.transform.Find("watercan_Prefab").renderer.material.SetColor("_Color", Color.blue);

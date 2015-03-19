@@ -89,11 +89,11 @@ public class Button : MonoBehaviour {
 	
 	void Update () {
 		
-		if (seedGenerated) {
+		/*if (seedGenerated) {
 			if (Grab.Grabbed) {
 				//Debug.Log("Enabling button seed");
-				//EnableSeedRender(CurrentSeed);
-				GameObject.Find (CurrentSeed).transform.Rotate(0f, 200f * Time.deltaTime, 0f);
+				EnableSeedRender(CurrentSeed);
+				GameObject.Find (CurrentSeed).transform.Rotate(0f, 200f * Time.deltaTime, 0f);		// Spin the seed in place
 			}
 			else{
 				DisableSeedRenders ();
@@ -101,7 +101,7 @@ public class Button : MonoBehaviour {
 		}
 		else {
 			DisableSeedRenders ();
-		}
+		}*/
 	}
 
 }

@@ -86,7 +86,7 @@ public class PortalView : MonoBehaviour
         Matrix4x4 projection = cam.projectionMatrix;
         CalculateObliqueMatrix (ref projection, clipPlane);
         reflectionCamera.projectionMatrix = projection;
-		reflectionCamera.cullingMask = 1 << 17;  				// Render only layer 17 - PlantLayer
+		reflectionCamera.cullingMask = 1 << 17;  				// Render only VRLayer = 11
 		//reflectionCamera.cullingMask = ~(1<<4) & m_ReflectLayers.value; // never render water and system layers
 		reflectionCamera.targetTexture = m_ReflectionTexture;
         reflectionCamera.Render();
