@@ -476,6 +476,7 @@ public class PlantingSeed : MonoBehaviour {
 
 					if (basePlanetParent.GetComponent<PlanetInfo> ().totalWateredTime != 0.0f && basePlanetParent.GetComponent<PlanetInfo> ().isPlanted == true) {
 												
+						//  --- Spawn a VR preview tree at object location --- 
 						// If the time elapsed since the timer was started is greater than __ seconds, plant type will be __
 
 						if (basePlanetParent.GetComponent<PlanetInfo> ().totalWateredTime < 3.0f ) {
@@ -563,49 +564,9 @@ public class PlantingSeed : MonoBehaviour {
 							//basePlanetParent.GetComponent<PlanetInfo> ().totalWateredTime = 0.0f;
 							waterplantcount++;
 						}
-							
-						//}
-						
-						//  --- Spawn a VR preview tree at object location --- 
 
-						/*if (plantSubType != 0 && basePlanetParent.GetComponent<PlanetInfo> ().familyType != 0) {
-							if (!(basePlanetParent.GetComponent<PlanetInfo> ().VRplanetSpawned)) {
-								//Debug.Log ("# of planets: "+numberOfPlanets);
-								//Debug.Log ("Going to spawn next at: " + PlanetList [numberOfPlanets].name);
-								
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 1 && plantSubType == 1) {
-									spawnVRtrees ("VRObjectCandyplanet", 1);
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 1 && plantSubType == 2) {
-									spawnVRtrees ("VRObjectCakecity", 2);
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 1 && plantSubType == 3) {
-									spawnVRtrees ("VRObjectLollipop", 3); 
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 2 && plantSubType == 1) {
-									spawnVRtrees ("VRObjectSkull", 4);
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 2 && plantSubType == 2) {
-									spawnVRtrees ("VRObjectGhost", 5);
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 2 && plantSubType == 3) {
-									spawnVRtrees ("VRObjectCandyfaces", 6);
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 3 && plantSubType == 1) {
-									spawnVRtrees ("VRObjectJellyfish", 7);
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 3 && plantSubType == 2) {
-									spawnVRtrees ("VRObjectSpaceneedle", 8);
-								}
-								if (basePlanetParent.GetComponent<PlanetInfo> ().familyType == 3 && plantSubType == 3) {
-									spawnVRtrees ("VRObjectHornbell", 9);
-								}
 
-								basePlanetParent.transform.Find ("planet_plain").renderer.enabled = false;
-								//basePlanetParent.GetComponent<PlanetInfo> ().watered = false;
-							}
-							
-						}*/
+
 					}
 				}
 			} else {

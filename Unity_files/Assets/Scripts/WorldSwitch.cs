@@ -19,7 +19,7 @@ public class WorldSwitch : MonoBehaviour {
 	public float MaxcooldownTime;
 	public static bool setorigin = false;
 	private Vector3 Gameworld;
-	public bool switchHappened = false;
+	public static bool switchHappened = false;
 
 	void Start () {
 
